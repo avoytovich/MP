@@ -7,3 +7,14 @@
   max-width: 360px;
   background-color: blue;
 }
+
+.root {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.chip {
+  margin: 20px;
+}

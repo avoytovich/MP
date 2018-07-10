@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext from '../page-cotext';
 
+import getPageContext from '../page-cotext';
 import withReduxStore from '../redux-config/with-redux-store';
+import Localization from '../containers/Localization';
 
 @withReduxStore
 export default class MyApp extends App {
@@ -43,7 +44,9 @@ export default class MyApp extends App {
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
             <Provider store={reduxStore}>
-              <Component pageContext={this.pageContext} {...pageProps} />
+              <Localization>
+                <Component pageContext={this.pageContext} {...pageProps} />
+              </Localization>
             </Provider>
           </MuiThemeProvider>
         </JssProvider>
