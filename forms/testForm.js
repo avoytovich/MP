@@ -1,18 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withFormik, Form } from 'formik';
+import { withRouter } from 'next/router';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { setData } from '../actions/updateData';
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setData }, dispatch);
+
+@withRouter
+@connect(
+  null,
+  mapDispatchToProps,
+)
 @withFormik({
-  handleSubmit(values, { setErrors }) {
+  handleSubmit(values, { setErrors, props }) {
     console.log(values);
+    props.setData(values, 'testExample');
     setErrors({
       first: 'Тест',
     });
+    props.router.push('/');
   },
 })
 export default class TestForm extends React.Component {
+  handleClick = () => {
+    console.log('handleClick');
+    this.props.router.push('/');
+  };
+
   render() {
     const { handleChange, errors } = this.props;
     return (

@@ -5,6 +5,11 @@ export default {
     objectTest: {
       testString: 'English text',
     },
+    menu: {
+      becomeProfashional: 'Become a profashional',
+      logIn: 'Log in',
+      signUp: 'Sign Up',
+    },
   }),
   // formats: object,
   // messages: object,

@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import { get, invoke, isArray, chain } from 'lodash';
 
 const DEFAULT_ERROR_MSG = 'Something went wrong';
@@ -11,7 +10,7 @@ export const getErrorMsg = (e, defaultErrorMsg = DEFAULT_ERROR_MSG) =>
   (typeof e === 'string' ? e : defaultErrorMsg);
 
 export const msgError = (e, defaultErrorMsg) =>
-  message.error(getErrorMsg(e, defaultErrorMsg));
+  console.error(getErrorMsg(e, defaultErrorMsg));
 
 export const localizeError = ({ error, translate }) => {
   const { type } = error;
@@ -56,4 +55,4 @@ export const localizeError = ({ error, translate }) => {
   return translate('all', 'error');
 };
 
-export const msgLocalError = args => message.error(localizeError(args));
+export const msgLocalError = args => console.error(localizeError(args));

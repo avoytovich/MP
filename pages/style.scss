@@ -1,20 +1,12 @@
-.test-style {
-  background-color: red;
+.landing-wrapper {
+  height: 100vh;
+  background-image:  url('/static/main-photo.png');
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover;
 }
 
-.test {
-  width: 100%;
-  max-width: 360px;
-  background-color: blue;
-}
-
-.root {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-.chip {
-  margin: 20px;
+@media (max-width: 480px) {
+  .landing-wrapper {
+    background-image:  url('/static/main-photo-mobile.png');
+  }
 }
