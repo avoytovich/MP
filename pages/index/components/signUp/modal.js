@@ -61,7 +61,7 @@ export default class SignUpModal extends Component {
           </Typography>
         </GoogleLogin>
         <button className="email-login social-button">
-          <img src="static/svg/google.svg" className="icon" />
+          <img src="static/svg/post.svg" className="icon" />
           <Typography variant="button" className="social-button-with-icon">
             sign up with email
           </Typography>
