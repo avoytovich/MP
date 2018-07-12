@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
+import { withRouter } from 'next/router';
 
 import Reorder from '@material-ui/icons/Reorder';
 import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+
+import { Router } from '../../routes';
 
 import i18n from '../../services/decorators/i18n';
 
@@ -13,6 +15,7 @@ import { menuProps } from '../../constants/landing/menu';
 import './header.scss';
 
 @i18n('menu')
+@withRouter
 export default class Header extends Component {
   state = {
     opened: false,
@@ -24,14 +27,20 @@ export default class Header extends Component {
     });
   };
 
+  onClick = href => {
+    Router.pushRoute(href);
+  };
+
   get renderDesktopLinks() {
     return menuProps.map((element, key) => {
       return (
-        <Link href={element.href} key={key}>
-          <Typography variant="subheading" className="menu-item">
-            {this.props.translate(element.translateVariable)}
-          </Typography>
-        </Link>
+        <Typography
+          variant="subheading"
+          className="menu-item"
+          key={key}
+          onClick={() => this.onClick(element.href)}>
+          {this.props.translate(element.translateVariable)}
+        </Typography>
       );
     });
   }
@@ -39,11 +48,13 @@ export default class Header extends Component {
   get renderMobileLinks() {
     return menuProps.map((element, key) => {
       return (
-        <Link href={element.href} key={key}>
-          <Typography variant="subheading" className="menu-item mobile">
-            {this.props.translate(element.translateVariable)}
-          </Typography>
-        </Link>
+        <Typography
+          onClick={() => this.onClick(element.href)}
+          variant="subheading"
+          className="menu-item mobile"
+          key={key}>
+          {this.props.translate(element.translateVariable)}
+        </Typography>
       );
     });
   }

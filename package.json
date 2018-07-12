@@ -28,6 +28,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-facebook-login": "^4.0.1",
+    "react-google-login": "^3.2.1",
     "react-intl": "^2.4.0",
     "react-jss": "^8.6.0",
     "react-no-ssr": "^1.1.0",
