@@ -1,15 +1,15 @@
 const menuProps = [
   {
     translateVariable: 'becomeProfashional',
-    href: '#',
+    href: '/about',
   },
   {
     translateVariable: 'logIn',
-    href: '#',
+    href: '/login',
   },
   {
     translateVariable: 'signUp',
-    href: '#',
+    href: '/signup',
   },
 ];
 

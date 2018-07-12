@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import Modal from '@material-ui/core/Modal';
 import Close from '@material-ui/icons/Close';
 
-import './withModal.scss';
+import '../../../components/modal/modal.scss';
 
 export default function withModal(component, options = {}) {
   return function(Child) {
