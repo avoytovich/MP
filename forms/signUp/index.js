@@ -33,7 +33,8 @@ const mapDispatchToProps = dispatch =>
     options.props.handleSubmit(values, options),
 
   validationSchema: props => {
-    if (props.signUpInfoData !== 'email') return SocialSignUpSchema;
+    console.log('validationSchema', props.signUpInfoData);
+    if (props.signUpInfoData.type !== 'email') return SocialSignUpSchema;
     return SignUpSchema;
   },
 })
@@ -49,10 +50,9 @@ export default class SignUpForm extends React.Component {
   }
 
   loadSocialData = (type, accessToken) => {
-    // TODO REMOVE BEFORE PUSH
-    // if (!type) {
-    //   Router.pushRoute('/');
-    // }
+    if (!type) {
+      Router.pushRoute('/');
+    }
     if (type === 'facebook' || type === 'google') {
       // GOOGLE LOGIC
       socialLogin
@@ -76,6 +76,7 @@ export default class SignUpForm extends React.Component {
               name="password"
               component={Input}
               fullWidth
+              type="password"
               error={translate(errors.password)}
               touched={touched.password}
               className="default-input"
@@ -87,6 +88,7 @@ export default class SignUpForm extends React.Component {
               name="confirmPassword"
               component={Input}
               fullWidth
+              type="password"
               error={translate(errors.confirmPassword)}
               touched={touched.confirmPassword}
               className="default-input"
