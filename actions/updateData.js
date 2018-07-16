@@ -29,7 +29,7 @@ export const resetData = name => dispatch =>
     name,
   });
 
-export const updateSpecData = (name, data) => dispatch =>
+export const updateSpecData = (data, name) => dispatch =>
   dispatch({
     type: UPDATE_SPEC_DATA,
     name,

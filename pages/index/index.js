@@ -8,6 +8,8 @@ import Header from '../../components/header/index';
 import Modal from '../../components/modal/index';
 
 import SignUpModal from './components/signUp/modal';
+import EmailModal from './components/user/modal';
+import VerifyModal from './components/verify/modal';
 
 import '../style.scss';
 
@@ -16,6 +18,9 @@ export default class App extends React.Component {
   state = {
     login: false,
     signup: false,
+    user: false,
+    verify: false,
+    modalNames: ['login', 'signup', 'user', 'verify'],
   };
 
   componentDidMount() {
@@ -31,8 +36,15 @@ export default class App extends React.Component {
   }
 
   setOpenModal = modalName => {
-    this.setState({
-      [modalName]: true,
+    this.setState(() => {
+      const needToCloseArray = this.state.modalNames.filter(
+        name => name !== modalName,
+      );
+      const newState = { [modalName]: true };
+      needToCloseArray.forEach(modal => {
+        newState[modal] = false;
+      });
+      return newState;
     });
   };
 
@@ -40,6 +52,8 @@ export default class App extends React.Component {
     this.setState({
       login: false,
       signup: false,
+      user: false,
+      verify: false,
     });
     Router.pushRoute('/');
   };
@@ -56,6 +70,12 @@ export default class App extends React.Component {
         </Modal>
         <Modal open={this.state.login} withClose onClose={this.onClose}>
           <h1>login</h1>
+        </Modal>
+        <Modal open={this.state.user} withClose onClose={this.onClose}>
+          <EmailModal />
+        </Modal>
+        <Modal open={this.state.verify} withClose onClose={this.onClose}>
+          <VerifyModal />
         </Modal>
       </div>
     );

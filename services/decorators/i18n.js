@@ -7,7 +7,13 @@ export default function i18n(baseName = '') {
     class Localize extends Component {
       translate = (key, customName, values) => {
         const name = customName || baseName;
-        return this.props.intl.formatMessage({ id: `${name}.${key}` }, values);
+        if (key) {
+          return this.props.intl.formatMessage(
+            { id: `${name}.${key}` },
+            values,
+          );
+        }
+        return '';
       };
 
       render() {

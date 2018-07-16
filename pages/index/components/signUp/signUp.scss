@@ -12,8 +12,7 @@
     z-index: 1302;
 
     &:before {
-      border-top: 2px solid #979797;
-      opacity: 0.54;
+      border-top: 2px solid #CACACA;
       content:"";
       margin: 0 auto; /* this centers the line to the full width specified */
       position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
@@ -58,12 +57,14 @@
   .google {
     text-transform: uppercase!important;
     &:hover {
-      .social-button-with-icon {
-        color: white;
+      background-color: white!important;
+      span{
+        color: black!important;
       }
     }
   }
   .social-button {
+    outline: none;
     margin-bottom: 30px;
     height: 52px;
     width: 100%;
