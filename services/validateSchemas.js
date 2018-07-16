@@ -2,8 +2,8 @@ import * as Yup from 'yup';
 
 const email = 'email',
   required = 'required',
-  toSmall = 'toSmall',
-  toLong = 'toLong',
+  toSmall = 'tooSmall',
+  toLong = 'tooLong',
   matchPassword = 'matchPassword',
   passwordReq = 'passwordReq',
   onlyLetters = 'onlyLetters';

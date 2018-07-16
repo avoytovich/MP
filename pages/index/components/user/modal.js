@@ -21,14 +21,19 @@ const mapStateToProps = ({ runtime }) => ({
 @i18n()
 @connect(mapStateToProps)
 export default class EmailModal extends Component {
-  submit = (values, { setErrors, props }) => {
+  submit = async (values, { setErrors, props }) => {
     const type = this.props.signUpInfoData.type;
-    // TODO REMOVE BEFORE PUSH
-    // if (!type) {
-    //   Router.pushRoute('/');
-    // }
+    try {
+      await this.sendRequest(type, values);
+      Router.pushRoute('/verify');
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+
+  sendRequest = async (type, values) => {
     if (type === 'facebook' || type === 'google') {
-      socialSignUp.post(
+      return await socialSignUp.post(
         {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -38,7 +43,7 @@ export default class EmailModal extends Component {
         `/${type}`,
       );
     } else {
-      register.post({
+      return await register.post({
         acceptTermsAndConditions: values.confirm,
         email: values.email,
         firstName: values.firstName,
@@ -49,7 +54,6 @@ export default class EmailModal extends Component {
         shopper: values.isProfashional === 'shopper',
       });
     }
-    Router.pushRoute('/verify');
   };
 
   getFirstName = (type, signUpInfoData) => {
