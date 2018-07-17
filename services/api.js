@@ -57,7 +57,8 @@ export const buildCRUD = url => {
       if (!id) return Promise.reject('Need id');
       return wrapRequest({ method: 'DELETE', url: `${url}/${id}` });
     },
-    get: id => {
+    get: (params = {}) => wrapRequest({ method: 'GET', url, params }),
+    getWithId: id => {
       if (!id) return Promise.reject('Need id');
       return wrapRequest({ method: 'GET', url: `${url}/${id}` });
     },

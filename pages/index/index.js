@@ -36,6 +36,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
+    // TODO implemet 404 logic
     if (this.props.router.query.modal) {
       this.setOpenModal(this.props.router.query.modal);
     }
@@ -45,9 +46,7 @@ export default class App extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.router.query.modal) {
-      this.setOpenModal(nextProps.router.query.modal);
-    }
+    this.setOpenModal(nextProps.router.query.modal);
   }
 
   setOpenModal = modalName => {
@@ -55,6 +54,7 @@ export default class App extends React.Component {
       const needToCloseArray = this.state.modalNames.filter(
         name => name !== modalName,
       );
+      console.log('needToCloseArray', needToCloseArray);
       const newState = { [modalName]: true };
       needToCloseArray.forEach(modal => {
         newState[modal] = false;

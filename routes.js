@@ -7,4 +7,5 @@ module.exports = routes()
   .add('about', '/about', 'about')
   .add('with-modal', '/:modal', 'index')
   .add('root', '/:modal', 'index') // signup, login, email, verify
-  .add('reset-password', '/reset-password/:key', 'index');
+  .add('reset-password', '/reset-password/:key', 'index')
+  .add('activate', '/activate/:code', 'activate');
