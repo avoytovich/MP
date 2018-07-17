@@ -10,13 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import { Router } from '../../../../routes';
 
 import i18n from '../../../../services/decorators/i18n';
+import { setLocale } from '../../../../services/serverService';
 import { updateSpecData } from '../../../../actions/updateData';
 
-import Button from '../../../../components/material-wrap/button';
+import LoginForm from '../../../../forms/login/index';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
+import { authenticate, socialLogin } from '../../../../services/cruds';
 
-import './signUp.scss';
+import './login.scss';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
@@ -26,30 +28,46 @@ const mapDispatchToProps = (dispatch, props) =>
   null,
   mapDispatchToProps,
 )
-export default class SignUpModal extends Component {
+export default class LoginModal extends Component {
   responseFacebook = data => {
-    this.props.updateSpecData(
-      { type: 'facebook', socialData: data },
-      'signUpInfo',
-    );
-    Router.pushRoute('/user');
+    this.socialLogin(data, 'facebook');
   };
 
   responseGoogle = data => {
-    this.props.updateSpecData(
-      { type: 'google', socialData: data },
-      'signUpInfo',
-    );
-    Router.pushRoute('/user');
+    this.socialLogin(data, 'google');
   };
 
-  onSignUpClick = type => {
-    this.props.updateSpecData({ type }, 'signUpInfo');
-    Router.pushRoute('/user');
+  socialLogin = async (data, type) => {
+    try {
+      const res = await socialLogin.post(
+        {
+          accessToken: data.accessToken,
+        },
+        `/${type}`,
+      );
+      this.saveToStorage(res);
+    } catch (e) {
+      this.props.updateSpecData({ socialData: data, type }, 'signUpInfo');
+      Router.pushRoute('/user');
+    }
   };
 
-  onLogin = () => {
-    Router.pushRoute('/login');
+  emailLogin = async values => {
+    try {
+      const res = await authenticate.post({
+        username: values.email,
+        password: values.password,
+      });
+      this.saveToStorage(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  saveToStorage = res => {
+    setLocale('id_token', res.data.id_token);
+    setLocale('refresh_token', res.data.refresh_token);
+    Router.pushRoute('/profile');
   };
 
   render() {
@@ -59,10 +77,16 @@ export default class SignUpModal extends Component {
         justify="center"
         direction="column"
         alignItems="center"
-        className="sign-up-modal">
+        className="login-modal">
         <Typography variant="title" fontSize="24px" className="header">
           Welcome to MyProfashional!
         </Typography>
+        <LoginForm handleSubmit={this.emailLogin} />
+        <p className="or-section">
+          <Typography variant="button" fontSize="12px">
+            or
+          </Typography>
+        </p>
         <FacebookLogin
           appId={Social.FacebookAppId}
           fields="first_name,last_name,email,picture"
@@ -73,7 +97,7 @@ export default class SignUpModal extends Component {
               className="facebook social-button">
               <img src="static/svg/facebook.svg" className="icon" />
               <Typography variant="button" className="social-button-with-icon">
-                sign up with Facebook
+                log in with Facebook
               </Typography>
             </button>
           )}
@@ -84,25 +108,9 @@ export default class SignUpModal extends Component {
           onSuccess={this.responseGoogle}>
           <img src="static/svg/google.svg" className="icon" />
           <Typography variant="button" className="social-button-with-icon">
-            sign up with Google
+            log in with Google
           </Typography>
         </GoogleLogin>
-        <button
-          className="email-login social-button"
-          onClick={() => this.onSignUpClick('email')}>
-          <img src="static/svg/post.svg" className="icon" />
-          <Typography variant="button" className="social-button-with-icon">
-            sign up with email
-          </Typography>
-        </button>
-        <p className="or-section">
-          <Typography variant="button" fontSize="12px">
-            or
-          </Typography>
-        </p>
-        <Button className="social-button login-button" onClick={this.onLogin}>
-          Log in
-        </Button>
       </Grid>
     );
   }

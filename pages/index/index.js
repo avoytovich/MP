@@ -8,8 +8,11 @@ import Header from '../../components/header/index';
 import Modal from '../../components/modal/index';
 
 import SignUpModal from './components/signUp/modal';
+import LoginModal from './components/login/modal';
 import EmailModal from './components/user/modal';
 import VerifyModal from './components/verify/modal';
+import ForgotModal from './components/forgot/modal';
+import ResetModal from './components/resetPassword/modal';
 
 import '../style.scss';
 
@@ -20,17 +23,29 @@ export default class App extends React.Component {
     signup: false,
     user: false,
     verify: false,
-    modalNames: ['login', 'signup', 'user', 'verify'],
+    forgot: false,
+    'reset-password': false,
+    modalNames: [
+      'login',
+      'signup',
+      'user',
+      'verify',
+      'forgot',
+      'reset-password',
+    ],
   };
 
   componentDidMount() {
     if (this.props.router.query.modal) {
       this.setOpenModal(this.props.router.query.modal);
     }
+    if (this.props.router.query.key) {
+      this.setOpenModal('reset-password');
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.router.query.modal !== nextProps.router.query.modal) {
+    if (nextProps.router.query.modal) {
       this.setOpenModal(nextProps.router.query.modal);
     }
   }
@@ -49,11 +64,12 @@ export default class App extends React.Component {
   };
 
   onClose = () => {
-    this.setState({
-      login: false,
-      signup: false,
-      user: false,
-      verify: false,
+    this.setState(() => {
+      const newState = {};
+      this.state.modalNames.forEach(modal => {
+        newState[modal] = false;
+      });
+      return newState;
     });
     Router.pushRoute('/');
   };
@@ -69,13 +85,23 @@ export default class App extends React.Component {
           <SignUpModal />
         </Modal>
         <Modal open={this.state.login} withClose onClose={this.onClose}>
-          <h1>login</h1>
+          <LoginModal />
         </Modal>
         <Modal open={this.state.user} withClose onClose={this.onClose}>
           <EmailModal />
         </Modal>
         <Modal open={this.state.verify} withClose onClose={this.onClose}>
           <VerifyModal />
+        </Modal>
+        <Modal open={this.state.forgot} withClose onClose={this.onClose}>
+          <ForgotModal />
+        </Modal>
+        {console.log('STATE', this.state)}
+        <Modal
+          open={this.state['reset-password']}
+          withClose
+          onClose={this.onClose}>
+          <ResetModal />
         </Modal>
       </div>
     );

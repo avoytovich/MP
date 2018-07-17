@@ -42,18 +42,17 @@ export default class EmailModal extends Component {
         },
         `/${type}`,
       );
-    } else {
-      return await register.post({
-        acceptTermsAndConditions: values.confirm,
-        email: values.email,
-        firstName: values.firstName,
-        lastName: values.secondName,
-        login: values.email,
-        password: values.password,
-        profashional: values.isProfashional === 'profashional',
-        shopper: values.isProfashional === 'shopper',
-      });
     }
+    return await register.post({
+      acceptTermsAndConditions: values.confirm,
+      email: values.email,
+      firstName: values.firstName,
+      lastName: values.secondName,
+      login: values.email,
+      password: values.password,
+      profashional: values.isProfashional === 'profashional',
+      shopper: values.isProfashional === 'shopper',
+    });
   };
 
   getFirstName = (type, signUpInfoData) => {

@@ -1,0 +1,12 @@
+.forgot-form {
+  width: 100%;
+
+}
+
+@media (max-width: 480px) {
+  .forgot-form {
+    .default-input {
+      margin-top: 24px !important;
+    }
+  }
+}
