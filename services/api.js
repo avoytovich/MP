@@ -3,11 +3,13 @@ import { get as getParam } from 'lodash';
 
 import { Router } from '../routes';
 
+import { getLocale } from '../services/serverService';
+
 import { SERVER_URL } from '../constants/global';
 import { DEFAULT_LIST_SIZE } from '../constants/common';
 
 export const getAuthHeaders = () => ({
-  Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+  Authorization: `Bearer ${getLocale('id_token')}`,
   'Access-Control-Allow-Origin': '*', // temp
 });
 

@@ -16,7 +16,7 @@ import { updateSpecData } from '../../../../actions/updateData';
 import LoginForm from '../../../../forms/login/index';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
-import { authenticate, socialLogin } from '../../../../services/cruds';
+import { authenticate, account } from '../../../../services/cruds';
 
 import './login.scss';
 
@@ -64,9 +64,15 @@ export default class LoginModal extends Component {
     }
   };
 
-  saveToStorage = res => {
+  saveToStorage = async res => {
     setLocale('id_token', res.data.id_token);
     setLocale('refresh_token', res.data.refresh_token);
+    const accoutResp = await account.get();
+    if (accoutResp.data.authoriries.indexOf('ROLE_SHOPPER') !== -1) {
+      Router.pushRoute('/shoper');
+    } else {
+      Router.pushRoute('/profashional');
+    }
     Router.pushRoute('/profile');
   };
 

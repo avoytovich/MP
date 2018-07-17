@@ -6,3 +6,4 @@ export const authenticate = buildCRUD('authenticate');
 export const socialSignUp = buildCRUD('social/signup');
 export const activate = buildCRUD('activate');
 export const resetPassword = buildCRUD('account/reset-password');
+export const account = buildCRUD('account');
