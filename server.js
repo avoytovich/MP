@@ -22,6 +22,7 @@ const getPort = env => {
 const express = require('express');
 const port = getPort(process.env.NODE_ENV);
 console.log('PORT: ', port);
+console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
 app.prepare().then(() => {
   express()
     .use(handler)
