@@ -10,6 +10,7 @@ export default class CustomTypography extends React.Component {
     fontSize: PropTypes.string,
     variant: PropTypes.string,
     className: PropTypes.string,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -35,6 +36,7 @@ export default class CustomTypography extends React.Component {
     return (
       <Typography
         variant={this.props.variant}
+        onClick={this.props.onClick}
         className={this.style + this.props.className}>
         {this.props.children}
       </Typography>

@@ -62,4 +62,34 @@ const SocialSignUpSchema = Yup.object().shape({
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
-export { SignUpSchema, SocialSignUpSchema };
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email(email)
+    .required(required),
+  password: Yup.string().required(required),
+});
+
+const ForgotSchema = Yup.object().shape({
+  email: Yup.string()
+    .email(email)
+    .required(required),
+});
+
+const ResetSchema = Yup.object().shape({
+  password: Yup.string()
+    .min(8, toSmall)
+    .max(50, toLong)
+    .matches(/(?:[A-Z].*[0-9])|(?:[0-9].*[A-Z])/, passwordReq)
+    .required(required),
+  confirmPassword: Yup.string()
+    .equalTo(Yup.ref('password'), matchPassword)
+    .required(required),
+});
+
+export {
+  SignUpSchema,
+  SocialSignUpSchema,
+  LoginSchema,
+  ForgotSchema,
+  ResetSchema,
+};
