@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withFormik, Form, Field } from 'formik';
-import { withRouter } from 'next/router';
 
 import { Router } from '../../routes';
 
@@ -18,7 +17,7 @@ import './reset.scss';
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
 
-@withRouter
+
 @connect(
   null,
   mapDispatchToProps,
@@ -30,12 +29,6 @@ const mapDispatchToProps = dispatch =>
 })
 @i18n('errors')
 export default class ResetForm extends React.Component {
-  componentDidMount() {
-    if (!this.props.router.query.key) {
-      Router.pushRoute('/');
-    }
-  }
-
   render() {
     const { handleSubmit, errors, touched, isValid, translate } = this.props;
     return (
