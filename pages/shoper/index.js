@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default class Shoper extends React.Component {
+export default class Shopper extends React.Component {
   render() {
-    return <h1>SHOPER</h1>;
+    return <h1>SHOPPER</h1>;
   }
 }
