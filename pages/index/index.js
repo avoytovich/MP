@@ -54,7 +54,6 @@ export default class App extends React.Component {
       const needToCloseArray = this.state.modalNames.filter(
         name => name !== modalName,
       );
-      console.log('needToCloseArray', needToCloseArray);
       const newState = { [modalName]: true };
       needToCloseArray.forEach(modal => {
         newState[modal] = false;
@@ -79,7 +78,6 @@ export default class App extends React.Component {
       <div>
         <div className="landing-wrapper">
           <Header />
-          <h1 onClick={this.props.open}>Test</h1>
         </div>
         <Modal open={this.state.signup} withClose onClose={this.onClose}>
           <SignUpModal />
@@ -96,7 +94,6 @@ export default class App extends React.Component {
         <Modal open={this.state.forgot} withClose onClose={this.onClose}>
           <ForgotModal />
         </Modal>
-        {console.log('STATE', this.state)}
         <Modal
           open={this.state['reset-password']}
           withClose

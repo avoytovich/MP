@@ -37,6 +37,7 @@ export default class ResetForm extends React.Component {
           name="password"
           component={Input}
           fullWidth
+          type="password"
           error={translate(errors.password)}
           touched={touched.password}
           className="default-input"
@@ -46,6 +47,7 @@ export default class ResetForm extends React.Component {
           name="confirmPassword"
           component={Input}
           fullWidth
+          type="password"
           error={translate(errors.confirmPassword)}
           touched={touched.confirmPassword}
           className="default-input"
