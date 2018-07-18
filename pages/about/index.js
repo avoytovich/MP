@@ -30,7 +30,6 @@ export default class About extends Component {
   };
 
   render() {
-    console.log('LANG', this.props.lang);
     return (
       <div>
         <p className="test-style">About page</p>

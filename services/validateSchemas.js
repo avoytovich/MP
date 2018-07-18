@@ -75,6 +75,12 @@ const ForgotSchema = Yup.object().shape({
     .required(required),
 });
 
+const InterviewSchema = Yup.object().shape({
+  description: Yup.string()
+    .required(required)
+    .max(120, toLong),
+});
+
 const ResetSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, toSmall)
@@ -92,4 +98,5 @@ export {
   LoginSchema,
   ForgotSchema,
   ResetSchema,
+	InterviewSchema
 };

@@ -13,7 +13,6 @@ function getOrCreateStore(initialState, lang) {
     const state = cloneDeep(initialState);
     if (lang) GLOBAL_LANG = lang;
     if (GLOBAL_LANG && initialState) {
-      console.log(GLOBAL_LANG);
       state.localization.lang = GLOBAL_LANG;
     }
     return initializeStore(state);

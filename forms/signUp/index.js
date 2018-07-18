@@ -33,7 +33,6 @@ const mapDispatchToProps = dispatch =>
     options.props.handleSubmit(values, options),
 
   validationSchema: props => {
-    console.log('validationSchema', props.signUpInfoData);
     if (props.signUpInfoData.type !== 'email') return SocialSignUpSchema;
     return SignUpSchema;
   },
@@ -111,7 +110,6 @@ export default class SignUpForm extends React.Component {
       translate,
       signUpInfoData,
     } = this.props;
-    console.log(this.props);
     return (
       <Form className="sign-up-form" onSubmit={handleSubmit}>
         <div className="radio-group">

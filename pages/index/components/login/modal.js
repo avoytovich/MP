@@ -16,7 +16,7 @@ import { updateSpecData } from '../../../../actions/updateData';
 import LoginForm from '../../../../forms/login/index';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
-import { authenticate, account } from '../../../../services/cruds';
+import { authenticate, account, socialLogin } from '../../../../services/cruds';
 
 import './login.scss';
 
@@ -30,14 +30,14 @@ const mapDispatchToProps = (dispatch, props) =>
 )
 export default class LoginModal extends Component {
   responseFacebook = data => {
-    this.socialLogin(data, 'facebook');
+    if (data.accessToken) this.socialLoginFunc(data, 'facebook');
   };
 
   responseGoogle = data => {
-    this.socialLogin(data, 'google');
+    if (data.accessToken) this.socialLoginFunc(data, 'google');
   };
 
-  socialLogin = async (data, type) => {
+  socialLoginFunc = async (data, type) => {
     try {
       const res = await socialLogin.post(
         {
@@ -67,13 +67,13 @@ export default class LoginModal extends Component {
   saveToStorage = async res => {
     setLocale('id_token', res.data.id_token);
     setLocale('refresh_token', res.data.refresh_token);
+    debugger;
     const accoutResp = await account.get();
-    if (accoutResp.data.authoriries.indexOf('ROLE_SHOPPER') !== -1) {
+    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
       Router.pushRoute('/shoper');
     } else {
       Router.pushRoute('/profashional');
     }
-    Router.pushRoute('/profile');
   };
 
   render() {

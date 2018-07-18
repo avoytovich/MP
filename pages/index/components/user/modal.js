@@ -100,7 +100,6 @@ export default class EmailModal extends Component {
   }
 
   render() {
-    console.log('RENDER', this.initialValues);
     return (
       <Grid
         container

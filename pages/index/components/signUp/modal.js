@@ -28,19 +28,23 @@ const mapDispatchToProps = (dispatch, props) =>
 )
 export default class SignUpModal extends Component {
   responseFacebook = data => {
-    this.props.updateSpecData(
-      { type: 'facebook', socialData: data },
-      'signUpInfo',
-    );
-    Router.pushRoute('/user');
+    if (data.accessToken) {
+      this.props.updateSpecData(
+        { type: 'facebook', socialData: data },
+        'signUpInfo',
+      );
+      Router.pushRoute('/user');
+    }
   };
 
   responseGoogle = data => {
-    this.props.updateSpecData(
-      { type: 'google', socialData: data },
-      'signUpInfo',
-    );
-    Router.pushRoute('/user');
+    if (data.accessToken) {
+      this.props.updateSpecData(
+        { type: 'google', socialData: data },
+        'signUpInfo',
+      );
+      Router.pushRoute('/user');
+    }
   };
 
   onSignUpClick = type => {

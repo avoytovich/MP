@@ -33,7 +33,6 @@ const mapDispatchToProps = dispatch =>
 @i18n('errors')
 export default class LoginForm extends React.Component {
   forgotClick = () => {
-    console.log('FORGOT');
     Router.pushRoute('/forgot');
   };
   render() {
