@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
+import { NotificationContainer } from 'react-notifications';
 
 import getPageContext from '../page-cotext';
 import withReduxStore from '../redux-config/with-redux-store';
@@ -47,7 +48,10 @@ export default class MyApp extends App {
                 to render collected styles on server side. */}
             <Provider store={reduxStore}>
               <Localization>
-                <Component pageContext={this.pageContext} {...pageProps} />
+                <div>
+                  <Component pageContext={this.pageContext} {...pageProps} />
+                  <NotificationContainer />
+                </div>
               </Localization>
             </Provider>
           </MuiThemeProvider>

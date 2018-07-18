@@ -12,13 +12,17 @@ import Input from '../../components/material-wrap/form/input/index';
 import Checkbox from '../../components/material-wrap/form/checkbox/index';
 import Button from '../../components/material-wrap/button';
 
+import { socialLogin, account } from '../../services/cruds';
+
 import { setData } from '../../actions/updateData';
-import { SignUpSchema, SocialSignUpSchema } from '../../services/validateSchemas';
+import {
+  SignUpSchema,
+  SocialSignUpSchema,
+} from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import { socialLogin } from '../../services/cruds';
-
 import './signUpForm.scss';
+import { setLocale } from '../../services/serverService';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -48,20 +52,34 @@ export default class SignUpForm extends React.Component {
     this.loadSocialData(type, accessToken);
   }
 
-  loadSocialData = (type, accessToken) => {
+  loadSocialData = async (type, accessToken) => {
     if (!type) {
       Router.pushRoute('/');
     }
     if (type === 'facebook' || type === 'google') {
       // GOOGLE LOGIC
-      socialLogin
-        .post(
+      try {
+        const res = await socialLogin.post(
           {
             accessToken,
           },
           `/${type}`,
-        )
-        .then(() => Router.pushRoute('/profile'));
+        );
+        this.saveToStorage(res);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  saveToStorage = async res => {
+    setLocale('id_token', res.data.id_token);
+    setLocale('refresh_token', res.data.refresh_token);
+    const accoutResp = await account.get();
+    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
+      Router.pushRoute('/shoper');
+    } else {
+      Router.pushRoute('/profashional');
     }
   };
 

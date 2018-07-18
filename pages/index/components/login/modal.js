@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { Router } from '../../../../routes';
 
+import { createNotification } from '../../../../services/notification';
 import i18n from '../../../../services/decorators/i18n';
 import { setLocale } from '../../../../services/serverService';
 import { updateSpecData } from '../../../../actions/updateData';
@@ -60,6 +61,11 @@ export default class LoginModal extends Component {
       });
       this.saveToStorage(res);
     } catch (e) {
+      createNotification({
+        type: 'error',
+        title: e.toString(),
+        message: 'KURWA',
+      });
       console.error(e);
     }
   };
@@ -67,7 +73,6 @@ export default class LoginModal extends Component {
   saveToStorage = async res => {
     setLocale('id_token', res.data.id_token);
     setLocale('refresh_token', res.data.refresh_token);
-    debugger;
     const accoutResp = await account.get();
     if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
       Router.pushRoute('/shoper');
