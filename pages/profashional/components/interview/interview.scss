@@ -1,0 +1,25 @@
+.interview-modal {
+  padding-left: 92px;
+  padding-right: 92px;
+  .header {
+    text-align: left;
+    margin-bottom: 37px;
+  }
+  button {
+    margin-top: 47px;
+    margin-bottom: 47px;
+    width: 100%;
+    height: 53px;
+  }
+}
+
+@media (max-width: 480px) {
+  .interview-modal {
+    .header {
+      width: 100%;
+      margin-bottom: 26px;
+    }
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
