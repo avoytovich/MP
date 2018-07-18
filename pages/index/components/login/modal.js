@@ -30,6 +30,8 @@ const mapDispatchToProps = (dispatch, props) =>
   mapDispatchToProps,
 )
 export default class LoginModal extends Component {
+  tryes = 0;
+
   responseFacebook = data => {
     if (data.accessToken) this.socialLoginFunc(data, 'facebook');
   };
@@ -55,6 +57,8 @@ export default class LoginModal extends Component {
 
   emailLogin = async values => {
     try {
+      if (this.tryes > 3) Router.pushRoute('/forgot');
+      this.tryes++;
       const res = await authenticate.post({
         username: values.email,
         password: values.password,
