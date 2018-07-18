@@ -39,6 +39,8 @@ export default class EmailModal extends Component {
           lastName: values.lastName,
           acceptTermsAndConditions: values.confirm,
           accessToken: this.props.signUpInfoData.socialData.accessToken,
+          profashional: values.isProfashional === 'profashional',
+          shopper: values.isProfashional === 'shopper',
         },
         `/${type}`,
       );
