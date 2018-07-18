@@ -85,7 +85,11 @@ export default class App extends React.Component {
         <Modal open={this.state.login} withClose onClose={this.onClose}>
           <LoginModal />
         </Modal>
-        <Modal open={this.state.user} withClose onClose={this.onClose}>
+        <Modal
+          open={this.state.user}
+          withClose
+          withConfirm
+          onClose={this.onClose}>
           <EmailModal />
         </Modal>
         <Modal open={this.state.verify} withClose onClose={this.onClose}>
