@@ -13,7 +13,7 @@ export default {
     errors: {
       matchPassword: 'passwords do not match',
       email: 'Invalid email',
-      tooLong: 'Name cannot be longer than 50 symbols',
+      tooLong: 'Text is too long',
       tooSmall: 'Name shall contain at least 2 symbols',
       required: 'Required',
       passwordReq: 'passwordReq',
