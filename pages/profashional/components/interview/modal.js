@@ -33,16 +33,13 @@ const mapDispatchToProps = (dispatch, props) =>
 export default class InterviewModal extends Component {
   sendInterview = async values => {
     try {
-      await interview.post(
-        {
-          description: values.description,
-          profashionalId: get(
-            this.props.profashionalAccount,
-            'userExtra.profashional.id',
-          ),
-        },
-        '/finish',
-      );
+      await interview.post({
+        description: values.description,
+        profashionalId: get(
+          this.props.profashionalAccount,
+          'userExtra.profashional.id',
+        ),
+      });
       Router.pushRoute('/profashional');
     } catch (e) {
       console.error(e);
