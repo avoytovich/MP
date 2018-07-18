@@ -8,12 +8,12 @@ import Grid from '@material-ui/core/Grid';
 
 import { Router } from '../../../../routes';
 
+import { interview, account } from '../../../../services/cruds';
 import i18n from '../../../../services/decorators/i18n';
 import { updateSpecData } from '../../../../actions/updateData';
 
 import InterviewForm from '../../../../forms/interview';
 import Typography from '../../../../components/material-wrap/typography';
-import { interview } from '../../../../services/cruds';
 
 import './interview.scss';
 
@@ -40,6 +40,8 @@ export default class InterviewModal extends Component {
           'userExtra.profashional.id',
         ),
       });
+      const accountResp = await account.get();
+      this.props.updateSpecData(accountResp.data, 'profashionalAccount');
       Router.pushRoute('/profashional');
     } catch (e) {
       console.error(e);

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { updateSpecData } from '../../actions/updateData';
 import { account } from '../../services/cruds';
 
-import { SCHEDULED, NON_SCHEDULED } from '../../constants/interview';
+import { NON_SCHEDULED } from '../../constants/interview';
 
 import Modal from '../../components/modal';
 
@@ -43,6 +43,14 @@ export default class Profashional extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (
+      get(
+        this.props.profashionalAccount,
+        'userExtra.profashional.interviewStatus',
+      ) !==
+        get(
+          nextProps.profashionalAccount,
+          'userExtra.profashional.interviewStatus',
+        ) &&
       get(
         nextProps.profashionalAccount,
         'userExtra.profashional.interviewStatus',
