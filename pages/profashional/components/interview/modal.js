@@ -15,7 +15,7 @@ import { updateSpecData } from '../../../../actions/updateData';
 import InterviewForm from '../../../../forms/interview';
 import Typography from '../../../../components/material-wrap/typography';
 
-import './interview.scss';
+import './interview.sass';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},

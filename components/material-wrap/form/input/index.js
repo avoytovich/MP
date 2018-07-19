@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 
-import './inputStyles.scss';
+import './inputStyles.sass';
 
 export default class InputCustom extends React.Component {
   get labelValue() {

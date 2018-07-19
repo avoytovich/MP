@@ -21,7 +21,7 @@ import {
 } from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import './signUpForm.scss';
+import './signUpForm.sass';
 import { setLocale } from '../../services/serverService';
 
 const mapDispatchToProps = dispatch =>

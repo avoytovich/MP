@@ -14,7 +14,7 @@ import VerifyModal from './components/verify/modal';
 import ForgotModal from './components/forgot/modal';
 import ResetModal from './components/resetPassword/modal';
 
-import '../style.scss';
+import '../style.sass';
 
 @withRouter
 export default class App extends React.Component {

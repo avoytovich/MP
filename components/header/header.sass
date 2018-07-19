@@ -1,0 +1,71 @@
+.nav-wrapper
+  .icon-wrapper
+    height: 100%
+  .menu-item
+    cursor: pointer
+    color: white !important
+    text-transform: uppercase
+    font-size: 18px !important
+  .menu-item.mobile
+    color: black !important
+    margin-left: 16px
+    margin-bottom: 24px
+  .logo
+    cursor: default
+  .block
+    width: 30px
+    height: 30px
+    background-color: red
+    float: right
+  nav
+    padding-left: 0
+    padding-right: 0
+    overflow: hidden
+    .navWide
+      display: none
+      justify-content: space-between
+      margin: 0 auto
+      padding-left: 50px
+      padding-right: 50px
+      .wideDiv
+        display: flex
+        justify-content: flex-end
+        h3
+          text-decoration: none
+          display: inline-block
+          padding: 0
+          margin-left: 40px
+    .navNarrow
+      padding-left: 19px
+      display: flex
+      min-height: 48px
+      justify-content: space-between
+      transition: background 0.3s ease-in
+      h3
+        line-height: 48px
+    .narrowLinks.active
+      visibility: visible
+      opacity: 1
+      transition: opacity 0.3s ease-in
+    .narrowLinks
+      position: fixed
+      display: block
+      visibility: hidden
+      opacity: 0
+      transition: visibility 0s 0.3s, opacity 0.3s ease-in
+      width: 100%
+      a
+        text-decoration: none
+        display: block
+        float: left
+        clear: left
+        padding: 0.5em 0
+
+@media (min-width: 480px)
+  nav
+    padding: 47px
+    .navWide
+      display: flex !important
+      padding: 1em
+    .navNarrow
+      display: none !important

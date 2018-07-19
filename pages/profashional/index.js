@@ -35,7 +35,17 @@ export default class Profashional extends React.Component {
   loadAndSaveProfashionalAccount = async () => {
     try {
       const accountResp = await account.get();
-      this.props.updateSpecData(accountResp.data, 'profashionalAccount');
+      if (!this.props.profashionalAccount.id) {
+        this.props.updateSpecData(accountResp.data, 'profashionalAccount');
+      }
+      if (
+        get(
+          this.props.profashionalAccount,
+          'userExtra.profashional.interviewStatus',
+        ) === NON_SCHEDULED
+      ) {
+        this.setState({ interviewModal: true });
+      }
     } catch (e) {
       console.error(e);
     }

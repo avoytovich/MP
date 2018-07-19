@@ -8,7 +8,7 @@ import i18n from '../../../../services/decorators/i18n';
 import Typography from '../../../../components/material-wrap/typography';
 import Button from '../../../../components/material-wrap/button';
 
-import './verify.scss';
+import './verify.sass';
 
 const mapStateToProps = ({ runtime }) => ({
   signUpInfoData: runtime.signUpInfoData || {},

@@ -16,7 +16,7 @@ import Button from '../../../../components/material-wrap/button';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
 
-import './signUp.scss';
+import './signUp.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);

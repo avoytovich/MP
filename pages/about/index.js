@@ -12,7 +12,7 @@ import TestForm from '../../forms/testForm';
 
 import i18n from '../../services/decorators/i18n';
 
-import './style.scss';
+import './style.sass';
 
 const mapStateToProps = ({ localization: { lang } }) => ({ lang });
 

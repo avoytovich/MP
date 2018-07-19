@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
@@ -11,6 +12,7 @@ import { Router } from '../../../../routes';
 
 import { createNotification } from '../../../../services/notification';
 import i18n from '../../../../services/decorators/i18n';
+import loading from '../../../../services/decorators/loading';
 import { setLocale } from '../../../../services/serverService';
 import { updateSpecData } from '../../../../actions/updateData';
 
@@ -19,12 +21,14 @@ import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
 import { authenticate, account, socialLogin } from '../../../../services/cruds';
 
-import './login.scss';
+import './login.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@withRouter
 @i18n()
+@loading()
 @connect(
   null,
   mapDispatchToProps,
@@ -42,16 +46,22 @@ export default class LoginModal extends Component {
 
   socialLoginFunc = async (data, type) => {
     try {
-      const res = await socialLogin.post(
+      const res = await this.props.loadData(
+        socialLogin.post(
+          {
+            accessToken: data.accessToken,
+          },
+          `/${type}`,
+        ),
         {
-          accessToken: data.accessToken,
+          unsetLoading: false,
         },
-        `/${type}`,
       );
       this.saveToStorage(res);
     } catch (e) {
       this.props.updateSpecData({ socialData: data, type }, 'signUpInfo');
       Router.pushRoute('/user');
+      this.props.setLoader(false);
     }
   };
 
@@ -68,7 +78,7 @@ export default class LoginModal extends Component {
       createNotification({
         type: 'error',
         title: e.toString(),
-        message: 'KURWA',
+        message: '',
       });
       console.error(e);
     }
@@ -77,11 +87,15 @@ export default class LoginModal extends Component {
   saveToStorage = async res => {
     setLocale('id_token', res.data.id_token);
     setLocale('refresh_token', res.data.refresh_token);
-    const accoutResp = await account.get();
+    const accoutResp = await this.props.loadData(account.get(), {
+      unsetLoading: false,
+    });
     if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
       Router.pushRoute('/shoper');
+      this.props.setLoader(false);
     } else {
       Router.pushRoute('/profashional');
+      this.props.setLoader(false);
     }
   };
 

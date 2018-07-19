@@ -13,7 +13,7 @@ import ForgotForm from '../../../../forms/forgot';
 import Typography from '../../../../components/material-wrap/typography';
 import { resetPassword } from '../../../../services/cruds';
 
-import './forgot.scss';
+import './forgot.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);

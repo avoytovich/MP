@@ -12,7 +12,7 @@ import SignUpForm from '../../../../forms/signUp/index';
 import Typography from '../../../../components/material-wrap/typography';
 import { register, socialSignUp } from '../../../../services/cruds';
 
-import './email.scss';
+import './email.sass';
 
 const mapStateToProps = ({ runtime }) => ({
   signUpInfoData: runtime.signUpInfoData || {},

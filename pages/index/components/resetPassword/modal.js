@@ -14,7 +14,7 @@ import ResetForm from '../../../../forms/resetPassword';
 import Typography from '../../../../components/material-wrap/typography';
 import { resetPassword } from '../../../../services/cruds';
 
-import './reset.scss';
+import './reset.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);

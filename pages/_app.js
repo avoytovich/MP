@@ -9,8 +9,9 @@ import { NotificationContainer } from 'react-notifications';
 import getPageContext from '../page-cotext';
 import withReduxStore from '../redux-config/with-redux-store';
 import Localization from '../containers/Localization';
+import Loader from './_loader';
 
-import './main.scss';
+import './main.sass';
 
 @withReduxStore
 export default class MyApp extends App {
@@ -51,6 +52,7 @@ export default class MyApp extends App {
                 <div>
                   <Component pageContext={this.pageContext} {...pageProps} />
                   <NotificationContainer />
+                  <Loader />
                 </div>
               </Localization>
             </Provider>

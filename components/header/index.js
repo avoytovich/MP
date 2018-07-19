@@ -12,7 +12,7 @@ import i18n from '../../services/decorators/i18n';
 
 import { menuProps } from '../../constants/landing/menu';
 
-import './header.scss';
+import './header.sass';
 
 @i18n('menu')
 @withRouter
