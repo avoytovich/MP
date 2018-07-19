@@ -43,46 +43,6 @@ const mapDispatchToProps = dispatch =>
 })
 @i18n('errors')
 export default class SignUpForm extends React.Component {
-  componentDidMount() {
-    const type = this.props.signUpInfoData.type;
-    const accessToken = get(
-      this.props,
-      'signUpInfoData.socialData.accessToken',
-    );
-    this.loadSocialData(type, accessToken);
-  }
-
-  loadSocialData = async (type, accessToken) => {
-    if (!type) {
-      Router.pushRoute('/');
-    }
-    if (type === 'facebook' || type === 'google') {
-      // GOOGLE LOGIC
-      try {
-        const res = await socialLogin.post(
-          {
-            accessToken,
-          },
-          `/${type}`,
-        );
-        this.saveToStorage(res);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  };
-
-  saveToStorage = async res => {
-    setLocale('id_token', res.data.id_token);
-    setLocale('refresh_token', res.data.refresh_token);
-    const accoutResp = await account.get();
-    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
-      Router.pushRoute('/shoper');
-    } else {
-      Router.pushRoute('/profashional');
-    }
-  };
-
   get renderPasswords() {
     const { errors, touched, translate, signUpInfoData } = this.props;
     if (signUpInfoData.type === 'email') {

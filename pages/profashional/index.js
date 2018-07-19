@@ -14,6 +14,7 @@ import InterviewModal from './components/interview/modal';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
+  hideInterviewModal: runtime.hideInterviewModal || {},
 });
 
 const mapDispatchToProps = (dispatch, props) =>
@@ -54,14 +55,6 @@ export default class Profashional extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (
       get(
-        this.props.profashionalAccount,
-        'userExtra.profashional.interviewStatus',
-      ) !==
-        get(
-          nextProps.profashionalAccount,
-          'userExtra.profashional.interviewStatus',
-        ) &&
-      get(
         nextProps.profashionalAccount,
         'userExtra.profashional.interviewStatus',
       ) === NON_SCHEDULED &&
@@ -69,13 +62,20 @@ export default class Profashional extends React.Component {
     ) {
       this.setState({ interviewModal: true });
     }
+    if (nextProps.hideInterviewModal && this.state.interviewModal) {
+      this.setState({ interviewModal: false });
+    }
   }
+
+  close = () => {
+    this.setState({ interviewModal: false });
+  };
 
   render() {
     return (
       <div>
         Profashional
-        <Modal withClose open={this.state.interviewModal}>
+        <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal />
         </Modal>
       </div>

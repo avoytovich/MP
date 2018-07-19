@@ -12,38 +12,70 @@ import { Router } from '../../../../routes';
 import i18n from '../../../../services/decorators/i18n';
 import { updateSpecData } from '../../../../actions/updateData';
 
+import { socialLogin, account } from '../../../../services/cruds';
+
 import Button from '../../../../components/material-wrap/button';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
+import loading from '../../../../services/decorators/loading';
 
 import './signUp.sass';
+import { setLocale } from '../../../../services/serverService';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@loading()
 @i18n()
 @connect(
   null,
   mapDispatchToProps,
 )
 export default class SignUpModal extends Component {
-  responseFacebook = data => {
+  responseFacebook = async data => {
     if (data.accessToken) {
       this.props.updateSpecData(
         { type: 'facebook', socialData: data },
         'signUpInfo',
       );
-      Router.pushRoute('/user');
+      this.loadSocialData('facebook', data.accessToken);
     }
   };
 
-  responseGoogle = data => {
+  responseGoogle = async data => {
     if (data.accessToken) {
       this.props.updateSpecData(
         { type: 'google', socialData: data },
         'signUpInfo',
       );
+      this.loadSocialData('google', data.accessToken);
+    }
+  };
+
+  loadSocialData = async (type, accessToken) => {
+    try {
+      const res = await this.props.loadData(
+        socialLogin.post(
+          {
+            accessToken,
+          },
+          `/${type}`,
+        ),
+      );
+      this.saveToStorage(res);
+    } catch (e) {
       Router.pushRoute('/user');
+    }
+  };
+
+  saveToStorage = async res => {
+    setLocale('id_token', res.data.id_token);
+    setLocale('refresh_token', res.data.refresh_token);
+    const accoutResp = await this.props.loadData(account.get());
+    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
+      Router.pushRoute('/shoper');
+    } else {
+      Router.pushRoute('/profashional');
     }
   };
 

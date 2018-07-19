@@ -66,22 +66,18 @@ export default class LoginModal extends Component {
   };
 
   emailLogin = async values => {
-    try {
-      if (this.tryes > 3) Router.pushRoute('/forgot');
-      this.tryes++;
-      const res = await authenticate.post({
+    if (this.tryes > 3) Router.pushRoute('/forgot');
+    this.tryes++;
+    const res = await this.props.loadData(
+      authenticate.post({
         username: values.email,
         password: values.password,
-      });
-      this.saveToStorage(res);
-    } catch (e) {
-      createNotification({
-        type: 'error',
-        title: e.toString(),
-        message: '',
-      });
-      console.error(e);
-    }
+      }),
+      {
+        showError: true,
+      },
+    );
+    this.saveToStorage(res);
   };
 
   saveToStorage = async res => {

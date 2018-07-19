@@ -10,24 +10,72 @@ import i18n from '../../../../services/decorators/i18n';
 import SignUpForm from '../../../../forms/signUp/index';
 
 import Typography from '../../../../components/material-wrap/typography';
-import { register, socialSignUp } from '../../../../services/cruds';
+import {
+  register,
+  socialSignUp,
+  socialLogin,
+  account,
+} from '../../../../services/cruds';
+import loading from '../../../../services/decorators/loading';
 
 import './email.sass';
+import { setLocale } from '../../../../services/serverService';
 
 const mapStateToProps = ({ runtime }) => ({
   signUpInfoData: runtime.signUpInfoData || {},
 });
 
+@loading()
 @i18n()
 @connect(mapStateToProps)
 export default class EmailModal extends Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   submit = async (values, { setErrors, props }) => {
     const type = this.props.signUpInfoData.type;
-    try {
-      await this.sendRequest(type, values);
-      Router.pushRoute('/verify');
-    } catch (e) {
-      console.log('error', e);
+    const accessToken = get(
+      this.props,
+      'signUpInfoData.socialData.accessToken',
+    );
+    await this.props.loadData(this.sendRequest(type, values), {
+      showError: true,
+    });
+    if (type === 'email') Router.pushRoute('/verify');
+    else {
+      this.socialLoginFunc(accessToken, type);
+    }
+  };
+
+  socialLoginFunc = async (accessToken, type) => {
+    const res = await this.props.loadData(
+      socialLogin.post(
+        {
+          accessToken: accessToken,
+        },
+        `/${type}`,
+      ),
+      {
+        showError: true,
+        unsetLoading: false,
+      },
+    );
+    this.saveToStorage(res);
+  };
+
+  saveToStorage = async res => {
+    setLocale('id_token', res.data.id_token);
+    setLocale('refresh_token', res.data.refresh_token);
+    const accoutResp = await this.props.loadData(account.get(), {
+      unsetLoading: false,
+    });
+    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
+      Router.pushRoute('/shoper');
+      this.props.setLoader(false);
+    } else {
+      Router.pushRoute('/profashional');
+      this.props.setLoader(false);
     }
   };
 
