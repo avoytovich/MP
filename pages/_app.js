@@ -10,7 +10,7 @@ import getPageContext from '../page-cotext';
 import withReduxStore from '../redux-config/with-redux-store';
 import Localization from '../containers/Localization';
 
-import './main.scss';
+import './main.sass';
 
 @withReduxStore
 export default class MyApp extends App {

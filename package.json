@@ -47,6 +47,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.0.3",
+    "styled-jsx-css-loader": "^0.3.0",
     "url-loader": "^1.0.1",
     "yup": "^0.25.1"
   },

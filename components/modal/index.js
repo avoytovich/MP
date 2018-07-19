@@ -9,7 +9,6 @@ import './modal.scss';
 
 @injectIntl
 export default class CustomModal extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -29,11 +28,11 @@ export default class CustomModal extends Component {
     this.setState({
       confirmation: false,
     });
-  }
+  };
 
   handleParentOk = () => {
     this.props.onClose();
-  }
+  };
 
   render() {
     const children = this.props.children;
@@ -46,11 +45,14 @@ export default class CustomModal extends Component {
                 <Close onClick={this.close} />
               </div>
             )}
-          {this.state.confirmation ?
+          {this.state.confirmation ? (
             <ConfirmationDialog
               confirmCancel={this.handleParentCancel}
               confirmOk={this.handleParentOk}
-            /> : children}
+            />
+          ) : (
+            children
+          )}
         </div>
       </Modal>
     );

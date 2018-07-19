@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
@@ -24,6 +25,7 @@ import './login.scss';
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@withRouter
 @i18n()
 @connect(
   null,
@@ -68,7 +70,7 @@ export default class LoginModal extends Component {
       createNotification({
         type: 'error',
         title: e.toString(),
-        message: 'KURWA',
+        message: '',
       });
       console.error(e);
     }
@@ -81,7 +83,7 @@ export default class LoginModal extends Component {
     if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
       Router.pushRoute('/shoper');
     } else {
-      Router.pushRoute('/profashional');
+			Router.pushRoute('/profashional');
     }
   };
 
