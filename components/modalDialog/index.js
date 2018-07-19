@@ -7,33 +7,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import Typography from '../material-wrap/typography';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    width: '80%',
-    maxHeight: 435,
-  },
-});
-
 class ConfirmationDialog extends React.Component {
 
   state = {
     open: false,
   };
 
-  handleCancel = () => {
-    this.props.confirmCancel();
-  };
-
-  handleOk = () => {
-    this.props.confirmOk();
-  };
-
   render() {
+    const { confirmCancel, confirmOk } = this.props;
     return (
       <div>
         <DialogContent>
@@ -42,10 +23,10 @@ class ConfirmationDialog extends React.Component {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleCancel} color="primary">
+          <Button onClick={confirmCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={this.handleOk} color="primary">
+          <Button onClick={confirmOk} color="primary">
             Ok
           </Button>
         </DialogActions>
@@ -54,8 +35,4 @@ class ConfirmationDialog extends React.Component {
   }
 }
 
-ConfirmationDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(ConfirmationDialog);
+export default ConfirmationDialog;
