@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pick } from 'lodash';
+import { pick, get, merge } from 'lodash';
+
+import { createNotification } from '../notification';
 
 import { updateSpecData, setData } from '../../actions/updateData';
 
@@ -23,12 +25,14 @@ export default function loading(runtimeNames = []) {
       mapDispatchToProps,
     )
     class Loading extends Component {
-      loadData = async (
-        promise,
-        options = {
-          unsetLoading: true,
-        },
-      ) => {
+      defOptions = {
+        showError: false,
+        showSuccess: false,
+        unsetLoading: true,
+      };
+
+      loadData = async (promise, opts = {}) => {
+        const options = merge(this.defOptions, opts);
         this.setLoader(true);
         let data;
         try {
@@ -37,10 +41,24 @@ export default function loading(runtimeNames = []) {
             options.saveTo &&
               this.props.updateSpecData(data.data, options.saveTo);
           }
+          if (options.showSuccess) {
+            createNotification({
+              type: 'success',
+              title: options.showSuccess,
+              message: '',
+            });
+          }
         } catch (e) {
+          if (options.showError)
+            createNotification({
+              type: 'error',
+              title: get(e, 'response.data.title'),
+              message: '',
+            });
           this.setLoader(false);
           return Promise.reject(e);
         }
+        console.log(options.unsetLoading);
         if (options.unsetLoading) this.setLoader(false);
         return Promise.resolve(data);
       };

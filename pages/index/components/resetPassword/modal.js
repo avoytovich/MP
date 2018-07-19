@@ -13,12 +13,15 @@ import { updateSpecData } from '../../../../actions/updateData';
 import ResetForm from '../../../../forms/resetPassword';
 import Typography from '../../../../components/material-wrap/typography';
 import { resetPassword } from '../../../../services/cruds';
+import loading from '../../../../services/decorators/loading';
+import { saveToStorage } from '../../../../services/saveUserAndRedirectToProfile';
 
 import './reset.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@loading()
 @withRouter
 @i18n()
 @connect(
@@ -33,18 +36,23 @@ export default class ForgotModal extends Component {
   }
 
   reset = async values => {
-    try {
-      await resetPassword.post(
+    const res = await this.props.loadData(
+      resetPassword.post(
         {
           key: this.props.router.query.key,
           newPassword: values.password,
         },
         '/finish',
-      );
-      Router.pushRoute('/');
-    } catch (e) {
-      console.error(e);
-    }
+      ),
+      {
+        showSuccess: 'Success',
+        showError: true,
+      },
+    );
+    this.props.loadData(saveToStorage(res), {
+      showError: true,
+    });
+    Router.pushRoute('/');
   };
 
   render() {

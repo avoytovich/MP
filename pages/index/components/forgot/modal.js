@@ -14,10 +14,12 @@ import Typography from '../../../../components/material-wrap/typography';
 import { resetPassword } from '../../../../services/cruds';
 
 import './forgot.sass';
+import loading from '../../../../services/decorators/loading';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@loading()
 @i18n()
 @connect(
   null,
@@ -25,12 +27,10 @@ const mapDispatchToProps = (dispatch, props) =>
 )
 export default class ForgotModal extends Component {
   forgot = async values => {
-    try {
-      await resetPassword.post(values.email, '/init');
-      Router.pushRoute('/');
-    } catch (e) {
-      console.error(e);
-    }
+    await this.props.loadData(resetPassword.post(values.email, '/init'), {
+      showSuccess: 'Link sent to your email',
+    });
+    Router.pushRoute('/');
   };
 
   back = () => {

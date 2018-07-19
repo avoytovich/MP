@@ -22,14 +22,6 @@ export const FORM_DATA_HEADERS = {
   'Content-Type': 'multipart/form-data',
 };
 
-export const checkError = error => {
-  const status = getParam(error, 'response.status');
-  // if (status >= 401 && status <= 403) {
-  //   Router.pushRoute('/login');
-  // }
-  return Promise.reject(error);
-};
-
 const buildUrl = url => {
   if (url.indexOf(SERVER_URL) === -1) {
     return SERVER_URL + url;
@@ -42,7 +34,7 @@ export const wrapRequest = options =>
     headers: getDefHeaders(),
     ...options,
     url: buildUrl(options.url || options),
-  }).catch(checkError);
+  });
 
 export const buildCRUD = url => {
   if (!url) return Promise.reject('Need URL');
