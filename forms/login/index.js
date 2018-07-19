@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'next/router';
