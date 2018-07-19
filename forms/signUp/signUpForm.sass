@@ -1,95 +1,69 @@
-.sign-up-form {
-  %flex-justify {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  %sign-up-margins {
-    margin-left: 69px;
-    margin-right: 69px;
-  }
-  .confirm-label {
-    font-family: SFUIDisplay;
-    cursor: pointer;
-    h3 {
-      color: #4A90E2;
-      font-size: 14px!important;
-    }
-  }
-  .checkbox {
-    margin-top: 41px!important;
-    margin-bottom: 50px;
-  }
-  .footer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 91px;
-    button {
-      width: 436px;
-      height: 52px;
-    }
-  }
-  .row-padding {
-    @extend %sign-up-margins;
-  }
-  width: 100%;
-  .radio-group {
-    margin-top: 60px;
-    margin-left: calc(69px - 48px / 4);
-    margin-right: calc(69px - 48px / 4);
-    @extend %flex-justify;
-  }
-  .second-radio {
-    margin-right: 40px;
-  }
-  .two-inputs-row {
-    @extend %flex-justify;
-    @extend %sign-up-margins;
-    .input-column {
-      width: 50%;
-      &:first-of-type {
-        padding-right: 43px;
-      }
-    }
-  }
-}
+.sign-up-form
+  %flex-justify
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+  %sign-up-margins
+    margin-left: 69px
+    margin-right: 69px
+  .confirm-label
+    font-family: SFUIDisplay
+    cursor: pointer
+    h3
+      color: #4A90E2
+      font-size: 14px !important
+  .checkbox
+    margin-top: 41px !important
+    margin-bottom: 50px
+  .footer
+    display: flex
+    justify-content: center
+    margin-bottom: 91px
+    button
+      width: 436px
+      height: 52px
+  .row-padding
+    @extend %sign-up-margins
+  width: 100%
+  .radio-group
+    margin-top: 60px
+    margin-left: calc(69px - 48px / 4)
+    margin-right: calc(69px - 48px / 4)
+    @extend %flex-justify
+  .second-radio
+    margin-right: 40px
+  .two-inputs-row
+    @extend %flex-justify
+    @extend %sign-up-margins
+    .input-column
+      width: 50%
+      &:first-of-type
+        padding-right: 43px
 
-@media (max-width: 480px) {
-  .sign-up-form {
-    %sign-up-margins-mobile {
-      margin-left: 16px;
-      margin-right: 16px;
-    }
-    .row-padding {
-      @extend %sign-up-margins-mobile;
-    }
-    .two-inputs-row {
-      @extend %sign-up-margins-mobile;
-      .input-column {
-        width: 100%;
-        &:first-of-type {
-          padding-right: 0;
-        }
-      }
-    }
-    .second-radio {
-      margin-right: 0;
-    }
-    .first-name-input {
-      margin-top: 0!important;
-    }
-    .radio-group {
-      margin: 0;
-      margin-top: 40px;
-    }
-    .footer {
-      @extend %sign-up-margins-mobile;
-      margin-top: 40px;
-      margin-bottom: 49px;
-      button {
-        width: 100%;
-      }
-    }
-  }
-}
+@media (max-width: 480px)
+  .sign-up-form
+    %sign-up-margins-mobile
+      margin-left: 16px
+      margin-right: 16px
+    .row-padding
+      @extend %sign-up-margins-mobile
+    .two-inputs-row
+      @extend %sign-up-margins-mobile
+      .input-column
+        width: 100%
+        &:first-of-type
+          padding-right: 0
+    .second-radio
+      margin-right: 0
+    .first-name-input
+      margin-top: 0 !important
+    .radio-group
+      margin: 0
+      margin-top: 40px
+    .footer
+      @extend %sign-up-margins-mobile
+      margin-top: 40px
+      margin-bottom: 49px
+      button
+        width: 100%

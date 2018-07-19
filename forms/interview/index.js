@@ -15,7 +15,7 @@ import i18n from '../../services/decorators/i18n';
 
 import Typography from '../../components/material-wrap/typography/index';
 
-import './interview.scss';
+import './interview.sass';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);

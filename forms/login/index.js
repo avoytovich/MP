@@ -15,7 +15,7 @@ import { setData } from '../../actions/updateData';
 import { LoginSchema } from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import './login.scss';
+import './login.sass';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);

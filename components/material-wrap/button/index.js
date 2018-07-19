@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import Typography from '../typography';
 
-import './buttonStyle.scss';
+import './buttonStyle.sass';
 
 export default class OurButton extends React.Component {
   static propTypes = {

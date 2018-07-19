@@ -13,7 +13,7 @@ import { setData } from '../../actions/updateData';
 import { ForgotSchema } from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import './forgot.scss';
+import './forgot.sass';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);

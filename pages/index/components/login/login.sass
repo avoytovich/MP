@@ -1,99 +1,79 @@
-.login-modal {
-  padding-left: 92px;
-  padding-right: 92px;
-  .header {
-    text-align: center;
-  }
-  .or-section {
-    width: 100%;
-    margin-bottom: 39px;
-    text-align: center;
-    position: relative;
-    z-index: 1302;
+.login-modal
+  padding-left: 92px
+  padding-right: 92px
+  .header
+    text-align: center
+  .or-section
+    width: 100%
+    margin-bottom: 39px
+    text-align: center
+    position: relative
+    z-index: 1302
+    &:before
+      border-top: 2px solid #CACACA
+      content: ""
+      margin: 0 auto
+      /* this centers the line to the full width specified
+      position: absolute
+      /* positioning must be absolute here, and relative positioning must be applied to the parent
+      top: 50%
+      left: 0
+      right: 0
+      bottom: 0
+      width: 100%
+      z-index: -1
+    span
+      /* to hide the lines from behind the text, you have to set the background color the same as the container
+      text-align: center
+      background: #fff
+      color: #CACACA
+      margin: 0 auto
+      width: 30px
+  .email-login
+    background-color: #fd6e74
+    span
+      color: white !important
+  .facebook
+    border-radius: 2px
+    background-color: #507cc0
+    border-color: #507cc0
+    span
+      color: white !important
+  .login-button
+    margin-bottom: 30px !important
+  .email-login
+    border-color: #fd6e74
+  .icon
+    margin-right: 20px
+  .google
+    text-transform: uppercase !important
+    margin-bottom: 66px !important
+    &:hover
+      background-color: white !important
+      span
+        color: black !important
+  .social-button
+    outline: none
+    margin-bottom: 30px
+    height: 52px
+    width: 100%
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-items: center
+    &-with-icon
+      display: inline-block
+      vertical-align: super
 
-    &:before {
-      border-top: 2px solid #CACACA;
-      content:"";
-      margin: 0 auto; /* this centers the line to the full width specified */
-      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-      top: 50%; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      z-index: -1;
-    }
-
-    span {
-      /* to hide the lines from behind the text, you have to set the background color the same as the container */
-      text-align: center;
-      background: #fff;
-      color: #CACACA;
-      margin: 0 auto;
-      width: 30px;
-    }
-  }
-  .email-login {
-    background-color: #fd6e74;
-    span {
-      color: white!important;
-    }
-  }
-  .facebook {
-    border-radius: 2px;
-    background-color: #507cc0;
-    border-color: #507cc0;
-    span {
-      color: white!important;
-    }
-  }
-  .login-button {
-    margin-bottom: 30px!important;
-  }
-  .email-login {
-    border-color: #fd6e74;
-  }
-  .icon {
-    margin-right: 20px;
-  }
-  .google {
-    text-transform: uppercase!important;
-    margin-bottom: 66px!important;
-    &:hover {
-      background-color: white!important;
-      span{
-        color: black!important;
-      }
-    }
-  }
-  .social-button {
-    outline: none;
-    margin-bottom: 30px;
-    height: 52px;
-    width: 100%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &-with-icon {
-      display: inline-block;
-      vertical-align: super;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    width: 206px;
-  }
-  .login-modal {
-    padding-left: 16px;
-    padding-right: 16px;
-    .social-button {
-      height: 44px;
-      border-radius: 2px;
-      margin-bottom: 24px;
-    }
-    .or-section {
-      margin-bottom: 33px;
-    }
-  }
-
-}
+@media (max-width: 480px)
+  .header
+    width: 206px
+  .login-modal
+    padding-left: 16px
+    padding-right: 16px
+    .social-button
+      height: 44px
+      border-radius: 2px
+      margin-bottom: 24px
+    .or-section
+      margin-bottom: 33px

@@ -12,7 +12,7 @@ import { setData } from '../../actions/updateData';
 import { ResetSchema } from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import './reset.scss';
+import './reset.sass';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);

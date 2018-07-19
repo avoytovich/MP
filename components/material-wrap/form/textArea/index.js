@@ -2,7 +2,7 @@ import React from 'react';
 
 import Typography from '../../typography';
 
-import './textArea.scss';
+import './textArea.sass';
 
 export default class RadioCustom extends React.Component {
   static defaultProps = {

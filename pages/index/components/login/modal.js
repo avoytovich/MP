@@ -20,7 +20,7 @@ import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
 import { authenticate, account, socialLogin } from '../../../../services/cruds';
 
-import './login.scss';
+import './login.sass';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);

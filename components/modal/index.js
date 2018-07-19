@@ -5,7 +5,7 @@ import Modal from '@material-ui/core/Modal';
 import Close from '@material-ui/icons/Close';
 
 import ConfirmationDialog from './../modalDialog';
-import './modal.scss';
+import './modal.sass';
 
 @injectIntl
 export default class CustomModal extends Component {
