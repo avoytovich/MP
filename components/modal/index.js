@@ -31,6 +31,9 @@ export default class CustomModal extends Component {
   };
 
   handleParentOk = () => {
+    this.setState({
+      confirmation: false,
+    });
     this.props.onClose();
   };
 
