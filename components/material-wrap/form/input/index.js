@@ -7,14 +7,6 @@ import Input from '@material-ui/core/Input';
 import './inputStyles.sass';
 
 export default class InputCustom extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      stateValue: '',
-    };
-  }
-
   get labelValue() {
     if (this.props.touched && this.props.error) {
       return this.props.error;
@@ -24,7 +16,7 @@ export default class InputCustom extends React.Component {
 
   render() {
     const {
-      field: { name, value, onBlur, onChange },
+      field: { name, value = '', onBlur, onChange },
       id = name,
       fullWidth,
       className = '',
@@ -33,7 +25,6 @@ export default class InputCustom extends React.Component {
       disabled,
       error,
     } = this.props;
-    const { stateValue } = this.state;
     return (
       <FormControl
         className={
@@ -43,7 +34,7 @@ export default class InputCustom extends React.Component {
         <InputLabel error={!!(touched && error)}>{this.labelValue}</InputLabel>
         <Input
           id={id}
-          value={value || stateValue}
+          value={value}
           name={name}
           disabled={disabled}
           fullWidth={fullWidth}
