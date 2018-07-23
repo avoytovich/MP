@@ -16,7 +16,7 @@ export default class InputCustom extends React.Component {
 
   render() {
     const {
-      field: { name, value, onBlur, onChange },
+      field: { name, value = '', onBlur, onChange },
       id = name,
       fullWidth,
       className = '',
