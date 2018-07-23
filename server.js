@@ -10,9 +10,9 @@ const handler = routes.getRequestHandler(app);
 const getPort = env => {
   switch (env) {
     case 'production':
-      return 81;
+      return 8080;
     case 'stage':
-      return 80;
+      return 8081;
     default:
       return 3000;
   }
