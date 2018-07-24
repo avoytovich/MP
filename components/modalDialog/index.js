@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '../material-wrap/typography';
 
 class ConfirmationDialog extends React.Component {
-
   state = {
     open: false,
   };

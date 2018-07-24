@@ -12,6 +12,7 @@ export default class OurButton extends React.Component {
   static propTypes = {
     variant: PropTypes.string,
     className: PropTypes.string,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {

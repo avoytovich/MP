@@ -7,6 +7,11 @@ module.exports = routes()
   .add('about', '/about', 'about')
   .add('shoper', '/shoper', 'shoper')
   .add('profashional', '/profashional', 'profashional')
+  .add(
+    'profashionalEditProfile',
+    '/profashional/edit-profile',
+    'profashional/edit-profile',
+  )
   .add('with-modal', '/:modal', 'index')
   .add('root', '/:modal', 'index') // signup, login, email, verify
   .add('reset-password', '/reset-password/:key', 'index')

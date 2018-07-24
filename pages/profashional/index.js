@@ -9,6 +9,9 @@ import { account } from '../../services/cruds';
 import { NON_SCHEDULED } from '../../constants/interview';
 
 import Modal from '../../components/modal';
+import Button from '../../components/material-wrap/button';
+
+import { Router } from '../../routes';
 
 import InterviewModal from './components/interview/modal';
 
@@ -71,10 +74,15 @@ export default class Profashional extends React.Component {
     this.setState({ interviewModal: false });
   };
 
+  edit = () => {
+    Router.pushRoute('/profashional/edit-profile');
+  };
+
   render() {
     return (
       <div>
         Profashional
+        <Button onClick={this.edit}>Edit profile</Button>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal />
         </Modal>
