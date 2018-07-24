@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="228px" height="228px" viewBox="0 0 228 228" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>178810D5-5EAF-4511-A4EE-A539F4632FDA</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-3.2%" y="-2.3%" width="106.4%" height="106.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.138870018 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <circle id="path-2" cx="110" cy="110" r="110"></circle>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Edit-Profile-0-" transform="translate(-606.000000, -233.000000)">
+            <g id="Group-2" transform="translate(610.000000, 235.000000)">
+                <g id="Group-2-Copy" filter="url(#filter-1)">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <use id="Oval-4" fill="#FFFFFF" xlink:href="#path-2"></use>
+                    <g id="man-user-(1)" mask="url(#mask-3)" fill-rule="nonzero">
+                        <g transform="translate(41.250000, 34.375000)" id="Shape">
+                            <path d="M70.4692622,89.375 C90.4021668,89.375 106.5625,69.3679238 106.5625,44.6877611 C106.5625,20.0070762 101.256825,0 70.4692622,0 C39.6816992,0 34.375,20.0070762 34.375,44.6877611 C34.375,69.3679238 50.5353332,89.375 70.4692622,89.375 Z" fill="#F2F5F5"></path>
+                            <path d="M0.0059760582,155.323908 C0.000800639984,154.085549 -0.00437477823,154.975002 0.0059760582,155.323908 Z" fill="#000000"></path>
+                            <path d="M140.9375,155.818808 C140.953889,155.477848 140.943107,153.453258 140.9375,155.818808 Z" fill="#000000"></path>
+                            <path d="M140.858606,151.976413 C140.167622,109.25427 134.473487,97.0807791 90.9001762,89.375 C90.9001762,89.375 84.7665654,97.0335648 70.4703385,97.0335648 C56.1741115,97.0335648 50.0394417,89.375 50.0394417,89.375 C6.94161241,96.9967273 0.901191787,108.989663 0.106956957,150.588522 C0.041829701,153.985353 0.0116487775,154.163833 0,153.769516 C0.00264744943,154.508341 0,166.982068 0,169.36509 C0,169.36509 10.3780018,188.991374 70.46875,188.991374 C130.558439,188.991374 140.934853,158.257982 140.934853,158.257982 C140.934853,156.726892 140.935912,155.662237 140.9375,154.937939 C140.925851,155.181793 140.902554,154.709132 140.858606,151.976413 Z" fill="#F2F5F5"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group-Copy" transform="translate(171.000000, 167.000000)">
+                    <ellipse id="Oval" fill-opacity="0.248471467" fill="#000000" cx="19" cy="18.547619" rx="19" ry="18.547619"></ellipse>
+                    <g id="ic_mode_edit_24px-copy" transform="translate(7.600000, 7.600000)">
+                        <path d="M2.85,15.9973214 L2.85,19.475 L6.4125,19.475 L16.9195,9.21816667 L13.357,5.7404881 L2.85,15.9973214 Z M19.6745,6.5287619 C20.045,6.16708333 20.045,5.58283333 19.6745,5.22115476 L17.4515,3.05108333 C17.081,2.68940476 16.4825,2.68940476 16.112,3.05108333 L14.3735,4.74819048 L17.936,8.22586905 L19.6745,6.5287619 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <polygon id="Shape" points="0 0 22.8 0 22.8 22.2571429 0 22.2571429"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
