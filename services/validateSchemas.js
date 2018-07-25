@@ -92,11 +92,29 @@ const ResetSchema = Yup.object().shape({
     .required(required),
 });
 
+const PrivateInfoSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  lastName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  email: Yup.string()
+    .email(email)
+    .required(required),
+  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
   ResetSchema,
-	InterviewSchema
+  InterviewSchema,
+  PrivateInfoSchema,
 };
