@@ -26,7 +26,6 @@ export default class About extends Component {
       lang: event.target.value,
     });
     Cookies.set('lang', event.target.value);
-    // window.location.reload();
   };
 
   render() {

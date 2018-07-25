@@ -1,5 +1,4 @@
 import React from 'react';
-// import NoSSR from 'react-no-ssr';
 import { withRouter } from 'next/router';
 
 import { Router } from '../routes';
