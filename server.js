@@ -25,6 +25,7 @@ console.log('PORT: ', port);
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
 app.prepare().then(() => {
   express()
+    .use(express.static('static'))
     .use(handler)
     .use(cookieParser())
     .listen(port);
