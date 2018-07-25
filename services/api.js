@@ -18,9 +18,10 @@ const getDefHeaders = () => ({
   ...getAuthHeaders(),
 });
 
-export const FORM_DATA_HEADERS = {
+export const getFormData = () => ({
   'Content-Type': 'multipart/form-data',
-};
+  ...getAuthHeaders(),
+});
 
 const buildUrl = url => {
   if (url.indexOf(SERVER_URL) === -1) {
@@ -28,6 +29,13 @@ const buildUrl = url => {
   }
   return url;
 };
+
+export const formData = options =>
+  axios({
+    headers: getFormData(),
+    ...options,
+    url: buildUrl(options.url || options),
+  });
 
 export const wrapRequest = options =>
   axios({

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="228px" height="228px" viewBox="0 0 228 228" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
-    <title>178810D5-5EAF-4511-A4EE-A539F4632FDA</title>
-    <desc>Created with sketchtool.</desc>
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2 Copy</title>
+    <desc>Created with Sketch.</desc>
     <defs>
         <filter x="-3.2%" y="-2.3%" width="106.4%" height="106.4%" filterUnits="objectBoundingBox" id="filter-1">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
@@ -30,13 +30,6 @@
                             <path d="M140.9375,155.818808 C140.953889,155.477848 140.943107,153.453258 140.9375,155.818808 Z" fill="#000000"></path>
                             <path d="M140.858606,151.976413 C140.167622,109.25427 134.473487,97.0807791 90.9001762,89.375 C90.9001762,89.375 84.7665654,97.0335648 70.4703385,97.0335648 C56.1741115,97.0335648 50.0394417,89.375 50.0394417,89.375 C6.94161241,96.9967273 0.901191787,108.989663 0.106956957,150.588522 C0.041829701,153.985353 0.0116487775,154.163833 0,153.769516 C0.00264744943,154.508341 0,166.982068 0,169.36509 C0,169.36509 10.3780018,188.991374 70.46875,188.991374 C130.558439,188.991374 140.934853,158.257982 140.934853,158.257982 C140.934853,156.726892 140.935912,155.662237 140.9375,154.937939 C140.925851,155.181793 140.902554,154.709132 140.858606,151.976413 Z" fill="#F2F5F5"></path>
                         </g>
-                    </g>
-                </g>
-                <g id="Group-Copy" transform="translate(171.000000, 167.000000)">
-                    <ellipse id="Oval" fill-opacity="0.248471467" fill="#000000" cx="19" cy="18.547619" rx="19" ry="18.547619"></ellipse>
-                    <g id="ic_mode_edit_24px-copy" transform="translate(7.600000, 7.600000)">
-                        <path d="M2.85,15.9973214 L2.85,19.475 L6.4125,19.475 L16.9195,9.21816667 L13.357,5.7404881 L2.85,15.9973214 Z M19.6745,6.5287619 C20.045,6.16708333 20.045,5.58283333 19.6745,5.22115476 L17.4515,3.05108333 C17.081,2.68940476 16.4825,2.68940476 16.112,3.05108333 L14.3735,4.74819048 L17.936,8.22586905 L19.6745,6.5287619 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
-                        <polygon id="Shape" points="0 0 22.8 0 22.8 22.2571429 0 22.2571429"></polygon>
                     </g>
                 </g>
             </g>

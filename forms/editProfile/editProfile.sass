@@ -1,0 +1,34 @@
+.edit-profile-form
+  width: 620px
+  %flex-justify
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+  .two-inputs-row
+    @extend %flex-justify
+    .input-column
+      width: 50%
+      &:first-of-type
+        padding-right: 43px
+
+@media (max-width: 660px)
+  .edit-profile-form
+    width: 100%
+    %sign-up-margins-mobile
+      margin-left: 16px
+      margin-right: 16px
+    .row-padding
+      @extend %sign-up-margins-mobile
+    .two-inputs-row
+      @extend %sign-up-margins-mobile
+      .input-column
+        width: 100%
+        &:first-of-type
+          padding-right: 0
+    .footer
+      @extend %sign-up-margins-mobile
+      margin-top: 40px
+      margin-bottom: 49px
+      button
+        width: 100%
