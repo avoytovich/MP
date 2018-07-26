@@ -6,6 +6,9 @@ const email = 'email',
   toLong = 'tooLong',
   matchPassword = 'matchPassword',
   passwordReq = 'passwordReq',
+  phoneNumberReq = 'phoneNumberReq',
+  zipReq = 'zipReq',
+  bankAccountNumberReq = 'bankAccountNumberReq',
   onlyLetters = 'onlyLetters';
 
 function equalTo(ref, msg) {
@@ -92,11 +95,52 @@ const ResetSchema = Yup.object().shape({
     .required(required),
 });
 
+const PrivateInfoSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  lastName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  email: Yup.string()
+    .email(email)
+    .required(required),
+  phoneNumber: Yup.string()
+    .min(16, toSmall)
+    .max(16, toLong)
+    .matches(/^[+][0-9]*$/, phoneNumberReq)
+    .required(required),
+  address: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  zip: Yup.string()
+    .min(4, toSmall)
+    .max(4, toLong)
+    .matches(/^[0-9]*$/, zipReq)
+    .required(required),
+  city: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  bankAccountNumber: Yup.string()
+    .min(23, toSmall)
+    .max(23, toLong)
+    .matches(/^[C][H][0-9]*$/, bankAccountNumberReq)
+    .required(required),
+  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
   ResetSchema,
-	InterviewSchema
+  InterviewSchema,
+  PrivateInfoSchema,
 };
