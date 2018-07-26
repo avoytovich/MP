@@ -38,6 +38,7 @@ module.exports={
       {
         label: 'Bank account number',
         name: 'bankAccountNumber',
+        placeholder: 'CH121212121212121212121',
       },
       {
         label: 'Currency',

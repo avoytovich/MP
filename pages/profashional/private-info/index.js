@@ -10,7 +10,7 @@ import Input from '../../../components/material-wrap/form/input';
 import i18n from '../../../services/decorators/i18n';
 
 import './private-info.sass';
-import { SignUpSchema, SocialSignUpSchema } from '../../../services/validateSchemas';
+import { PrivateInfoSchema } from '../../../services/validateSchemas';
 
 @withFormik({
   handleSubmit: (values, options) => {
@@ -19,10 +19,7 @@ import { SignUpSchema, SocialSignUpSchema } from '../../../services/validateSche
     return options.props.handleSubmit(values, options);
   },
 
-  validationSchema: props => {
-    if (props.signUpInfoData.type !== 'email') return SocialSignUpSchema;
-    return SignUpSchema;
-  },
+  validationSchema: props => (PrivateInfoSchema),
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
