@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { get } from 'lodash';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
+import { withRouter } from 'next/router';
+
+import Button from '@material-ui/core/Button';
 
 import { updateSpecData } from '../../actions/updateData';
 import { account } from '../../services/cruds';
@@ -24,6 +27,7 @@ const mapStateToProps = ({ runtime }) => ({
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@withRouter
 @connect(
   mapStateToProps,
   mapDispatchToProps,
@@ -85,6 +89,10 @@ export default class Profashional extends React.Component {
     );
   };
 
+  handleClick = () => {
+    Router.pushRoute('/private-info/:id');
+  };
+
   render() {
     return (
       <div>
@@ -93,6 +101,11 @@ export default class Profashional extends React.Component {
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal />
         </Modal>
+        <Button
+          onClick={this.handleClick}
+        >
+          Private Info
+        </Button>
       </div>
     );
   }
