@@ -1,26 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { withFormik, Form, Field } from 'formik';
 
 import Stepper from '../../../components/stepper/index';
 import ModalHeader from '../../../components/modalHeader';
 import Typography from '../../../components/material-wrap/typography';
-import { privateInfo } from '../../../constants/texts';
-import Input from '../../../components/material-wrap/form/input';
-import i18n from '../../../services/decorators/i18n';
+import PrivateInfo from '../../../forms/privateInfo';
 
 import './private-info.sass';
-import { PrivateInfoSchema } from '../../../services/validateSchemas';
 
-@withFormik({
-  handleSubmit: (values, options) => {
-    return options.props.handleSubmit(values, options);
-  },
-
-  validationSchema: props => (PrivateInfoSchema),
-})
-@i18n('errors')
-export default class PrivateInfo extends React.Component {
+export default class PrivateInfoProfashional extends React.Component {
   /* constructor(props) {
     super(props);
     this.state = {
@@ -28,9 +16,11 @@ export default class PrivateInfo extends React.Component {
     };
   }*/
 
+  handleSubmit = values => {
+    console.log('values', values);
+  };
+
   render() {
-    const { inputFields } = privateInfo;
-    const { touched, errors, translate } = this.props;
     return (
       <div className="private-info">
         <Grid container spacing={0} justify="center">
@@ -50,26 +40,7 @@ export default class PrivateInfo extends React.Component {
             </div>
             <div className="grid-field">
               <Grid className="grid-field-input" item xs={12} sm={10}>
-                {inputFields.map((item, index) => {
-                  const { name } = item;
-                  return (
-                    <Grid
-                      key={index}
-                      className="grid-field-input-gap"
-                      item
-                      xs={12}
-                      sm={6}>
-                      <Field
-                        {...item}
-                        component={Input}
-                        fullWidth
-                        error={translate(errors[name])}
-                        touched={touched[name]}
-                        className="default-input "
-                      />
-                    </Grid>
-                  );
-                })}
+                <PrivateInfo handleSubmit={this.handleSubmit} />
               </Grid>
             </div>
           </Grid>
