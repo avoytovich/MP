@@ -11,7 +11,6 @@ import 'moment/locale/de';
 import en from '../locales/en';
 import de from '../locales/de';
 import defaults from '../locales/defaults';
-import isServer from '../services/serverService';
 
 addLocaleData([...enLocal, ...deLocal]);
 

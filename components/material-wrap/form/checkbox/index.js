@@ -27,7 +27,7 @@ export default class CheckboxCustom extends React.Component {
             id={id}
           />
           <label className={labelClassName}>
-            <Tephography variant="subheading">{this.props.label}</Tephography>
+            <Tephography variant="subheading">{label}</Tephography>
           </label>
         </div>
       </div>
