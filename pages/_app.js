@@ -6,6 +6,9 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { NotificationContainer } from 'react-notifications';
 
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+
 import getPageContext from '../page-cotext';
 import withReduxStore from '../redux-config/with-redux-store';
 import Localization from '../containers/Localization';
@@ -48,13 +51,15 @@ export default class MyApp extends App {
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
             <Provider store={reduxStore}>
-              <Localization>
-                <div>
-                  <Component pageContext={this.pageContext} {...pageProps} />
-                  <NotificationContainer />
-                  <Loader />
-                </div>
-              </Localization>
+              <MuiPickersUtilsProvider utils={MomentUtils}>
+                <Localization>
+                  <div>
+                    <Component pageContext={this.pageContext} {...pageProps} />
+                    <NotificationContainer />
+                    <Loader />
+                  </div>
+                </Localization>
+              </MuiPickersUtilsProvider>
             </Provider>
           </MuiThemeProvider>
         </JssProvider>

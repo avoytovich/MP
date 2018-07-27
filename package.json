@@ -26,6 +26,7 @@
     "js-cookie": "^2.2.0",
     "jss": "^9.8.7",
     "lodash": "^4.17.10",
+    "material-ui-pickers": "^1.0.0-rc.12",
     "merge-files-webpack-plugin": "^1.1.2",
     "moment": "^2.22.2",
     "next": "^6.1.1",
