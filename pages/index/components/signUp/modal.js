@@ -12,7 +12,7 @@ import { Router } from '../../../../routes';
 import i18n from '../../../../services/decorators/i18n';
 import { updateSpecData } from '../../../../actions/updateData';
 
-import { socialLogin, account } from '../../../../services/cruds';
+import { socialLogin } from '../../../../services/cruds';
 
 import Button from '../../../../components/material-wrap/button';
 import Typography from '../../../../components/material-wrap/typography';
@@ -20,7 +20,7 @@ import Social from '../../../../constants/social';
 import loading from '../../../../services/decorators/loading';
 
 import './signUp.sass';
-import { setLocale } from '../../../../services/serverService';
+import { saveToStorage } from '../../../../services/saveUserAndRedirectToProfile';
 
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
@@ -62,20 +62,9 @@ export default class SignUpModal extends Component {
           `/${type}`,
         ),
       );
-      this.saveToStorage(res);
+      await this.props.loadData(saveToStorage(res));
     } catch (e) {
       Router.pushRoute('/user');
-    }
-  };
-
-  saveToStorage = async res => {
-    setLocale('id_token', res.data.id_token);
-    setLocale('refresh_token', res.data.refresh_token);
-    const accoutResp = await this.props.loadData(account.get());
-    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
-      Router.pushRoute('/shoper');
-    } else {
-      Router.pushRoute('/profashional');
     }
   };
 

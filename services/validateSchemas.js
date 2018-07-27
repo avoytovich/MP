@@ -6,6 +6,7 @@ const email = 'email',
   toLong = 'tooLong',
   matchPassword = 'matchPassword',
   passwordReq = 'passwordReq',
+  onlyNumbers = 'onlyNumbers',
   onlyLetters = 'onlyLetters';
 
 function equalTo(ref, msg) {
@@ -92,11 +93,37 @@ const ResetSchema = Yup.object().shape({
     .required(required),
 });
 
+const EditProfileSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .max(30, toLong)
+    .required(required),
+  slogan: Yup.string()
+    .max(50, toLong)
+    .required(required),
+  aboutMe: Yup.string()
+    .max(350, toLong)
+    .required(required),
+  expersises: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  occasion: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  languages: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  currency: Yup.number().required(required),
+  hourlyRate: Yup.number()
+    .typeError(onlyNumbers)
+    .required(required),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
   ResetSchema,
-	InterviewSchema
+  EditProfileSchema,
+  InterviewSchema,
 };

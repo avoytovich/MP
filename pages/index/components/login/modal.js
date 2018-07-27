@@ -10,16 +10,15 @@ import Grid from '@material-ui/core/Grid';
 
 import { Router } from '../../../../routes';
 
-import { createNotification } from '../../../../services/notification';
 import i18n from '../../../../services/decorators/i18n';
 import loading from '../../../../services/decorators/loading';
-import { setLocale } from '../../../../services/serverService';
+import { saveToStorage } from '../../../../services/saveUserAndRedirectToProfile';
 import { updateSpecData } from '../../../../actions/updateData';
 
 import LoginForm from '../../../../forms/login/index';
 import Typography from '../../../../components/material-wrap/typography';
 import Social from '../../../../constants/social';
-import { authenticate, account, socialLogin } from '../../../../services/cruds';
+import { authenticate, socialLogin } from '../../../../services/cruds';
 
 import './login.sass';
 
@@ -53,11 +52,8 @@ export default class LoginModal extends Component {
           },
           `/${type}`,
         ),
-        {
-          unsetLoading: false,
-        },
       );
-      this.saveToStorage(res);
+      this.props.loadData(saveToStorage(res));
     } catch (e) {
       this.props.updateSpecData({ socialData: data, type }, 'signUpInfo');
       Router.pushRoute('/user');
@@ -77,22 +73,7 @@ export default class LoginModal extends Component {
         showError: true,
       },
     );
-    this.saveToStorage(res);
-  };
-
-  saveToStorage = async res => {
-    setLocale('id_token', res.data.id_token);
-    setLocale('refresh_token', res.data.refresh_token);
-    const accoutResp = await this.props.loadData(account.get(), {
-      unsetLoading: false,
-    });
-    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
-      Router.pushRoute('/shoper');
-      this.props.setLoader(false);
-    } else {
-      Router.pushRoute('/profashional');
-      this.props.setLoader(false);
-    }
+    this.props.loadData(saveToStorage(res));
   };
 
   render() {

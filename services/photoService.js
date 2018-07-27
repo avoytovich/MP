@@ -15,9 +15,8 @@ function checkPhoto(file) {
 
 async function sendPhoto(file) {
   const fd = new FormData();
-  console.log(fd);
   fd.append('file', file, 'test.jpg');
-  await formData({
+  return await formData({
     method: 'POST',
     url: 'files/upload?fileType=PHOTO',
     data: fd,

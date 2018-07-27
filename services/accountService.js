@@ -7,4 +7,14 @@ function isILogined() {
   return false;
 }
 
-export { isILogined };
+function amIProfashional() {
+  if (
+    getLocale('authorities') &&
+    JSON.parse(getLocale('authorities')).indexOf('ROLE_PROFASHIONAL') !== -1
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export { isILogined, amIProfashional };

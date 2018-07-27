@@ -1,4 +1,4 @@
-export const EXPERTISE = [
+export const EXPERSISES = [
   {
     name: 'men',
     id: 'MEN',

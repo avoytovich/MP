@@ -14,12 +14,11 @@ import {
   register,
   socialSignUp,
   socialLogin,
-  account,
 } from '../../../../services/cruds';
+import { saveToStorage } from '../../../../services/saveUserAndRedirectToProfile';
 import loading from '../../../../services/decorators/loading';
 
 import './email.sass';
-import { setLocale } from '../../../../services/serverService';
 
 const mapStateToProps = ({ runtime }) => ({
   signUpInfoData: runtime.signUpInfoData || {},
@@ -29,10 +28,6 @@ const mapStateToProps = ({ runtime }) => ({
 @i18n()
 @connect(mapStateToProps)
 export default class EmailModal extends Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   submit = async (values, { setErrors, props }) => {
     const type = this.props.signUpInfoData.type;
     const accessToken = get(
@@ -61,22 +56,7 @@ export default class EmailModal extends Component {
         unsetLoading: false,
       },
     );
-    this.saveToStorage(res);
-  };
-
-  saveToStorage = async res => {
-    setLocale('id_token', res.data.id_token);
-    setLocale('refresh_token', res.data.refresh_token);
-    const accoutResp = await this.props.loadData(account.get(), {
-      unsetLoading: false,
-    });
-    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
-      Router.pushRoute('/shoper');
-      this.props.setLoader(false);
-    } else {
-      Router.pushRoute('/profashional');
-      this.props.setLoader(false);
-    }
+    this.props.loadData(saveToStorage(res));
   };
 
   sendRequest = async (type, values) => {

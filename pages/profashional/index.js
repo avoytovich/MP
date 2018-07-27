@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { get } from 'lodash';
+import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
 import { updateSpecData } from '../../actions/updateData';
@@ -27,12 +28,16 @@ const mapDispatchToProps = (dispatch, props) =>
   mapStateToProps,
   mapDispatchToProps,
 )
+@withRouter
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
   };
 
   componentDidMount() {
+    if (!this.props.router.query.id) {
+      Router.pushRoute('/');
+    }
     this.loadAndSaveProfashionalAccount();
   }
 
@@ -75,7 +80,9 @@ export default class Profashional extends React.Component {
   };
 
   edit = () => {
-    Router.pushRoute('/profashional/edit-profile');
+    Router.pushRoute(
+      `/profashional/${this.props.router.query.id}/edit-profile`,
+    );
   };
 
   render() {

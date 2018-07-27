@@ -10,3 +10,5 @@ export const account = buildCRUD('account');
 export const interview = buildCRUD('interviews');
 export const currencies = buildCRUD('currencies');
 export const languages = buildCRUD('languages');
+export const profashionals = buildCRUD('profashionals');
+export const cities = buildCRUD('cities');
