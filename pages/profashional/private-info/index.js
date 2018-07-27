@@ -7,7 +7,20 @@ import Typography from '../../../components/material-wrap/typography';
 import PrivateInfo from '../../../forms/privateInfo';
 
 import './private-info.sass';
+import { updateSpecData } from '../../../actions/updateData';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateSpecData }, dispatch);
+
+const mapStateToProps = ({ runtime }) => ({
+  privateInfo: runtime,
+});
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
 export default class PrivateInfoProfashional extends React.Component {
   /* constructor(props) {
     super(props);
@@ -17,7 +30,29 @@ export default class PrivateInfoProfashional extends React.Component {
   }*/
 
   handleSubmit = values => {
-    console.log('values', values);
+    this.props.updateSpecData(values, 'privateInfo');
+    const stripe = Stripe('pk_test_opVhyp1UCaDDjQ5riDJapXY3');
+    const { country, currency, firstName, lastName, bankAccountNumber } = values;
+    const information = {
+      bank_account: {
+        country,
+        currency,
+        account_holder_name: `${firstName} ${lastName}`,
+        account_holder_type: 'individual',
+        account_number: bankAccountNumber,
+      },
+    };
+    stripe.createToken('bank_account', {
+      country: 'US',
+      currency: 'usd',
+      routing_number: '110000000',
+      account_number: '000123456789',
+      account_holder_name: 'Jenny Rosen',
+      account_holder_type: 'individual',
+    }).then(function(result) {
+      console.log('result', result);
+      // Handle result.error or result.token
+    });
   };
 
   render() {
