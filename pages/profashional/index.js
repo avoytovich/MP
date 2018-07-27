@@ -3,9 +3,6 @@ import { bindActionCreators } from 'redux';
 import { get } from 'lodash';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { withRouter } from 'next/router';
-
-import Button from '@material-ui/core/Button';
 
 import { updateSpecData } from '../../actions/updateData';
 import { account } from '../../services/cruds';

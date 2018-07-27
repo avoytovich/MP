@@ -11,6 +11,13 @@ export default {
       logIn: 'Log in',
       signUp: 'Sign Up',
     },
+		confirmModal: {
+      confirm: 'Bestätigen',
+      cancel: 'Abbrechen',
+			editProfile:
+				'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
+      ok: 'OK',
+    },
     errors: {
       matchPassword: 'passwords do not match1',
       email: 'Invalid email1',

@@ -19,6 +19,13 @@ export default {
       passwordReq: 'passwordReq',
       onlyLetters: 'Only Letters',
     },
+    confirmModal: {
+      confirm: 'Confirm',
+      editProfile:
+        'Do you want to close Edit Profile section? your information will not be saved',
+      cancel: 'Cancel',
+      ok: 'OK',
+    },
   }),
   // formats: object,
   // messages: object,
