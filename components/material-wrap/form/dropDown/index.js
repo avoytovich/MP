@@ -44,7 +44,7 @@ export default class DropDownCustom extends React.Component {
     try {
       const response = await this.props.getFrom();
       this.setState({ optionsFromBe: response.data });
-      this.props.updateSpecData(response.data, `${this.props.name}List`);
+      this.props.updateSpecData(response.data, `${this.props.field.name}List`);
     } catch (e) {
       console.error(e);
     }

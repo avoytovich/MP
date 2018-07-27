@@ -16,10 +16,11 @@ export default class InputCustom extends React.Component {
     super(props);
     this.input = React.createRef();
   }
+
   state = {
     anchorEl: null,
+    focused: false,
   };
-
   get labelValue() {
     if (this.props.touched && this.props.error) {
       return this.props.error;
@@ -51,9 +52,16 @@ export default class InputCustom extends React.Component {
     });
   };
 
+  focus = () => this.setState({ focused: true });
+
+  blur = e => {
+    this.setState({ focused: false });
+    this.props.field.onBlur(e);
+  };
+
   render() {
     const {
-      field: { name, value = '', onBlur, onChange },
+      field: { name, value = '', onChange },
       id = name,
       fullWidth,
       className = '',
@@ -62,7 +70,7 @@ export default class InputCustom extends React.Component {
       infoIcon,
       formHelper,
       placeholder,
-			multiline,
+      multiline,
       disabled,
       error,
     } = this.props;
@@ -81,17 +89,20 @@ export default class InputCustom extends React.Component {
           multiline={multiline}
           placeholder={placeholder}
           disabled={disabled}
+          inputRef={this.input}
           fullWidth={fullWidth}
           onChange={onChange}
           endAdornment={this.renderEndAdornment}
-          onBlur={onBlur}
+          onBlur={this.blur}
+          onFocus={this.focus}
           type={type}
         />
-        {formHelper && (
-          <FormHelperText id="control-size" error={Boolean(error)}>{`${
-            value.length
-          } / ${formHelper}`}</FormHelperText>
-        )}
+        {formHelper &&
+          this.state.focused && (
+            <FormHelperText id="control-size" error={Boolean(error)}>{`${
+              value.length
+            } / ${formHelper}`}</FormHelperText>
+          )}
         {infoIcon && (
           <Popover
             open={Boolean(this.state.anchorEl)}

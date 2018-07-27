@@ -60,9 +60,9 @@ export const buildCRUD = url => {
       return wrapRequest({ method: 'DELETE', url: `${url}/${id}` });
     },
     get: (params = {}) => wrapRequest({ method: 'GET', url, params }),
-    getWithId: id => {
+    getWithId: (id, plusUrl = '') => {
       if (!id) return Promise.reject('Need id');
-      return wrapRequest({ method: 'GET', url: `${url}/${id}` });
+      return wrapRequest({ method: 'GET', url: `${url}/${id}${plusUrl}` });
     },
     getList: (opt = {}, data) => {
       const {

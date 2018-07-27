@@ -11,9 +11,10 @@ import DropDown from '../../components/material-wrap/form/dropDown/index';
 import Button from '../../components/material-wrap/button';
 
 import { setData } from '../../actions/updateData';
-import { currencies, languages } from '../../services/cruds';
+import { currencies, languages, cities } from '../../services/cruds';
 import i18n from '../../services/decorators/i18n';
-import { EXPERTISE, OCCASION } from '../../constants/editProfile';
+import { EditProfileSchema } from '../../services/validateSchemas';
+import { EXPERSISES, OCCASION } from '../../constants/editProfile';
 
 import './editProfile.sass';
 
@@ -27,7 +28,8 @@ const mapDispatchToProps = dispatch =>
 )
 @withFormik({
   handleSubmit: (values, options) =>
-    console.log('HER', values) || options.props.handleSubmit(values, options),
+    options.props.handleSubmit(values, options),
+  validationSchema: EditProfileSchema,
 })
 @i18n('errors')
 export default class EditProfile extends React.Component {
@@ -38,6 +40,7 @@ export default class EditProfile extends React.Component {
       errors,
       touched,
       isValid,
+      validPhotos,
       translate,
       signUpInfoData,
     } = this.props;
@@ -48,10 +51,11 @@ export default class EditProfile extends React.Component {
             name="firstName"
             component={Input}
             fullWidth
+            formHelper={30}
             error={translate(errors.firstName)}
             touched={touched.firstName}
             className="default-input"
-            label="First Name"
+            label="Username"
           />
         </div>
         <div className="two-inputs-row">
@@ -111,13 +115,13 @@ export default class EditProfile extends React.Component {
         <div className="two-inputs-row">
           <div className="input-column">
             <Field
-              name="expertise"
+              name="expersises"
               component={DropDown}
               fullWidth
               multiple
-              options={EXPERTISE}
-              error={translate(errors.currency)}
-              touched={touched.currency}
+              options={EXPERSISES}
+              error={translate(errors.expersises)}
+              touched={touched.expersises}
               className="default-input"
               label="Expertise"
             />
@@ -140,8 +144,9 @@ export default class EditProfile extends React.Component {
           <div className="input-column">
             <Field
               name="city"
-              component={Input}
+              component={DropDown}
               fullWidth
+              getFrom={() => cities.get()}
               error={translate(errors.city)}
               touched={touched.city}
               className="default-input"
@@ -163,7 +168,9 @@ export default class EditProfile extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <Button type="submit">NEXT</Button>
+          <Button disabled={!(isValid && validPhotos)} type="submit">
+            NEXT
+          </Button>
         </div>
       </Form>
     );

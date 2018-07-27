@@ -9,13 +9,14 @@ const email = 'email',
   phoneNumberReq = 'phoneNumberReq',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
+  onlyNumbers = 'onlyNumbers',
   onlyLetters = 'onlyLetters';
 
 function equalTo(ref, msg) {
   return Yup.mixed().test({
     name: 'equalTo',
     exclusive: false,
-    message: msg || '${path} must be the same as ${reference}',
+    message: msg,
     params: {
       reference: ref.path,
     },
@@ -135,12 +136,38 @@ const PrivateInfoSchema = Yup.object().shape({
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
+const EditProfileSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .max(30, toLong)
+    .required(required),
+  slogan: Yup.string()
+    .max(50, toLong)
+    .required(required),
+  aboutMe: Yup.string()
+    .max(350, toLong)
+    .required(required),
+  expersises: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  occasion: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  languages: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  currency: Yup.number().required(required),
+  hourlyRate: Yup.number()
+    .typeError(onlyNumbers)
+    .required(required),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
   ResetSchema,
+  EditProfileSchema,
   InterviewSchema,
   PrivateInfoSchema,
 };
