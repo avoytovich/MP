@@ -15,9 +15,11 @@ import ModalHeader from '../../../components/modalHeader';
 import EditProfile from '../../../forms/editProfile';
 
 import './style.sass';
+import withConfirmModal from '../../../services/decorators/withConfirmModal/index';
 
 @loading(['profashionalProfile'])
 @withRouter
+@withConfirmModal('editProfile', 'cancel', 'ok')
 export default class EditProfileProfashional extends Component {
   constructor(props) {
     super(props);
@@ -146,7 +148,10 @@ export default class EditProfileProfashional extends Component {
     return (
       (this.props.profashionalProfile || null) && (
         <div className="edit-profile-wrapper">
-          <ModalHeader title="Edit Profile" />
+          <ModalHeader
+            title="Edit Profile"
+            onClose={() => this.props.openConfirm()}
+          />
           <div className="cover-wrapper">
             <IconButton
               aria-label="Edit"
