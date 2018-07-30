@@ -17,7 +17,7 @@ export default class HorizontalLinearStepper extends React.Component {
     return step === 1;
   };*/
 
-  /*handleNext = () => {
+  handleNext = () => {
     const { activeStep } = this.state;
     let { skipped } = this.state;
     if (this.isStepSkipped(activeStep)) {
@@ -28,7 +28,7 @@ export default class HorizontalLinearStepper extends React.Component {
       activeStep: activeStep + 1,
       skipped,
     });
-  };*/
+  };
 
   /*handleBack = () => {
     const { activeStep } = this.state;

@@ -2,7 +2,7 @@ import DropDown from '../components/material-wrap/form/dropDown/index';
 import { currencies, countries } from '../services/cruds';
 
 export const privateInfo = {
-  inputFields: [
+  inputFieldsForStepOne: [
     {
       label: 'First Name',
       name: 'firstName',
@@ -42,13 +42,40 @@ export const privateInfo = {
     {
       label: 'Bank account number',
       name: 'bankAccountNumber',
-      placeholder: 'CH121212121212121212121',
+      placeholder: 'CH89370400440532013000',
     },
     {
       label: 'Currency',
       name: 'currency',
       component: DropDown,
       getFrom: () => currencies.get(),
+    },
+  ],
+  inputFieldsForStepTwo: [
+    {
+      label: 'Birthday',
+      name: 'birthday',
+      infoIcon: true,
+      placeholder: 'dd.mm.yyyy',
+    },
+    {
+      label: 'Gender',
+      name: 'gender',
+      component: DropDown,
+      options: [
+        {
+          name: 'men',
+          id: 'MEN',
+        },
+        {
+          name: 'female',
+          id: 'Female',
+        },
+        {
+          name: 'others',
+          id: 'Others',
+        },
+      ],
     },
   ],
 };

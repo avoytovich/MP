@@ -1,15 +1,20 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { find } from 'lodash';
 
 import Stepper from '../../../components/stepper/index';
 import ModalHeader from '../../../components/modalHeader';
 import Typography from '../../../components/material-wrap/typography';
-import PrivateInfo from '../../../forms/privateInfo';
+import PrivateInfoStepOne from '../../../forms/privateInfo/privateInfoStepOne';
+import PrivateInfoStepTwo from '../../../forms/privateInfo/privateInfoStepTwo';
+import { updateSpecData } from '../../../actions/updateData';
+import { Router } from '../../../routes';
+
+import Button from '../../../components/material-wrap/button';
 
 import './private-info.sass';
-import { updateSpecData } from '../../../actions/updateData';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSpecData }, dispatch);
@@ -22,40 +27,49 @@ const mapStateToProps = ({ runtime }) => ({
   mapDispatchToProps,
 )
 export default class PrivateInfoProfashional extends React.Component {
-  /* constructor(props) {
+  constructor(props) {
     super(props);
+    this.child = React.createRef();
     this.state = {
-      private-info: true,
+      forwardToNextStep: true,
     };
-  }*/
+  }
 
-  handleSubmit = values => {
+  handleSubmitForStepOne = values => {
     this.props.updateSpecData(values, 'privateInfo');
     const stripe = Stripe('pk_test_opVhyp1UCaDDjQ5riDJapXY3');
-    const { country, currency, firstName, lastName, bankAccountNumber } = values;
-    const information = {
-      bank_account: {
-        country,
-        currency,
-        account_holder_name: `${firstName} ${lastName}`,
-        account_holder_type: 'individual',
-        account_number: bankAccountNumber,
-      },
-    };
-    stripe.createToken('bank_account', {
-      country: 'US',
-      currency: 'usd',
-      routing_number: '110000000',
-      account_number: '000123456789',
-      account_holder_name: 'Jenny Rosen',
+    const { firstName, lastName, bankAccountNumber } = values;
+    const {
+      privateInfoData,
+      countryList,
+      currencyList,
+    } = this.props.privateInfo;
+    const country = find(countryList[0], { id: privateInfoData.country });
+    const currency = find(currencyList[0], { id: privateInfoData.currency });
+    const bankAccount = {
+      country: country.code,
+      currency: currency.name,
+      account_holder_name: `${firstName} ${lastName}`,
       account_holder_type: 'individual',
-    }).then(function(result) {
-      console.log('result', result);
-      // Handle result.error or result.token
-    });
+      account_number: bankAccountNumber,
+    };
+    stripe
+      .createToken('bank_account', bankAccount)
+      .then(result => {
+        const { id } = result.token;
+        this.props.updateSpecData({ stripeToken: id }, 'privateInfo');
+        this.child.current.handleNext();
+        this.setState({
+          forwardToNextStep: false,
+        });
+      })
+      .catch(err => {
+        console.log('Error', err);
+      });
   };
 
   render() {
+    const { forwardToNextStep } = this.state;
     return (
       <div className="private-info">
         <Grid container spacing={0} justify="center">
@@ -63,19 +77,33 @@ export default class PrivateInfoProfashional extends React.Component {
             <ModalHeader title="Private Info" className="test" />
             <div className="grid-stepper">
               <Grid className="grid" item xs={12} sm={10}>
-                <Stepper />
+                <Stepper ref={this.child} />
               </Grid>
             </div>
             <div className="grid-header">
               <Grid className="grid-header-title" item xs={12} sm={10}>
-                <Typography variant="title" fontSize="20px">
-                  Please provide your Private information
-                </Typography>
+                {forwardToNextStep ? (
+                  <Typography variant="title" fontSize="20px">
+                    Please provide your Private information
+                  </Typography>
+                ) : (
+                  <Typography variant="title" fontSize="20px">
+                    The folowing data is only visible for admin
+                  </Typography>
+                )}
               </Grid>
             </div>
             <div className="grid-field">
               <Grid className="grid-field-input" item xs={12} sm={10}>
-                <PrivateInfo handleSubmit={this.handleSubmit} />
+                {forwardToNextStep ? (
+                  <PrivateInfoStepOne
+                    handleSubmit={this.handleSubmitForStepOne}
+                  />
+                ) : (
+                  <PrivateInfoStepTwo
+                    handleSubmit={this.handleSubmitForStepTwo}
+                  />
+                )}
               </Grid>
             </div>
           </Grid>

@@ -13,9 +13,9 @@ import Button from '../../components/material-wrap/button';
 import { setData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { privateInfo } from '../../constants/texts';
+import { PrivateInfoSchema } from '../../services/validateSchemas';
 
 import './privateInfo.sass';
-import { PrivateInfoSchema } from '../../services/validateSchemas';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -34,13 +34,13 @@ const mapDispatchToProps = dispatch =>
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
   render() {
-    const { inputFields } = privateInfo;
+    const { inputFieldsForStepOne } = privateInfo;
     const { touched, errors, translate, handleSubmit } = this.props;
     return (
       <Form onSubmit={handleSubmit}>
         <Grid container>
-          {inputFields.map((item, index) => {
-            const { component, name } = item;
+          {inputFieldsForStepOne.map((item, index) => {
+            const { component, name, options } = item;
             return (
               <Grid
                 key={index}
@@ -51,6 +51,7 @@ export default class PrivateInfo extends React.Component {
                 <Field
                   {...item}
                   component={component || Input}
+                  options={options}
                   fullWidth
                   error={translate(errors[name])}
                   touched={touched[name]}
