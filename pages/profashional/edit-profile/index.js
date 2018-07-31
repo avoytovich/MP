@@ -79,6 +79,7 @@ export default class EditProfileProfashional extends Component {
   };
 
   handleSubmit = async values => {
+    const oldCompleted = get(this.props, 'profashionalProfile.completed';
     const resp = await this.props.loadData(
       profashionals.put(`${this.props.router.query.id}/profile`, {
         cityId: values.city,
@@ -101,7 +102,7 @@ export default class EditProfileProfashional extends Component {
     );
     if (
       get(resp, 'data.completed') &&
-      !get(this.props, 'profashionalProfile.completed')
+      !oldCompleted
     ) {
       this.props.openModal();
     } else {
