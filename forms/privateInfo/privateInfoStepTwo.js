@@ -89,7 +89,6 @@ export default class PrivateInfo extends React.Component {
       handleBack,
       setFieldValue,
     } = this.props;
-    console.log(this.state);
     return (
       <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
         <Grid container justify="space-between">

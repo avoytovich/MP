@@ -7,7 +7,6 @@ import './datePicker.sass';
 
 export default class DatePickerCustom extends React.Component {
   render() {
-    console.log('this.props', this.props);
     const {
       field: { name, value = moment() },
       id = name,

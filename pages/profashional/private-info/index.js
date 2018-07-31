@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { find, get } from 'lodash';
+import { withRouter } from 'next/router';
 import moment from 'moment';
 
 import Stepper from '../../../components/stepper/index';
@@ -18,6 +19,9 @@ import loading from '../../../services/decorators/loading';
 import Button from '../../../components/material-wrap/button';
 
 import './private-info.sass';
+import { amIProfashional, isILogined } from '../../../services/accountService';
+import withConfirmModal from '../../../services/decorators/withConfirmModal';
+import withModal from '../../../services/decorators/withModal';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSpecData }, dispatch);
@@ -31,7 +35,15 @@ const mapStateToProps = ({ runtime }) => ({
   mapStateToProps,
   mapDispatchToProps,
 )
-@loading()
+@withRouter
+@withModal(
+  'Thank you for filling the information! Admin will contact you shortly',
+  props => Router.pushRoute(`/profashional/${props.router.query.id}`),
+)
+@withConfirmModal('editProfile', 'cancel', 'ok', props =>
+  Router.pushRoute(`/profashional/${props.router.query.id}`),
+)
+@loading(['profashionalProfile'])
 export default class PrivateInfoProfashional extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +52,23 @@ export default class PrivateInfoProfashional extends React.Component {
       forwardToNextStep: true,
     };
   }
+
+  async componentDidMount() {
+    if (!isILogined() && amIProfashional()) {
+      Router.pushRoute('/');
+    } else {
+      await this.loadAndSave();
+    }
+  }
+
+  loadAndSave = async () => {
+    await this.props.loadData(
+      profashionals.getWithId(this.props.router.query.id, '/profile'),
+      {
+        saveTo: 'profashionalProfile',
+      },
+    );
+  };
 
   handleSubmitForStepOne = values => {
     this.props.updateSpecData(values, 'privateInfo');
@@ -66,13 +95,13 @@ export default class PrivateInfoProfashional extends React.Component {
         });
       })
       .catch(err => {
-        console.log('Error', err);
+        console.error('Error', err);
       });
   };
 
   handleSubmitForStepTwo = async values => {
-    console.log('val', values);
     const { privateInfo } = this.props;
+    const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.post(
         {
@@ -93,10 +122,7 @@ export default class PrivateInfoProfashional extends React.Component {
         `/${this.props.privateInfo.router.query.id}/privateInfo`,
       ),
     );
-    if (
-      get(resp, 'data.completed') &&
-      !get(this.props, 'profashionalProfile.completed')
-    ) {
+    if (get(resp, 'data.completed') && !oldCompleted) {
       this.props.openModal();
     } else {
       Router.pushRoute(`/profashional/${this.props.router.query.id}`);
@@ -110,14 +136,22 @@ export default class PrivateInfoProfashional extends React.Component {
     });
   };
 
+  get initialValues() {
+    return get(this.props, 'privateInfo') || {};
+  }
+
   render() {
-    console.log('THIS PROPS', this.props);
+    console.log('THIS PROPS', this.props.profashionalProfile);
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
-            <ModalHeader title="Private Info" className="test" />
+            <ModalHeader
+              title="Private Info"
+              className="test"
+              onClose={() => this.props.openConfirm()}
+            />
             <div className="grid-stepper">
               <Grid className="grid" item xs={12} sm={10}>
                 <Stepper ref={this.child} />
@@ -140,6 +174,7 @@ export default class PrivateInfoProfashional extends React.Component {
               <Grid className="grid-field-input" item xs={12} sm={10}>
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
+                    {...this.initialValues}
                     handleSubmit={this.handleSubmitForStepOne}
                   />
                 ) : (
