@@ -36,13 +36,11 @@ export default class EditProfile extends React.Component {
   render() {
     const {
       handleSubmit,
-      setFieldValue,
       errors,
       touched,
       isValid,
       validPhotos,
       translate,
-      signUpInfoData,
     } = this.props;
     return (
       <Form className="edit-profile-form" onSubmit={handleSubmit}>
