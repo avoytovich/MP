@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { find } from 'lodash';
+import moment from 'moment';
 
 import Stepper from '../../../components/stepper/index';
 import ModalHeader from '../../../components/modalHeader';
@@ -11,6 +12,8 @@ import PrivateInfoStepOne from '../../../forms/privateInfo/privateInfoStepOne';
 import PrivateInfoStepTwo from '../../../forms/privateInfo/privateInfoStepTwo';
 import { updateSpecData } from '../../../actions/updateData';
 import { Router } from '../../../routes';
+import { profashionals } from '../../../services/cruds';
+import loading from '../../../services/decorators/loading';
 
 import Button from '../../../components/material-wrap/button';
 
@@ -20,12 +23,15 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSpecData }, dispatch);
 
 const mapStateToProps = ({ runtime }) => ({
-  privateInfo: runtime,
+  privateInfo: runtime.privateInfoData,
+  countryList: runtime.countryList,
+  currencyList: runtime.currencyList,
 });
 @connect(
   mapStateToProps,
   mapDispatchToProps,
 )
+@loading()
 export default class PrivateInfoProfashional extends React.Component {
   constructor(props) {
     super(props);
@@ -39,13 +45,9 @@ export default class PrivateInfoProfashional extends React.Component {
     this.props.updateSpecData(values, 'privateInfo');
     const stripe = Stripe('pk_test_opVhyp1UCaDDjQ5riDJapXY3');
     const { firstName, lastName, bankAccountNumber } = values;
-    const {
-      privateInfoData,
-      countryList,
-      currencyList,
-    } = this.props.privateInfo;
-    const country = find(countryList[0], { id: privateInfoData.country });
-    const currency = find(currencyList[0], { id: privateInfoData.currency });
+    const { privateInfo, countryList, currencyList } = this.props;
+    const country = find(countryList[0], { id: privateInfo.country });
+    const currency = find(currencyList[0], { id: privateInfo.currency });
     const bankAccount = {
       country: country.code,
       currency: currency.name,
@@ -57,7 +59,7 @@ export default class PrivateInfoProfashional extends React.Component {
       .createToken('bank_account', bankAccount)
       .then(result => {
         const { id } = result.token;
-        this.props.updateSpecData({ stripeToken: id }, 'privateInfo');
+        this.props.updateSpecData({ bankToken: id }, 'privateInfo');
         this.child.current.handleNext();
         this.setState({
           forwardToNextStep: false,
@@ -68,10 +70,43 @@ export default class PrivateInfoProfashional extends React.Component {
       });
   };
 
+  handleSubmitForStepTwo = async values => {
+    console.log('val', values);
+    const { privateInfo } = this.props;
+    await this.props.loadData(
+      profashionals.post(
+        {
+          address: privateInfo.address,
+          bankToken: privateInfo.bankToken,
+          city: privateInfo.city,
+          countryId: privateInfo.country,
+          email: privateInfo.email,
+          firstName: privateInfo.firstName,
+          lastName: privateInfo.lastName,
+          phoneNumber: privateInfo.phoneNumber,
+          zip: privateInfo.zip,
+          gender: values.gender,
+          dob: moment(values.birthday).format('YYYY-MM-DD'),
+          frontImageId: privateInfo.frontId,
+          backImageId: privateInfo.backId,
+        },
+        `/${this.props.privateInfo.router.query.id}/privateInfo`,
+      ),
+    );
+  };
+
+  handleBackForStepTwo = values => {
+    this.child.current.handleBack();
+    this.setState({
+      forwardToNextStep: true,
+    });
+  };
+
   render() {
+    console.log('THIS PROPS', this.props);
     const { forwardToNextStep } = this.state;
     return (
-      <div className="private-info">
+      <div className="private-info private-info-form-wrapper">
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
             <ModalHeader title="Private Info" className="test" />
@@ -102,6 +137,7 @@ export default class PrivateInfoProfashional extends React.Component {
                 ) : (
                   <PrivateInfoStepTwo
                     handleSubmit={this.handleSubmitForStepTwo}
+                    handleBack={this.handleBackForStepTwo}
                   />
                 )}
               </Grid>

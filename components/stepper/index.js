@@ -30,12 +30,12 @@ export default class HorizontalLinearStepper extends React.Component {
     });
   };
 
-  /*handleBack = () => {
+  handleBack = () => {
     const { activeStep } = this.state;
     this.setState({
       activeStep: activeStep - 1,
     });
-  };*/
+  };
 
   /*handleSkip = () => {
     const { activeStep } = this.state;

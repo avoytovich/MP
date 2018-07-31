@@ -84,7 +84,9 @@ export default class Profashional extends React.Component {
   };
 
   handleClick = () => {
-    Router.pushRoute('/profashional/:id/private-info');
+    Router.pushRoute(
+      `/profashional/${this.props.router.query.id}/private-info`,
+    );
   };
 
   render() {

@@ -35,12 +35,18 @@ const mapDispatchToProps = dispatch =>
 export default class PrivateInfo extends React.Component {
   render() {
     const { inputFieldsForStepOne } = privateInfo;
-    const { touched, errors, translate, handleSubmit } = this.props;
+    const {
+      touched,
+      errors,
+      translate,
+      handleSubmit,
+      setFieldValue,
+    } = this.props;
     return (
       <Form onSubmit={handleSubmit}>
         <Grid container>
           {inputFieldsForStepOne.map((item, index) => {
-            const { component, name, options } = item;
+            const { component, name } = item;
             return (
               <Grid
                 key={index}
@@ -51,8 +57,10 @@ export default class PrivateInfo extends React.Component {
                 <Field
                   {...item}
                   component={component || Input}
-                  options={options}
                   fullWidth
+                  setFieldValue={/*...this.initialValues ||*/
+                    setFieldValue
+                  }
                   error={translate(errors[name])}
                   touched={touched[name]}
                   className="default-input "
@@ -61,7 +69,7 @@ export default class PrivateInfo extends React.Component {
             );
           })}
         </Grid>
-        <div className="buttonNextStep">
+        <div className="buttonStepOne">
           <Button type="submit">Continue</Button>
         </div>
       </Form>

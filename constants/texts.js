@@ -1,4 +1,5 @@
 import DropDown from '../components/material-wrap/form/dropDown/index';
+import DatePicker from '../components/material-wrap/form/datePicker/index';
 import { currencies, countries } from '../services/cruds';
 
 export const privateInfo = {
@@ -55,8 +56,8 @@ export const privateInfo = {
     {
       label: 'Birthday',
       name: 'birthday',
+      component: DatePicker,
       infoIcon: true,
-      placeholder: 'dd.mm.yyyy',
     },
     {
       label: 'Gender',
@@ -65,17 +66,17 @@ export const privateInfo = {
       options: [
         {
           name: 'men',
-          id: 'MEN',
+          id: 'MALE',
         },
         {
           name: 'female',
-          id: 'Female',
+          id: 'FEMALE',
         },
         {
           name: 'others',
-          id: 'Others',
+          id: 'OTHERS',
         },
       ],
-    },
+    }
   ],
 };
