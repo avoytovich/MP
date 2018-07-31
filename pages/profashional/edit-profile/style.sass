@@ -1,9 +1,12 @@
 .edit-profile-wrapper
+  .icon-edit
+    width: 38px
+    height: 38px
   .edit-button
     position: absolute
     color: white
     background-color: black
-    opacity: 0.54
+    opacity: 0.87 !important
   .cover
     &-wrapper
       width: 100%
@@ -15,6 +18,9 @@
     &-body
       height: 286px
       background-color: #f2f5f5
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
   .icon
     &-wrapper
       position: absolute
@@ -22,10 +28,40 @@
       bottom: 0
       width: 220px
       height: 220px
+      .edit-icon
+        bottom: 16px
+        right: 11px
     &-image
       width: 100%
       height: 100%
       background-position: center
+      background-size: cover
       border-radius: 50%
+
+@media (max-width: 480px)
+  .edit-profile-wrapper
+    .cover
+      &-wrapper
+        height: 119px
+        .edit-cover
+          top: 18px
+          right: 18px
+      &-body
+        height: 79px
+    .icon
+      &-wrapper
+        height: 79px
+        width: 79px
+        left: calc(50% - 79px/2)
+        .edit-icon
+          bottom: 1px
+          right: 7px
+    .icon-edit
+      width: 18px
+      height: 18px
+      span svg
+        width: 10px
+        height: 10px
+
 
 

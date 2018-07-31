@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { get } from 'lodash';
+import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
 import { updateSpecData } from '../../actions/updateData';
@@ -23,16 +24,21 @@ const mapStateToProps = ({ runtime }) => ({
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+@withRouter
 @connect(
   mapStateToProps,
   mapDispatchToProps,
 )
+@withRouter
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
   };
 
   componentDidMount() {
+    if (!this.props.router.query.id) {
+      Router.pushRoute('/');
+    }
     this.loadAndSaveProfashionalAccount();
   }
 
@@ -65,9 +71,6 @@ export default class Profashional extends React.Component {
     ) {
       this.setState({ interviewModal: true });
     }
-    if (nextProps.hideInterviewModal && this.state.interviewModal) {
-      this.setState({ interviewModal: false });
-    }
   }
 
   close = () => {
@@ -75,7 +78,15 @@ export default class Profashional extends React.Component {
   };
 
   edit = () => {
-    Router.pushRoute('/profashional/edit-profile');
+    Router.pushRoute(
+      `/profashional/${this.props.router.query.id}/edit-profile`,
+    );
+  };
+
+  handleClick = () => {
+    Router.pushRoute(
+      `/profashional/${this.props.router.query.id}/private-info`,
+    );
   };
 
   render() {
@@ -84,8 +95,9 @@ export default class Profashional extends React.Component {
         Profashional
         <Button onClick={this.edit}>Edit profile</Button>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
-          <InterviewModal />
+          <InterviewModal onClose={this.close} />
         </Modal>
+        <Button onClick={this.handleClick}>Private Info</Button>
       </div>
     );
   }

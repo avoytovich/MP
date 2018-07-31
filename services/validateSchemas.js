@@ -6,6 +6,10 @@ const email = 'email',
   toLong = 'tooLong',
   matchPassword = 'matchPassword',
   passwordReq = 'passwordReq',
+  phoneNumberReq = 'phoneNumberReq',
+  zipReq = 'zipReq',
+  bankAccountNumberReq = 'bankAccountNumberReq',
+  onlyNumbers = 'onlyNumbers',
   onlyLetters = 'onlyLetters';
 
 function equalTo(ref, msg) {
@@ -92,11 +96,79 @@ const ResetSchema = Yup.object().shape({
     .required(required),
 });
 
+const PrivateInfoSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  lastName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  email: Yup.string()
+    .email(email)
+    .required(required),
+  phoneNumber: Yup.string()
+    .min(13, toSmall)
+    .max(13, toLong)
+    .matches(/^[+][0-9]*$/, phoneNumberReq)
+    .required(required),
+  address: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  zip: Yup.string()
+    .min(4, toSmall)
+    .max(4, toLong)
+    .matches(/^[0-9]*$/, zipReq)
+    .required(required),
+  city: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  bankAccountNumber: Yup.string()
+    .min(22, toSmall)
+    .max(22, toLong)
+    .matches(/^[C][H][0-9]*$/, bankAccountNumberReq)
+    .required(required),
+  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
+const EditProfileSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .max(30, toLong)
+    .required(required),
+  slogan: Yup.string()
+    .max(50, toLong)
+    .required(required),
+  aboutMe: Yup.string()
+    .max(350, toLong)
+    .required(required),
+  expersises: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  occasion: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  languages: Yup.array()
+    .of(Yup.string())
+    .required(required),
+  currency: Yup.number().required(required),
+  hourlyRate: Yup.string()
+    .max(5, toLong)
+    .matches(/^\d{0,2}(\.\d{0,2}){0,1}$/, onlyNumbers)
+    .required(required),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
   ResetSchema,
-	InterviewSchema
+  EditProfileSchema,
+  InterviewSchema,
+  PrivateInfoSchema,
 };

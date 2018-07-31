@@ -13,7 +13,7 @@ export default function loading(runtimeNames = []) {
       const returnObj = {
         loading: runtime.loading || false,
       };
-      runtimeNames.forEach(name => (returnObj[name] = runtime[name]));
+      runtimeNames.forEach(name => (returnObj[name] = runtime[`${name}Data`]));
       return returnObj;
     };
 
@@ -32,7 +32,7 @@ export default function loading(runtimeNames = []) {
       };
 
       loadData = async (promise, opts = {}) => {
-        const options = merge(this.defOptions, opts);
+        const options = merge({}, this.defOptions, opts);
         this.setLoader(true);
         let data;
         try {
@@ -58,7 +58,6 @@ export default function loading(runtimeNames = []) {
           this.setLoader(false);
           return Promise.reject(e);
         }
-        console.log(options.unsetLoading);
         if (options.unsetLoading) this.setLoader(false);
         return Promise.resolve(data);
       };

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>CB68F68E-1DAE-4C43-A7F5-D4F07081CAF0</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Edit-Profile-0-" transform="translate(-1013.000000, -610.000000)">
+            <g id="ic_info_outline_24px" transform="translate(1012.000000, 609.000000)">
+                <polygon id="Shape" points="0 0 18 0 18 18 0 18"></polygon>
+                <path d="M8.25,12.75 L9.75,12.75 L9.75,8.25 L8.25,8.25 L8.25,12.75 Z M9,1.5 C4.86,1.5 1.5,4.86 1.5,9 C1.5,13.14 4.86,16.5 9,16.5 C13.14,16.5 16.5,13.14 16.5,9 C16.5,4.86 13.14,1.5 9,1.5 Z M9,15 C5.6925,15 3,12.3075 3,9 C3,5.6925 5.6925,3 9,3 C12.3075,3 15,5.6925 15,9 C15,12.3075 12.3075,15 9,15 Z M8.25,6.75 L9.75,6.75 L9.75,5.25 L8.25,5.25 L8.25,6.75 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

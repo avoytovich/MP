@@ -18,9 +18,10 @@ const getDefHeaders = () => ({
   ...getAuthHeaders(),
 });
 
-export const FORM_DATA_HEADERS = {
+export const getFormData = () => ({
   'Content-Type': 'multipart/form-data',
-};
+  ...getAuthHeaders(),
+});
 
 const buildUrl = url => {
   if (url.indexOf(SERVER_URL) === -1) {
@@ -28,6 +29,13 @@ const buildUrl = url => {
   }
   return url;
 };
+
+export const formData = options =>
+  axios({
+    headers: getFormData(),
+    ...options,
+    url: buildUrl(options.url || options),
+  });
 
 export const wrapRequest = options =>
   axios({
@@ -52,9 +60,9 @@ export const buildCRUD = url => {
       return wrapRequest({ method: 'DELETE', url: `${url}/${id}` });
     },
     get: (params = {}) => wrapRequest({ method: 'GET', url, params }),
-    getWithId: id => {
+    getWithId: (id, plusUrl = '') => {
       if (!id) return Promise.reject('Need id');
-      return wrapRequest({ method: 'GET', url: `${url}/${id}` });
+      return wrapRequest({ method: 'GET', url: `${url}/${id}${plusUrl}` });
     },
     getList: (opt = {}, data) => {
       const {

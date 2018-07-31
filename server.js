@@ -1,4 +1,4 @@
-// server.js
+const express = require('express');
 const next = require('next');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
@@ -19,7 +19,6 @@ const getPort = env => {
 };
 
 // With express
-const express = require('express');
 const port = getPort(process.env.NODE_ENV);
 console.log('PORT: ', port);
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);

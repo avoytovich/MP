@@ -29,6 +29,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link rel="stylesheet" href="/_next/static/style.css" />
+          <script src="https://js.stripe.com/v3/" />
         </Head>
         <body>
           <Main />

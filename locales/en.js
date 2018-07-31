@@ -18,6 +18,14 @@ export default {
       required: 'Required',
       passwordReq: 'passwordReq',
       onlyLetters: 'Only Letters',
+      onlyNumbers: 'Only Numbers',
+    },
+    confirmModal: {
+      confirm: 'Confirm',
+      editProfile:
+        'Do you want to close Edit Profile section? your information will not be saved',
+      cancel: 'Cancel',
+      ok: 'OK',
     },
   }),
   // formats: object,
