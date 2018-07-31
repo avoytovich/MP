@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 import moment from 'moment';
 
 import Stepper from '../../../components/stepper/index';
@@ -73,7 +73,7 @@ export default class PrivateInfoProfashional extends React.Component {
   handleSubmitForStepTwo = async values => {
     console.log('val', values);
     const { privateInfo } = this.props;
-    await this.props.loadData(
+    const resp = await this.props.loadData(
       profashionals.post(
         {
           address: privateInfo.address,
@@ -93,6 +93,14 @@ export default class PrivateInfoProfashional extends React.Component {
         `/${this.props.privateInfo.router.query.id}/privateInfo`,
       ),
     );
+    if (
+      get(resp, 'data.completed') &&
+      !get(this.props, 'profashionalProfile.completed')
+    ) {
+      this.props.openModal();
+    } else {
+      Router.pushRoute(`/profashional/${this.props.router.query.id}`);
+    }
   };
 
   handleBackForStepTwo = values => {
