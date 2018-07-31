@@ -18,6 +18,7 @@ export default {
       required: 'Required',
       passwordReq: 'passwordReq',
       onlyLetters: 'Only Letters',
+      onlyNumbers: 'Only Numbers',
     },
     confirmModal: {
       confirm: 'Confirm',
