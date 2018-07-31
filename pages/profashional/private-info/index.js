@@ -14,8 +14,6 @@ import { PrivateInfoSchema } from '../../../services/validateSchemas';
 
 @withFormik({
   handleSubmit: (values, options) => {
-    console.log('values', values);
-    console.log('options', options);
     return options.props.handleSubmit(values, options);
   },
 

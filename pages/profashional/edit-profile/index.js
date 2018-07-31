@@ -159,7 +159,6 @@ export default class EditProfileProfashional extends Component {
   }
 
   render() {
-    console.log(this.props.profashionalProfile);
     if (!this.props.profashionalProfile) return null;
     return (
       <div className="edit-profile-wrapper">
