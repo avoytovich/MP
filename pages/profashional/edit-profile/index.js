@@ -16,10 +16,17 @@ import EditProfile from '../../../forms/editProfile';
 
 import './style.sass';
 import withConfirmModal from '../../../services/decorators/withConfirmModal/index';
+import withModal from '../../../services/decorators/withModal/index';
 
 @loading(['profashionalProfile'])
 @withRouter
-@withConfirmModal('editProfile', 'cancel', 'ok')
+@withModal(
+  'Thank you for filling the information! Admin will contact you shortly',
+  props => Router.pushRoute(`/profashional/${props.router.query.id}`),
+)
+@withConfirmModal('editProfile', 'cancel', 'ok', props =>
+  Router.pushRoute(`/profashional/${props.router.query.id}`),
+)
 export default class EditProfileProfashional extends Component {
   constructor(props) {
     super(props);
@@ -72,7 +79,7 @@ export default class EditProfileProfashional extends Component {
   };
 
   handleSubmit = async values => {
-    await this.props.loadData(
+    const resp = await this.props.loadData(
       profashionals.put(`${this.props.router.query.id}/profile`, {
         cityId: values.city,
         coverPhotoId:
@@ -92,7 +99,19 @@ export default class EditProfileProfashional extends Component {
       }),
       { showSuccess: true },
     );
-    Router.pushRoute(`/profashional/${this.props.router.query.id}`);
+    console.log('RESP', get(resp, 'data.completed'));
+    console.log(
+      'profashionalProfile',
+      get(this.props, 'profashionalProfile.completed'),
+    );
+    if (
+      get(resp, 'data.completed') &&
+      !get(this.props, 'profashionalProfile.completed')
+    ) {
+      this.props.openModal();
+    } else {
+      Router.pushRoute(`/profashional/${this.props.router.query.id}`);
+    }
   };
 
   get initialValues() {

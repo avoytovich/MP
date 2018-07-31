@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 
 import Modal from '@material-ui/core/Modal';
-import Close from '@material-ui/icons/Close';
+import Grid from '@material-ui/core/Grid';
 
-import '../../../components/modal/modal.sass';
+import Button from '../../../components/material-wrap/button';
+import Typography from '../../../components/material-wrap/typography';
 
-export default function withModal(component, options = {}) {
+import './modal.sass';
+
+export default function withModal(text, onOk) {
   return function(Child) {
     @injectIntl
     class CustomModal extends Component {
@@ -19,6 +22,7 @@ export default function withModal(component, options = {}) {
       };
 
       handleClose = () => {
+        onOk(this.props);
         this.setState({ open: false });
       };
 
@@ -27,19 +31,27 @@ export default function withModal(component, options = {}) {
           <div>
             <Modal open={this.state.open} onClose={this.handleClose}>
               <div className="modal-window">
-                {options.withClose && (
-                  <div className="close-wrapper">
-                    <Close onClick={this.handleClose} />
-                  </div>
-                )}
-                <h1>test</h1>
+                <Grid
+                  container
+                  justify="center"
+                  direction="column"
+                  alignItems="center"
+                  className="modal-with-modal">
+                  <Typography
+                    variant="title"
+                    fontSize="24px"
+                    className="header">
+                    {text}
+                  </Typography>
+                  <Button onClick={() => onOk(this.props)}>OK</Button>
+                </Grid>
               </div>
             </Modal>
             <Child
               {...this.props}
               translate={this.translate}
-              open={this.handleOpen}
-              close={this.handleClose}
+              openModal={this.handleOpen}
+              closeModal={this.handleClose}
             />
           </div>
         );

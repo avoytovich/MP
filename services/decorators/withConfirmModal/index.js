@@ -10,7 +10,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import i18n from '../../../services/decorators/i18n';
 import Button from '../../../components/material-wrap/button';
 
-export default function withConfirmModal(confirmText, cancelText, okText) {
+export default function withConfirmModal(
+  confirmText,
+  cancelText,
+  okText,
+  onOk,
+) {
   return function(Child) {
     @i18n('confirmModal')
     class CustomConfirmModal extends Component {
@@ -46,7 +51,7 @@ export default function withConfirmModal(confirmText, cancelText, okText) {
                 <Button onClick={this.handleClose} color="primary">
                   {this.props.translate(cancelText)}
                 </Button>
-                <Button onClick={this.handleClose} color="primary" autoFocus>
+                <Button onClick={() => onOk(this.props)} color="primary">
                   {this.props.translate(okText)}
                 </Button>
               </DialogActions>
