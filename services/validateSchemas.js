@@ -111,8 +111,8 @@ const PrivateInfoSchema = Yup.object().shape({
     .email(email)
     .required(required),
   phoneNumber: Yup.string()
-    .min(16, toSmall)
-    .max(16, toLong)
+    .min(13, toSmall)
+    .max(13, toLong)
     .matches(/^[+][0-9]*$/, phoneNumberReq)
     .required(required),
   address: Yup.string()
@@ -129,8 +129,8 @@ const PrivateInfoSchema = Yup.object().shape({
     .max(30, toLong)
     .required(required),
   bankAccountNumber: Yup.string()
-    .min(23, toSmall)
-    .max(23, toLong)
+    .min(22, toSmall)
+    .max(22, toLong)
     .matches(/^[C][H][0-9]*$/, bankAccountNumberReq)
     .required(required),
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),

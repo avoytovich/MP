@@ -15,5 +15,9 @@ module.exports = routes()
   .add('with-modal', '/:modal', 'index')
   .add('root', '/:modal', 'index') // signup, login, email, verify
   .add('reset-password', '/reset-password/:key', 'index')
-  .add('privateInfo', '/private-info/:id', 'profashional/private-info')
+  .add(
+    'privateInfo',
+    '/profashional/:id/private-info',
+    'profashional/private-info',
+  )
   .add('activate', '/activate/:code', 'activate');

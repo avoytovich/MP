@@ -42,7 +42,6 @@ export default function loading(runtimeNames = []) {
               this.props.updateSpecData(data.data, options.saveTo);
           }
           if (options.showSuccess) {
-            console.log('SUCCESS');
             createNotification({
               type: 'success',
               title: options.showSuccess,

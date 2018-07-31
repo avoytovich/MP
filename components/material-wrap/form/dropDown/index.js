@@ -8,12 +8,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-import { updateSpecData } from '../../../../actions/updateData';
+import { addSpecArr } from '../../../../actions/updateData';
 
 import './dropDown.sass';
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateSpecData }, dispatch);
+  bindActionCreators({ addSpecArr }, dispatch);
 
 @connect(
   null,
@@ -44,7 +44,7 @@ export default class DropDownCustom extends React.Component {
     try {
       const response = await this.props.getFrom();
       this.setState({ optionsFromBe: response.data });
-      this.props.updateSpecData(response.data, `${this.props.field.name}List`);
+      this.props.addSpecArr(`${this.props.field.name}List`, response.data);
     } catch (e) {
       console.error(e);
     }
