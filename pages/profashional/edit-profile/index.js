@@ -97,12 +97,7 @@ export default class EditProfileProfashional extends Component {
         occasions: values.occasion,
         slogan: values.slogan,
       }),
-      { showSuccess: true },
-    );
-    console.log('RESP', get(resp, 'data.completed'));
-    console.log(
-      'profashionalProfile',
-      get(this.props, 'profashionalProfile.completed'),
+      { showSuccess: true, saveTo: 'profashionalProfile' },
     );
     if (
       get(resp, 'data.completed') &&
@@ -164,63 +159,58 @@ export default class EditProfileProfashional extends Component {
   }
 
   render() {
+    if (!this.props.profashionalProfile) return null;
     return (
-      (this.props.profashionalProfile || null) && (
-        <div className="edit-profile-wrapper">
-          <ModalHeader
-            title="Edit Profile"
-            onClose={() => this.props.openConfirm()}
-          />
-          <div className="cover-wrapper">
+      <div className="edit-profile-wrapper">
+        <ModalHeader
+          title="Edit Profile"
+          onClose={() => this.props.openConfirm()}
+        />
+        <div className="cover-wrapper">
+          <IconButton
+            aria-label="Edit"
+            onClick={() => this.openFileDialog('coverInput')}
+            className="edit-button edit-cover icon-edit">
+            <EditIcon />
+          </IconButton>
+          <div className="cover-body" style={this.coverPhotoStyle} />
+          <div className="icon-wrapper">
+            <div
+              style={{
+                backgroundImage: `url(${this.renderIconPhoto})`,
+              }}
+              className="icon-image"
+            />
             <IconButton
               aria-label="Edit"
-              onClick={() => this.openFileDialog('coverInput')}
-              className="edit-button edit-cover icon-edit">
+              onClick={() => this.openFileDialog('iconInput')}
+              className="edit-button edit-icon icon-edit">
               <EditIcon />
             </IconButton>
-            <div className="cover-body" style={this.coverPhotoStyle} />
-            <div className="icon-wrapper">
-              <div
-                style={{
-                  backgroundImage: `url(${this.renderIconPhoto})`,
-                }}
-                className="icon-image"
-              />
-              <IconButton
-                aria-label="Edit"
-                onClick={() => this.openFileDialog('iconInput')}
-                className="edit-button edit-icon icon-edit">
-                <EditIcon />
-              </IconButton>
-            </div>
           </div>
-          <Grid
-            container
-            justify="center"
-            direction="column"
-            alignItems="center">
-            <EditProfile
-              {...this.initialValues}
-              handleSubmit={this.handleSubmit}
-              validPhotos={this.getPhotoStatus}
-            />
-          </Grid>
-          <input
-            type="file"
-            style={{ display: 'none' }}
-            ref={this.coverInput}
-            onChange={this.fileCoverChange}
-            accept="image/*"
-          />
-          <input
-            type="file"
-            style={{ display: 'none' }}
-            ref={this.iconInput}
-            onChange={this.fileIconChange}
-            accept="image/*"
-          />
         </div>
-      )
+        <Grid container justify="center" direction="column" alignItems="center">
+          <EditProfile
+            {...this.initialValues}
+            handleSubmit={this.handleSubmit}
+            validPhotos={this.getPhotoStatus}
+          />
+        </Grid>
+        <input
+          type="file"
+          style={{ display: 'none' }}
+          ref={this.coverInput}
+          onChange={this.fileCoverChange}
+          accept="image/*"
+        />
+        <input
+          type="file"
+          style={{ display: 'none' }}
+          ref={this.iconInput}
+          onChange={this.fileIconChange}
+          accept="image/*"
+        />
+      </div>
     );
   }
 }
