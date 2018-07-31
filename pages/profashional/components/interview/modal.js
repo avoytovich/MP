@@ -10,7 +10,7 @@ import { Router } from '../../../../routes';
 
 import { interview, account } from '../../../../services/cruds';
 import i18n from '../../../../services/decorators/i18n';
-import { setData } from '../../../../actions/updateData';
+import { updateSpecData } from '../../../../actions/updateData';
 
 import InterviewForm from '../../../../forms/interview';
 import Typography from '../../../../components/material-wrap/typography';
@@ -23,7 +23,7 @@ const mapStateToProps = ({ runtime }) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ setData }, dispatch);
+  bindActionCreators({ updateSpecData }, dispatch);
 
 @loading()
 @withRouter
@@ -44,13 +44,17 @@ export default class InterviewModal extends Component {
           ),
         }),
       );
-      this.props.setData(true, 'hideInterviewModal');
+      await this.props.loadData(account.get(), {
+        saveTo: 'profashionalAccount',
+      });
+      this.props.onClose();
     } catch (e) {
       console.error(e);
     }
   };
 
   render() {
+    console.log(this.props);
     return (
       <Grid
         container

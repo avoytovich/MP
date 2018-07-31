@@ -71,9 +71,6 @@ export default class Profashional extends React.Component {
     ) {
       this.setState({ interviewModal: true });
     }
-    if (nextProps.hideInterviewModal && this.state.interviewModal) {
-      this.setState({ interviewModal: false });
-    }
   }
 
   close = () => {
@@ -96,13 +93,9 @@ export default class Profashional extends React.Component {
         Profashional
         <Button onClick={this.edit}>Edit profile</Button>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
-          <InterviewModal />
+          <InterviewModal onClose={this.close} />
         </Modal>
-        <Button
-          onClick={this.handleClick}
-        >
-          Private Info
-        </Button>
+        <Button onClick={this.handleClick}>Private Info</Button>
       </div>
     );
   }

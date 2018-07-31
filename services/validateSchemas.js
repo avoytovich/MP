@@ -156,8 +156,9 @@ const EditProfileSchema = Yup.object().shape({
     .of(Yup.string())
     .required(required),
   currency: Yup.number().required(required),
-  hourlyRate: Yup.number()
-    .typeError(onlyNumbers)
+  hourlyRate: Yup.string()
+    .max(5, toLong)
+    .matches(/^\d{0,2}(\.\d{0,2}){0,1}$/, onlyNumbers)
     .required(required),
 });
 
