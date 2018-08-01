@@ -29,6 +29,7 @@ export default class ForgotModal extends Component {
   forgot = async values => {
     await this.props.loadData(resetPassword.post(values.email, '/init'), {
       showSuccess: 'Link sent to your email',
+      showError: true,
     });
     Router.pushRoute('/');
   };
