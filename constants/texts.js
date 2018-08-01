@@ -58,6 +58,7 @@ export const privateInfo = {
       name: 'birthday',
       component: DatePicker,
       infoIcon: true,
+      placeholder: "dd.mm.yyyy",
     },
     {
       label: 'Gender',
@@ -65,15 +66,15 @@ export const privateInfo = {
       component: DropDown,
       options: [
         {
-          name: 'men',
+          name: 'Male',
           id: 'MALE',
         },
         {
-          name: 'female',
+          name: 'Female',
           id: 'FEMALE',
         },
         {
-          name: 'others',
+          name: 'Others',
           id: 'OTHERS',
         },
       ],
