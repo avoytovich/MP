@@ -26,6 +26,8 @@ export default {
         'Do you want to close Edit Profile section? your information will not be saved',
       cancel: 'Cancel',
       ok: 'OK',
+			yes: 'yes',
+			no: 'no',
     },
   }),
   // formats: object,
