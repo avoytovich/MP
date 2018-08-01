@@ -24,7 +24,7 @@ import withModal from '../../../services/decorators/withModal/index';
   'Thank you for filling the information! Admin will contact you shortly',
   props => Router.pushRoute(`/profashional/${props.router.query.id}`),
 )
-@withConfirmModal('editProfile', 'cancel', 'ok', props =>
+@withConfirmModal('editProfile', 'no', 'yes', props =>
   Router.pushRoute(`/profashional/${props.router.query.id}`),
 )
 export default class EditProfileProfashional extends Component {
@@ -79,7 +79,7 @@ export default class EditProfileProfashional extends Component {
   };
 
   handleSubmit = async values => {
-    const oldCompleted = get(this.props, 'profashionalProfile.completed';
+    const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.put(`${this.props.router.query.id}/profile`, {
         cityId: values.city,

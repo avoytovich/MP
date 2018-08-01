@@ -54,7 +54,6 @@ export default class InterviewModal extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Grid
         container
