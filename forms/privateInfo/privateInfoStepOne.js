@@ -41,9 +41,10 @@ export default class PrivateInfo extends React.Component {
       translate,
       handleSubmit,
       setFieldValue,
+      isValid,
     } = this.props;
     return (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
         <Grid container>
           {inputFieldsForStepOne.map((item, index) => {
             const { component, name } = item;
@@ -58,7 +59,8 @@ export default class PrivateInfo extends React.Component {
                   {...item}
                   component={component || Input}
                   fullWidth
-                  setFieldValue={/*...this.initialValues ||*/
+                  setFieldValue={
+                    /* ...this.initialValues ||*/
                     setFieldValue
                   }
                   error={translate(errors[name])}
@@ -70,7 +72,11 @@ export default class PrivateInfo extends React.Component {
           })}
         </Grid>
         <div className="buttonStepOne">
-          <Button type="submit">Continue</Button>
+          {
+            <Button type="submit" disabled={!isValid}>
+              Continue
+            </Button>
+          }
         </div>
       </Form>
     );
