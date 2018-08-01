@@ -167,7 +167,7 @@ export default class EditProfile extends React.Component {
         </div>
         <div className="footer">
           <Button disabled={!(isValid && validPhotos)} type="submit">
-            NEXT
+            Save
           </Button>
         </div>
       </Form>
