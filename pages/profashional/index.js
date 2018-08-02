@@ -5,7 +5,7 @@ import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
 import { updateSpecData } from '../../actions/updateData';
-import { account } from '../../services/cruds';
+import { account, profashionals } from '../../services/cruds';
 
 import { NON_SCHEDULED } from '../../constants/interview';
 
@@ -15,6 +15,11 @@ import Button from '../../components/material-wrap/button';
 import { Router } from '../../routes';
 
 import InterviewModal from './components/interview/modal';
+import GalleryGrid from './components/galleryGrid';
+
+import './profashional.sass';
+import loading from '../../services/decorators/loading';
+import withGallery from '../../services/decorators/withGallery/index';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
@@ -30,6 +35,8 @@ const mapDispatchToProps = (dispatch, props) =>
   mapDispatchToProps,
 )
 @withRouter
+@loading(['profashionalProfile'])
+@withGallery('profashionalProfile', 'galleryPhotos')
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
@@ -40,7 +47,17 @@ export default class Profashional extends React.Component {
       Router.pushRoute('/');
     }
     this.loadAndSaveProfashionalAccount();
+    this.loadAndSaveProfashionalProfile();
   }
+
+  loadAndSaveProfashionalProfile = async () => {
+    await this.props.loadData(
+      profashionals.getWithId(this.props.router.query.id),
+      {
+        saveTo: 'profashionalProfile',
+      },
+    );
+  };
 
   loadAndSaveProfashionalAccount = async () => {
     try {
@@ -90,14 +107,18 @@ export default class Profashional extends React.Component {
   };
 
   render() {
+    if (!this.props.profashionalProfile) return null;
     return (
-      <div>
+      <div className="profashional">
         Profashional
         <Button onClick={this.edit}>Edit profile</Button>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal onClose={this.close} />
         </Modal>
         <Button onClick={this.handleClick}>Private Info</Button>
+        <GalleryGrid
+          photos={get(this.props, 'profashionalProfile.galleryPhotos')}
+        />
       </div>
     );
   }

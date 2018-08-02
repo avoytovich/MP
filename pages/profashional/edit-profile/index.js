@@ -100,10 +100,7 @@ export default class EditProfileProfashional extends Component {
       }),
       { showSuccess: true, saveTo: 'profashionalProfile' },
     );
-    if (
-      get(resp, 'data.completed') &&
-      !oldCompleted
-    ) {
+    if (get(resp, 'data.completed') && !oldCompleted) {
       this.props.openModal();
     } else {
       Router.pushRoute(`/profashional/${this.props.router.query.id}`);

@@ -55,6 +55,10 @@ export const buildCRUD = url => {
       if (!data || !id) return Promise.reject('Need Data or id');
       return wrapRequest({ method: 'PUT', url: `${url}/${id}`, data });
     },
+    patch: (id, data) => {
+      if (!data || !id) return Promise.reject('Need Data or id');
+      return wrapRequest({ method: 'PATCH', url: `${url}/${id}`, data });
+    },
     deleteRequest: id => {
       if (!id) return Promise.reject('Need id');
       return wrapRequest({ method: 'DELETE', url: `${url}/${id}` });
