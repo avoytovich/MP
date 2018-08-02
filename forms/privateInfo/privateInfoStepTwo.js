@@ -9,12 +9,11 @@ import { Router } from '../../routes';
 
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
-import ButtonBases from '../../components/buttonBase/index';
 
 import { updateSpecData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { privateInfo } from '../../constants/texts';
-import { PrivateInfoSchema } from '../../services/validateSchemas';
+import { PrivateInfoSchemaStepTwo } from '../../services/validateSchemas';
 
 import './privateInfo.sass';
 import {
@@ -35,7 +34,7 @@ const mapDispatchToProps = dispatch =>
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
 
-  //validationSchema: props => PrivateInfoSchema,
+  validationSchema: props => PrivateInfoSchemaStepTwo,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
@@ -80,7 +79,10 @@ export default class PrivateInfo extends React.Component {
   };
 
   render() {
+    //console.log('this.props', this.props);
+    // console.log('this.state', this.state);
     const { inputFieldsForStepTwo } = privateInfo;
+    const { frontId, backId } = this.state;
     const {
       touched,
       errors,
@@ -88,6 +90,7 @@ export default class PrivateInfo extends React.Component {
       handleSubmit,
       handleBack,
       setFieldValue,
+      isValid,
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
@@ -142,8 +145,15 @@ export default class PrivateInfo extends React.Component {
           </Grid>
         </Grid>
         <div className="buttonStepTwo">
-          <Button onClick={handleBack}>Back</Button>
-          <Button type="submit">Save</Button>
+          <Button className="buttonsPrivateInfo" onClick={handleBack}>
+            Back
+          </Button>
+          <Button
+            className="buttonsPrivateInfo"
+            type="submit"
+            disabled={!(frontId && backId && isValid)}>
+            Save
+          </Button>
         </div>
         <input
           type="file"
