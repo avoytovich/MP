@@ -17,6 +17,8 @@ export default {
 			editProfile:
 				'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
       ok: 'OK',
+      yes: 'ja',
+      no: 'nein',
     },
     errors: {
       matchPassword: 'passwords do not match1',

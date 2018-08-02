@@ -1,14 +1,14 @@
 export const EXPERSISES = [
   {
-    name: 'men',
+    name: 'Men',
     id: 'MEN',
   },
   {
-    name: 'women',
+    name: 'Women',
     id: 'WOMEN',
   },
   {
-    name: 'child',
+    name: 'Kids',
     id: 'CHILD',
   },
 ];

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="301" height="190" viewBox="0 0 301 190">
+    <defs>
+        <path id="a" d="M6 0h289a6 6 0 0 1 6 6v178a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/>
+        <mask id="b" width="301" height="190" x="0" y="0" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <use fill="#FFF" stroke="#979797" stroke-dasharray="10" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".501" stroke-width="4" mask="url(#b)" xlink:href="#a"/>
+        <path fill="#757575" fill-rule="nonzero" d="M177.91 55c3.35 0 6.09 2.33 6.09 5.176v33.648c0 2.847-2.74 5.176-6.09 5.176h-54.82c-3.35 0-6.09-2.33-6.09-5.176V60.176c0-2.847 2.74-5.176 6.09-5.176h54.82zm.908 38.824V60.176H122v33.648h56.818zm-53.9-22.118h25.491v3.882h-25.491v-3.882zm0-7.47h51.31v3.882h-51.31v-3.883zm0 14.94H162v3.883h-37.082v-3.883z" opacity=".3"/>
+        <text fill="#000" fill-opacity=".87" font-family="Roboto-Regular, Roboto" font-size="18" transform="translate(105 55)">
+            <tspan x="0" y="77">+ Add Back</tspan>
+        </text>
+    </g>
+</svg>

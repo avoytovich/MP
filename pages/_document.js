@@ -30,6 +30,10 @@ class MyDocument extends Document {
           />
           <link rel="stylesheet" href="/_next/static/style.css" />
           <script src="https://js.stripe.com/v3/" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
         </Head>
         <body>
           <Main />

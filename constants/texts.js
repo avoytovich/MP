@@ -1,3 +1,4 @@
+import moment from 'moment';
 import DropDown from '../components/material-wrap/form/dropDown/index';
 import DatePicker from '../components/material-wrap/form/datePicker/index';
 import { currencies, countries } from '../services/cruds';
@@ -58,6 +59,10 @@ export const privateInfo = {
       name: 'birthday',
       component: DatePicker,
       infoIcon: true,
+      placeholder: 'dd.mm.yyyy',
+      maxDate: moment()
+        .subtract(18, 'years')
+        .format('YYYY-MM-DD'),
     },
     {
       label: 'Gender',
@@ -65,18 +70,18 @@ export const privateInfo = {
       component: DropDown,
       options: [
         {
-          name: 'men',
+          name: 'Male',
           id: 'MALE',
         },
         {
-          name: 'female',
+          name: 'Female',
           id: 'FEMALE',
         },
         {
-          name: 'others',
+          name: 'Others',
           id: 'OTHERS',
         },
       ],
-    }
+    },
   ],
 };

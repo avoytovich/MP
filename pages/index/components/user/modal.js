@@ -77,7 +77,7 @@ export default class EmailModal extends Component {
       acceptTermsAndConditions: values.confirm,
       email: values.email,
       firstName: values.firstName,
-      lastName: values.secondName,
+      lastName: values.lastName,
       login: values.email,
       password: values.password,
       profashional: values.isProfashional === 'profashional',

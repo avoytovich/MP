@@ -11,9 +11,9 @@ import ModalHeader from '../../../components/modalHeader';
 import Typography from '../../../components/material-wrap/typography';
 import PrivateInfoStepOne from '../../../forms/privateInfo/privateInfoStepOne';
 import PrivateInfoStepTwo from '../../../forms/privateInfo/privateInfoStepTwo';
-import { updateSpecData } from '../../../actions/updateData';
+import { updateSpecData, resetData } from '../../../actions/updateData';
 import { Router } from '../../../routes';
-import { profashionals } from '../../../services/cruds';
+import { account, profashionals } from '../../../services/cruds';
 import loading from '../../../services/decorators/loading';
 
 import Button from '../../../components/material-wrap/button';
@@ -22,14 +22,16 @@ import './private-info.sass';
 import { amIProfashional, isILogined } from '../../../services/accountService';
 import withConfirmModal from '../../../services/decorators/withConfirmModal';
 import withModal from '../../../services/decorators/withModal';
+import { NON_SCHEDULED } from '../../../constants/interview';
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateSpecData }, dispatch);
+  bindActionCreators({ updateSpecData, resetData }, dispatch);
 
 const mapStateToProps = ({ runtime }) => ({
   privateInfo: runtime.privateInfoData,
   countryList: runtime.countryList,
   currencyList: runtime.currencyList,
+  profashionalAccount: runtime.profashionalAccountData,
 });
 @connect(
   mapStateToProps,
@@ -40,7 +42,7 @@ const mapStateToProps = ({ runtime }) => ({
   'Thank you for filling the information! Admin will contact you shortly',
   props => Router.pushRoute(`/profashional/${props.router.query.id}`),
 )
-@withConfirmModal('editProfile', 'cancel', 'ok', props =>
+@withConfirmModal('editPrivateInfo', 'no', 'yes', props =>
   Router.pushRoute(`/profashional/${props.router.query.id}`),
 )
 @loading(['profashionalProfile'])
@@ -53,13 +55,33 @@ export default class PrivateInfoProfashional extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentWillUnmount() {
+    this.props.resetData('privateInfo');
+  }
+
+  componentWillMount() {
+    if (!this.props.router.query.id) {
+      Router.pushRoute('/');
+    }
+    this.loadAndSaveProfashionalAccount();
+  }
+
+  componentDidMount() {
     if (!isILogined() && amIProfashional()) {
       Router.pushRoute('/');
     } else {
-      await this.loadAndSave();
+      this.loadAndSave();
     }
   }
+
+  loadAndSaveProfashionalAccount = async () => {
+    try {
+      const accountResp = await account.get();
+      this.props.updateSpecData(accountResp.data, 'profashionalAccount');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   loadAndSave = async () => {
     await this.props.loadData(
@@ -137,11 +159,15 @@ export default class PrivateInfoProfashional extends React.Component {
   };
 
   get initialValues() {
-    return get(this.props, 'privateInfo') || {};
+    return (
+      get(this.props, 'privateInfo') ||
+      get(this.props, 'profashionalAccount') ||
+      {}
+    );
   }
 
   render() {
-    console.log('THIS PROPS', this.props.profashionalProfile);
+    console.log('THIS PROPS', this.props);
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
@@ -153,12 +179,12 @@ export default class PrivateInfoProfashional extends React.Component {
               onClose={() => this.props.openConfirm()}
             />
             <div className="grid-stepper">
-              <Grid className="grid" item xs={12} sm={10}>
+              <Grid className="grid" item xs={12} sm={6}>
                 <Stepper ref={this.child} />
               </Grid>
             </div>
             <div className="grid-header">
-              <Grid className="grid-header-title" item xs={12} sm={10}>
+              <Grid className="grid-header-title" item xs={12} sm={6}>
                 {forwardToNextStep ? (
                   <Typography variant="title" fontSize="20px">
                     Please provide your Private information
@@ -171,10 +197,11 @@ export default class PrivateInfoProfashional extends React.Component {
               </Grid>
             </div>
             <div className="grid-field">
-              <Grid className="grid-field-input" item xs={12} sm={10}>
+              <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
                     {...this.initialValues}
+                    privateInfo={this.props.privateInfo}
                     handleSubmit={this.handleSubmitForStepOne}
                   />
                 ) : (
