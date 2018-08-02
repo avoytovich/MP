@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="295" height="190" viewBox="0 0 295 190">
+    <defs>
+        <path id="a" d="M6 0h283a6 6 0 0 1 6 6v178a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/>
+        <mask id="b" width="295" height="190" x="0" y="0" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <use fill="#FFF" stroke="#979797" stroke-dasharray="10" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".501" stroke-width="4" mask="url(#b)" xlink:href="#a"/>
+        <path fill="#757575" fill-rule="nonzero" d="M171.91 55c3.35 0 6.09 2.33 6.09 5.176v33.648c0 2.847-2.74 5.176-6.09 5.176h-54.82c-3.35 0-6.09-2.33-6.09-5.176V60.176c0-2.847 2.74-5.176 6.09-5.176h54.82zM131.5 65a7.49 7.49 0 0 0-7.5 7.5c0 4.15 3.35 7.5 7.5 7.5s7.5-3.35 7.5-7.5-3.35-7.5-7.5-7.5zm12.941 28.468v-3.312c0-4.73-9.4-7.331-14.1-7.331-4.7 0-14.1 2.601-14.1 7.331v3.312h28.2zm28.377.356V60.176H149.5v33.648h23.318zm-20.727-18.118h18.136v3.882h-18.136v-3.882zm0-7.47h18.136v3.882h-18.136v-3.883zm0 14.94h18.136v3.883h-18.136v-3.883z" opacity=".3"/>
+        <text fill="#000" fill-opacity=".87" font-family="Roboto-Regular, Roboto" font-size="18" transform="translate(98 55)">
+            <tspan x="0" y="77">+ Add Front</tspan>
+        </text>
+    </g>
+</svg>

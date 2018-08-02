@@ -96,7 +96,7 @@ const ResetSchema = Yup.object().shape({
     .required(required),
 });
 
-const PrivateInfoSchema = Yup.object().shape({
+const PrivateInfoSchemaStepOne = Yup.object().shape({
   firstName: Yup.string()
     .min(2, toSmall)
     .max(50, toLong)
@@ -136,6 +136,12 @@ const PrivateInfoSchema = Yup.object().shape({
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
+const PrivateInfoSchemaStepTwo = Yup.object().shape({
+  birthday: Yup.string().required(required),
+  gender: Yup.string().required(required),
+  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
 const EditProfileSchema = Yup.object().shape({
   firstName: Yup.string()
     .max(30, toLong)
@@ -170,5 +176,6 @@ export {
   ResetSchema,
   EditProfileSchema,
   InterviewSchema,
-  PrivateInfoSchema,
+  PrivateInfoSchemaStepOne,
+  PrivateInfoSchemaStepTwo,
 };
