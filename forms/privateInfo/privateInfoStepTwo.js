@@ -122,26 +122,30 @@ export default class PrivateInfo extends React.Component {
             item
             xs={12}
             sm={6}>
-            <div
-              className="front pointer"
-              style={{
-                backgroundImage: `url(${this.state.front})`,
-              }}
-              onClick={() => this.openFileDialog('front')}
-            />
+            <div className="wrapped">
+              <div
+                className="front pointer"
+                style={{
+                  backgroundImage: `url(${this.state.front})`,
+                }}
+                onClick={() => this.openFileDialog('front')}
+              />
+            </div>
           </Grid>
           <Grid
             className="grid-field-input-gap images-wrapper"
             item
             xs={12}
             sm={6}>
-            <div
-              className="back pointer"
-              style={{
-                backgroundImage: `url(${this.state.back})`,
-              }}
-              onClick={() => this.openFileDialog('back')}
-            />
+            <div className="wrapped">
+              <div
+                className="back pointer"
+                style={{
+                  backgroundImage: `url(${this.state.back})`,
+                }}
+                onClick={() => this.openFileDialog('back')}
+              />
+            </div>
           </Grid>
         </Grid>
         <div className="buttonStepTwo">
