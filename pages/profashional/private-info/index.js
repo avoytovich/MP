@@ -167,7 +167,7 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   render() {
-    //console.log('THIS PROPS', this.props);
+    console.log('THIS PROPS', this.props);
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
