@@ -25,6 +25,7 @@ export default class GalleryGrid extends Component {
 
   static propTypes = {
     photos: PropTypes.array.isRequired,
+    onPhotoClick: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -59,6 +60,7 @@ export default class GalleryGrid extends Component {
           key={i}
           photo={get(this.state, `photos[${i}]`)}
           index={i}
+          onPhotoClick={this.props.onPhotoClick}
           onLoadClick={this.onLoadClick}
         />
       ));

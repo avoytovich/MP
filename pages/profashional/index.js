@@ -29,14 +29,13 @@ const mapStateToProps = ({ runtime }) => ({
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ updateSpecData }, dispatch);
 
-@withRouter
 @connect(
   mapStateToProps,
   mapDispatchToProps,
 )
 @withRouter
-@loading(['profashionalProfile'])
 @withGallery('profashionalProfile', 'galleryPhotos')
+@loading(['profashionalProfile'])
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
@@ -106,6 +105,10 @@ export default class Profashional extends React.Component {
     );
   };
 
+  onPhotoClick = index => {
+    this.props.openGal(index);
+  };
+
   render() {
     if (!this.props.profashionalProfile) return null;
     return (
@@ -117,6 +120,7 @@ export default class Profashional extends React.Component {
         </Modal>
         <Button onClick={this.handleClick}>Private Info</Button>
         <GalleryGrid
+          onPhotoClick={this.onPhotoClick}
           photos={get(this.props, 'profashionalProfile.galleryPhotos')}
         />
       </div>

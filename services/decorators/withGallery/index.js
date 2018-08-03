@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
-
+import { connect } from 'react-redux';
+import NoSSR from 'react-no-ssr';
+import Close from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
-import Grid from '@material-ui/core/Grid';
+import { get, omit } from 'lodash';
 
-import Button from '../../../components/material-wrap/button';
-import Typography from '../../../components/material-wrap/typography';
+import Gallary from './gallary';
 
 import './gallery.sass';
 
-export default function withGallery(text, onOk) {
+export default function withGallery(runtimeName, pathToGallery) {
   return function(Child) {
+    const mapStateToProps = ({ runtime }) => {
+      const returnObj = {
+        photos: get(runtime, `${runtimeName}Data.${pathToGallery}`),
+      };
+      return returnObj;
+    };
+
     @injectIntl
+    @connect(
+      mapStateToProps,
+      null,
+    )
     class Gallery extends Component {
       state = {
-        open: false,
+        open: true,
+        index: null,
       };
 
-      handleOpen = () => {
-        this.setState({ open: true });
+      handleOpen = index => {
+        this.setState({ open: true, index: index });
       };
 
       handleClose = () => {
-        onOk(this.props);
         this.setState({ open: false });
       };
 
@@ -30,13 +42,17 @@ export default function withGallery(text, onOk) {
         return (
           <div>
             <Modal open={this.state.open} onClose={this.handleClose}>
-              <div className="modal-gallery-wrapper" />
+              <div className="modal-gallery-wrapper">
+                <div className="close-wrapper pointer">
+                  <Close onClick={this.handleClose} />
+                </div>
+                <Gallary photos={this.props.photos} index={this.state.index} />
+              </div>
             </Modal>
             <Child
-              {...this.props}
-              translate={this.translate}
-              openModal={this.handleOpen}
-              closeModal={this.handleClose}
+              {...omit(this.props, runtimeName)}
+              openGal={this.handleOpen}
+              closeGal={this.handleClose}
             />
           </div>
         );

@@ -51,7 +51,6 @@ export default class DatePickerCustom extends React.Component {
       error,
       setFieldValue,
     } = this.props;
-    console.log('VQALUE', value);
     return (
       <div>
         <DatePicker
