@@ -23,7 +23,7 @@ export default class ItemGallery extends Component {
           border: !photo.path ? 'dashed 1px #979797' : 'none',
           backgroundImage: `url(${photo.path})`,
         }}
-        onClick={() => this.props.onPhotoClick(this.props.index)}>
+        onClick={() => photo.path && this.props.onPhotoClick(this.props.index)}>
         {this.props.index === 0 && (
           <div
             className="cover pointer"

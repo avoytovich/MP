@@ -39,7 +39,6 @@ export default class GalleryGrid extends Component {
   };
 
   savePhotoToState = async promise => {
-    console.log(this.props.name);
     const res = await promise;
     const newPhotosArray = [...this.props.photos, res.data];
     this.props.loadData(

@@ -95,7 +95,6 @@ export default class GalleryItem extends Component {
 
   render() {
     if (!this.props.photos) return null;
-    console.log(this.props);
     return (
       <div className="slider-wrapper">
         {this.backArrow}
