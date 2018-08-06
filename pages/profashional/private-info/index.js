@@ -16,13 +16,10 @@ import { Router } from '../../../routes';
 import { account, profashionals } from '../../../services/cruds';
 import loading from '../../../services/decorators/loading';
 
-import Button from '../../../components/material-wrap/button';
-
 import './private-info.sass';
 import { amIProfashional, isILogined } from '../../../services/accountService';
 import withConfirmModal from '../../../services/decorators/withConfirmModal';
 import withModal from '../../../services/decorators/withModal';
-import { NON_SCHEDULED } from '../../../constants/interview';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSpecData, resetData }, dispatch);
@@ -32,6 +29,7 @@ const mapStateToProps = ({ runtime }) => ({
   countryList: runtime.countryList,
   currencyList: runtime.currencyList,
   profashionalAccount: runtime.profashionalAccountData,
+  profashionalPrivateInfo: runtime.profashionalPrivateInfoData,
 });
 @connect(
   mapStateToProps,
@@ -64,6 +62,7 @@ export default class PrivateInfoProfashional extends React.Component {
       Router.pushRoute('/');
     }
     this.loadAndSaveProfashionalAccount();
+    this.loadAndSaveProfashionalPrivateInfo();
   }
 
   componentDidMount() {
@@ -81,6 +80,15 @@ export default class PrivateInfoProfashional extends React.Component {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  loadAndSaveProfashionalPrivateInfo = async () => {
+    await this.props.loadData(
+      profashionals.getWithId(this.props.router.query.id, '/privateInfo'),
+      {
+        saveTo: 'profashionalPrivateInfo',
+      },
+    );
   };
 
   loadAndSave = async () => {
@@ -115,6 +123,57 @@ export default class PrivateInfoProfashional extends React.Component {
         this.setState({
           forwardToNextStep: false,
         });
+      })
+      .catch(err => {
+        console.error('Error', err);
+      });
+  };
+
+  handleSubmitForStepOneEdit = async values => {
+    this.props.updateSpecData(values, 'privateInfo');
+    const stripe = Stripe('pk_test_opVhyp1UCaDDjQ5riDJapXY3');
+    const { firstName, lastName, bankAccountNumber } = values;
+    const {
+      privateInfo,
+      profashionalPrivateInfo,
+      countryList,
+      currencyList,
+    } = this.props;
+    const country = find(countryList[0], { id: privateInfo.country });
+    const currency = find(currencyList[0], { id: privateInfo.currency });
+    const bankAccount = {
+      country: country.code,
+      currency: currency.name,
+      account_holder_name: `${firstName} ${lastName}`,
+      account_holder_type: 'individual',
+      account_number: bankAccountNumber,
+    };
+    stripe
+      .createToken('bank_account', bankAccount)
+      .then(result => {
+        const { id } = result.token;
+        this.props.updateSpecData({ bankToken: id }, 'privateInfo');
+        this.props.loadData(
+          profashionals.post(
+            {
+              address: privateInfo.address,
+              bankToken: privateInfo.bankToken,
+              city: privateInfo.city,
+              countryId: privateInfo.country,
+              email: privateInfo.email,
+              firstName: privateInfo.firstName,
+              lastName: privateInfo.lastName,
+              phoneNumber: privateInfo.phoneNumber,
+              zip: privateInfo.zip,
+              gender: profashionalPrivateInfo.gender,
+              dob: moment(profashionalPrivateInfo.dob).format('YYYY-MM-DD'),
+              frontImageId: profashionalPrivateInfo.frontImage.id,
+              backImageId: profashionalPrivateInfo.backImage.id,
+            },
+            `/${this.props.router.query.id}/privateInfo`,
+          ),
+        );
+        Router.pushRoute(`/profashional/${this.props.router.query.id}`);
       })
       .catch(err => {
         console.error('Error', err);
@@ -161,6 +220,7 @@ export default class PrivateInfoProfashional extends React.Component {
   get initialValues() {
     return (
       get(this.props, 'privateInfo') ||
+      get(this.props, 'profashionalPrivateInfo') ||
       get(this.props, 'profashionalAccount') ||
       {}
     );
@@ -168,6 +228,7 @@ export default class PrivateInfoProfashional extends React.Component {
 
   render() {
     console.log('THIS PROPS', this.props);
+    const { profashionalPrivateInfo } = this.props;
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
@@ -178,11 +239,13 @@ export default class PrivateInfoProfashional extends React.Component {
               className="test"
               onClose={() => this.props.openConfirm()}
             />
-            <div className="grid-stepper">
-              <Grid className="grid" item xs={12} sm={6}>
-                <Stepper ref={this.child} />
-              </Grid>
-            </div>
+            {!profashionalPrivateInfo && (
+              <div className="grid-stepper">
+                <Grid className="grid" item xs={12} sm={6}>
+                  <Stepper ref={this.child} />
+                </Grid>
+              </div>
+            )}
             <div className="grid-header">
               <Grid className="grid-header-title" item xs={12} sm={6}>
                 {forwardToNextStep ? (
@@ -199,11 +262,18 @@ export default class PrivateInfoProfashional extends React.Component {
             <div className="grid-field">
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
-                  <PrivateInfoStepOne
-                    {...this.initialValues}
-                    privateInfo={this.props.privateInfo}
-                    handleSubmit={this.handleSubmitForStepOne}
-                  />
+                  profashionalPrivateInfo && (
+                    <PrivateInfoStepOne
+                      {...this.initialValues}
+                      privateInfo={this.props.privateInfo}
+                      prevPrivateInfo={this.props.profashionalPrivateInfo}
+                      handleSubmit={
+                        (!profashionalPrivateInfo &&
+                          this.handleSubmitForStepOne) ||
+                        this.handleSubmitForStepOneEdit
+                      }
+                    />
+                  )
                 ) : (
                   <PrivateInfoStepTwo
                     handleSubmit={this.handleSubmitForStepTwo}
