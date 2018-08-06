@@ -18,9 +18,6 @@ export default class GalleryGrid extends Component {
   constructor(props) {
     super(props);
     this.fileInput = React.createRef();
-    this.state = {
-      photos: props.photos,
-    };
   }
 
   static propTypes = {
@@ -42,14 +39,18 @@ export default class GalleryGrid extends Component {
   };
 
   savePhotoToState = async promise => {
+    console.log(this.props.name);
     const res = await promise;
-    const newPhotosArray = [...this.state.photos, res.data];
+    const newPhotosArray = [...this.props.photos, res.data];
     this.props.loadData(
       profashionals.patch(`${this.props.router.query.id}/galleryPhotos`, {
         galleryPhotos: newPhotosArray.map(element => element.id),
       }),
+      {
+        saveTo: this.props.name,
+        setData: true,
+      },
     );
-    this.setState({ photos: newPhotosArray });
   };
 
   get renderItems() {
@@ -58,7 +59,7 @@ export default class GalleryGrid extends Component {
       .map((item, i) => (
         <Item
           key={i}
-          photo={get(this.state, `photos[${i}]`)}
+          photo={get(this.props, `photos[${i}]`)}
           index={i}
           onPhotoClick={this.props.onPhotoClick}
           onLoadClick={this.onLoadClick}

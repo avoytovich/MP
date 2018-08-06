@@ -121,6 +121,7 @@ export default class Profashional extends React.Component {
         <Button onClick={this.handleClick}>Private Info</Button>
         <GalleryGrid
           onPhotoClick={this.onPhotoClick}
+          name="profashionalProfile"
           photos={get(this.props, 'profashionalProfile.galleryPhotos')}
         />
       </div>

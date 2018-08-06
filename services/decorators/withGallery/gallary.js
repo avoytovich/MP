@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+
+import { withRouter } from 'next/router';
 import CustomTypography from '../../../components/material-wrap/typography/index';
 
+import loading from '../loading';
+import { profashionals } from '../../cruds';
+
+@loading()
+@withRouter
 export default class GalleryItem extends Component {
   static defaultProps = {
     photos: null,
@@ -73,8 +80,22 @@ export default class GalleryItem extends Component {
     );
   }
 
+  deletePhoto = () => {
+    this.props.loadData(
+      profashionals.patch(`${this.props.router.query.id}/galleryPhotos`, {
+        galleryPhotos: this.props.photos
+          .filter(
+            element => element.id !== this.props.photos[this.state.current - 1].id,
+          )
+          .map(element => element.id),
+      }),
+      { saveTo: this.props.runtimeName, setData: true },
+    );
+  };
+
   render() {
     if (!this.props.photos) return null;
+    console.log(this.props);
     return (
       <div className="slider-wrapper">
         {this.backArrow}
@@ -96,7 +117,11 @@ export default class GalleryItem extends Component {
             fontSize="20px">
             {this.state.current} / {this.props.photos.length}
           </CustomTypography>
-          <img src="/static/svg/delete.svg" className="pointer" />
+          <img
+            src="/static/svg/delete.svg"
+            className="pointer"
+            onClick={this.deletePhoto}
+          />
         </div>
         <Slider
           className="small-slider"

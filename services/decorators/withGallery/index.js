@@ -26,7 +26,7 @@ export default function withGallery(runtimeName, pathToGallery) {
     )
     class Gallery extends Component {
       state = {
-        open: true,
+        open: false,
         index: null,
       };
 
@@ -46,7 +46,11 @@ export default function withGallery(runtimeName, pathToGallery) {
                 <div className="close-wrapper pointer">
                   <Close onClick={this.handleClose} />
                 </div>
-                <Gallary photos={this.props.photos} index={this.state.index} />
+                <Gallary
+                  runtimeName={runtimeName}
+                  photos={this.props.photos}
+                  index={this.state.index}
+                />
               </div>
             </Modal>
             <Child
