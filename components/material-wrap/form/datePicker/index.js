@@ -4,12 +4,17 @@ import Popover from '@material-ui/core/Popover';
 import { DatePicker } from 'material-ui-pickers';
 
 import Typography from '../../typography';
+import Input from '../input';
 
 import './datePicker.sass';
 
 export default class DatePickerCustom extends React.Component {
+  constructor(props) {
+    super(props);
+    this.calendar = React.createRef();
+  }
   state = {
-    anchorEl: null,
+    anchorEl: null
   };
 
   get renderEndAdornment() {
@@ -37,9 +42,13 @@ export default class DatePickerCustom extends React.Component {
     });
   };
 
+  openCalendar = () => {
+    this.calendar.current.open();
+  }
+
   render() {
     const {
-      field: { name, value = null },
+      field: { name, value = '', onBlur },
       id = name,
       fullWidth,
       className = '',
@@ -54,6 +63,24 @@ export default class DatePickerCustom extends React.Component {
     } = this.props;
     return (
       <div>
+        <Input
+          id={id}
+          field={{ name, value }}
+          infoIcon
+          fullWidth={fullWidth}
+          placeholder={placeholder}
+          className={className}
+          onClick={this.openCalendar}
+          disabled={disabled}
+          error={!!(touched && error)}
+          label={error || label}
+          maxDate={maxDate}
+          date
+          format="DD.MM.YYYY"
+          keyboardIcon={this.renderEndAdornment}
+          value={value}
+          onChange={val => setFieldValue(name, val)}
+        />
         <DatePicker
           id={id}
           name={name}
@@ -61,6 +88,8 @@ export default class DatePickerCustom extends React.Component {
           placeholder={placeholder}
           className={className}
           disabled={disabled}
+          ref={this.calendar}
+          style={{ display: 'none' }}
           error={!!(touched && error)}
           label={error || label}
           maxDate={maxDate}
@@ -70,6 +99,7 @@ export default class DatePickerCustom extends React.Component {
           // mask={val => (val ? [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/] : [])}
           value={value}
           onChange={val => setFieldValue(name, val)}
+          onBlur={onBlur}
         />
         {infoIcon && (
           <Popover

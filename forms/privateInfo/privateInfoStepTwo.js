@@ -9,6 +9,7 @@ import { Router } from '../../routes';
 
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
+import Typography from '../../components/material-wrap/typography';
 
 import { updateSpecData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
@@ -79,7 +80,7 @@ export default class PrivateInfo extends React.Component {
   };
 
   render() {
-    //console.log('this.props', this.props);
+    // console.log('this.props', this.props);
     // console.log('this.state', this.state);
     const { inputFieldsForStepTwo } = privateInfo;
     const { frontId, backId } = this.state;
@@ -128,8 +129,14 @@ export default class PrivateInfo extends React.Component {
                 style={{
                   backgroundImage: `url(${this.state.front})`,
                 }}
-                onClick={() => this.openFileDialog('front')}
-              />
+                onClick={() => this.openFileDialog('front')}>
+                <Typography
+                  className="card-side"
+                  fontSize="18px"
+                  variant="title">
+                  + Add Front
+                </Typography>
+              </div>
             </div>
           </Grid>
           <Grid
@@ -143,8 +150,14 @@ export default class PrivateInfo extends React.Component {
                 style={{
                   backgroundImage: `url(${this.state.back})`,
                 }}
-                onClick={() => this.openFileDialog('back')}
-              />
+                onClick={() => this.openFileDialog('back')}>
+                <Typography
+                  className="card-side"
+                  fontSize="18px"
+                  variant="title">
+                  + Add Back
+                </Typography>
+              </div>
             </div>
           </Grid>
         </Grid>
