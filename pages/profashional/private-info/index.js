@@ -262,7 +262,7 @@ export default class PrivateInfoProfashional extends React.Component {
             <div className="grid-field">
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
-                  /*profashionalPrivateInfo &&*/ (
+                  profashionalPrivateInfo && (
                     <PrivateInfoStepOne
                       {...this.initialValues}
                       privateInfo={this.props.privateInfo}

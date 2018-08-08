@@ -85,3 +85,23 @@ export const privateInfo = {
     },
   ],
 };
+
+export const listOfProfashionals = {
+  images: [
+    {
+      title: 'Special ocasion',
+      alt: 'special ocasion',
+      src: '../static/png/special_ocasion.png',
+    },
+    {
+      title: 'Inspiration',
+      alt: 'inspiration',
+      src: '../static/png/inspiration.png',
+    },
+    {
+      title: 'Explore city',
+      alt: 'explore_city',
+      src: '../static/png/explore_city.png',
+    },
+  ],
+};
