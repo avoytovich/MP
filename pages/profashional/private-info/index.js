@@ -233,7 +233,7 @@ export default class PrivateInfoProfashional extends React.Component {
 
   render() {
     console.log('THIS PROPS', this.props);
-    console.log('THIS State', this.state);
+    //console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,

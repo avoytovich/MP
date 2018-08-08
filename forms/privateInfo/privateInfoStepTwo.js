@@ -130,12 +130,14 @@ export default class PrivateInfo extends React.Component {
                   backgroundImage: `url(${this.state.front})`,
                 }}
                 onClick={() => this.openFileDialog('front')}>
-                <Typography
-                  className="card-side"
-                  fontSize="18px"
-                  variant="title">
-                  + Add Front
-                </Typography>
+                {!frontId && (
+                  <Typography
+                    className="card-side"
+                    fontSize="18px"
+                    variant="title">
+                    + Add Front
+                  </Typography>
+                )}
               </div>
             </div>
           </Grid>
@@ -151,12 +153,14 @@ export default class PrivateInfo extends React.Component {
                   backgroundImage: `url(${this.state.back})`,
                 }}
                 onClick={() => this.openFileDialog('back')}>
-                <Typography
-                  className="card-side"
-                  fontSize="18px"
-                  variant="title">
-                  + Add Back
-                </Typography>
+                {!backId && (
+                  <Typography
+                    className="card-side"
+                    fontSize="18px"
+                    variant="title">
+                    + Add Back
+                  </Typography>
+                )}
               </div>
             </div>
           </Grid>
