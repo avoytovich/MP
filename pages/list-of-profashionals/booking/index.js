@@ -1,0 +1,92 @@
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+
+import ModalHeader from '../../../components/modalHeader';
+import Stepper from '../../../components/bookingStepper/index';
+import Typography from '../../../components/material-wrap/typography';
+import TripDetails from '../../../forms/booking/bookingTripDetails';
+import PaymentDetails from '../../../forms/booking/bookingPaymentDetails';
+import PrivateInfoStepTwo from '../../../forms/privateInfo/privateInfoStepTwo';
+
+import './booking.sass';
+import ProfashionalInfo from '../../../components/profashionalInfo';
+import { find } from 'lodash';
+
+export default class Booking extends React.Component {
+  constructor(props) {
+    super(props);
+    this.child = React.createRef();
+    this.state = {
+      forwardToSecondStep: true,
+      forwardToThirdStep: false,
+    };
+  }
+
+  handleBackForStepTwo = values => {
+    this.child.current.handleBack();
+    this.setState({
+      forwardToSecondStep: true,
+    });
+  };
+
+  handleSubmitForStepOne = values => {
+    this.child.current.handleNext();
+    console.log("handleSubmitForStepOne", this.state)
+    this.setState({
+      forwardToSecondStep: false,
+    });
+  };
+
+  render() {
+    console.log('props', this.props);
+    console.log('forward', this.state.forwardToSecondStep);
+
+    let step;
+
+    if (this.state.forwardToThirdStep){
+      step=<Confirm/>
+    }
+    else if (this.state.forwardToSecondStep){
+      step=<PaymentDetails
+        handleSubmit={this.handleSubmitForStepTwo}
+        handleBack={this.handleBackForStepTwo}
+      />
+    }
+    else{
+      step=<TripDetails
+        {...this.initialValues}
+        privateInfo={this.props.privateInfo}
+        handleSubmit={this.handleSubmitForStepOne}
+      />
+    };
+
+    return (
+      <div className="booking-step">
+        <Grid container spacing={0} justify="center">
+          <Grid item xs={12} sm={12}>
+            <ModalHeader
+              title="Booking"
+              className="test"
+              onClose={() => this.props.openConfirm()}
+            />
+            <div className="grid-stepper">
+              <Grid className="grid" item xs={12} sm={6}>
+                <Stepper ref={this.child} />
+              </Grid>
+            </div>
+            <div className="profashional-info-section">
+              <Grid className="grid" item xs={12} sm={6}>
+                <ProfashionalInfo />
+              </Grid>
+            </div>
+            <div className="grid-field">
+              <Grid className="grid-field-input" item xs={12} sm={6}>
+                {step}
+              </Grid>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
+}

@@ -31,6 +31,15 @@ export default {
       yes: 'yes',
       no: 'no',
     },
+    booking: {
+      cancellationPolicyFullText:
+        'If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process?',
+      cancellationPolicyShortText:
+        'If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process?… ',
+      more: 'More',
+      cancellationPolicyTitle: 'Cancellation policy:',
+      who: 'Who is shopper?',
+    },
   }),
   // formats: object,
   // messages: object,

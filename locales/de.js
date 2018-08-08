@@ -30,6 +30,12 @@ export default {
       onlyLetters: 'Only Letters',
 			onlyNumbers: 'Only Numbers',
     },
+    cancellationPolicy: {
+      fullText:
+        'DE If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process? If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process?',
+      shortText:
+        'DE If success is a process with a number of defined steps, then it is just like any other process. So, what is the first step in any process?… ',
+    },
   }),
   // formats: object,
   // messages: object,
