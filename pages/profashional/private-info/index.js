@@ -63,15 +63,20 @@ export default class PrivateInfoProfashional extends React.Component {
     }
     this.loadAndSaveProfashionalAccount();
     this.loadAndSaveProfashionalPrivateInfo();
-  }
-
-  componentDidMount() {
     if (!isILogined() && amIProfashional()) {
       Router.pushRoute('/');
     } else {
       this.loadAndSave();
     }
   }
+
+  /* componentDidMount() {
+    if (!isILogined() && amIProfashional()) {
+      Router.pushRoute('/');
+    } else {
+      this.loadAndSave();
+    }
+  }*/
 
   loadAndSaveProfashionalAccount = async () => {
     try {
@@ -227,8 +232,14 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   render() {
-    //console.log('THIS PROPS', this.props);
-    const { profashionalPrivateInfo } = this.props;
+    console.log('THIS PROPS', this.props);
+    console.log('THIS State', this.state);
+    const {
+      profashionalPrivateInfo,
+      profashionalProfile,
+      profashionalAccount,
+    } = this.props;
+    const { isConfirmed } = profashionalAccount.userExtra.profashional;
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
@@ -239,13 +250,14 @@ export default class PrivateInfoProfashional extends React.Component {
               className="test"
               onClose={() => this.props.openConfirm()}
             />
-            {!profashionalPrivateInfo && (
-              <div className="grid-stepper">
-                <Grid className="grid" item xs={12} sm={6}>
-                  <Stepper ref={this.child} />
-                </Grid>
-              </div>
-            )}
+            {profashionalAccount &&
+              !isConfirmed && (
+                <div className="grid-stepper">
+                  <Grid className="grid" item xs={12} sm={6}>
+                    <Stepper ref={this.child} />
+                  </Grid>
+                </div>
+              )}
             <div className="grid-header">
               <Grid className="grid-header-title" item xs={12} sm={6}>
                 {forwardToNextStep ? (
@@ -262,18 +274,17 @@ export default class PrivateInfoProfashional extends React.Component {
             <div className="grid-field">
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
-                  profashionalPrivateInfo && (
-                    <PrivateInfoStepOne
-                      {...this.initialValues}
-                      privateInfo={this.props.privateInfo}
-                      prevPrivateInfo={this.props.profashionalPrivateInfo}
-                      handleSubmit={
-                        (!profashionalPrivateInfo &&
-                          this.handleSubmitForStepOne) ||
-                        this.handleSubmitForStepOneEdit
-                      }
-                    />
-                  )
+                  <PrivateInfoStepOne
+                    {...this.initialValues}
+                    privateInfo={this.props.privateInfo}
+                    completed={isConfirmed}
+                    handleSubmit={
+                      (profashionalAccount &&
+                        !isConfirmed &&
+                        this.handleSubmitForStepOne) ||
+                      this.handleSubmitForStepOneEdit
+                    }
+                  />
                 ) : (
                   <PrivateInfoStepTwo
                     handleSubmit={this.handleSubmitForStepTwo}

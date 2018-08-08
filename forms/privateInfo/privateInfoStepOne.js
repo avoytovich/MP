@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch =>
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
   render() {
-    console.log('this.props', this.props);
+    //console.log('this.props', this.props);
     const { inputFieldsForStepOne } = privateInfo;
     const {
       touched,
@@ -45,7 +45,7 @@ export default class PrivateInfo extends React.Component {
       setFieldValue,
       isValid,
       dirty,
-      prevPrivateInfo,
+      completed,
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
@@ -77,16 +77,16 @@ export default class PrivateInfo extends React.Component {
         </Grid>
         <div
           className={
-            (!prevPrivateInfo && 'buttonStepOne') || 'edit-button-step-one'
+            (!completed && 'buttonStepOne') || 'edit-button-step-one'
           }>
           <Button
             className={
-              (!prevPrivateInfo && 'buttonsPrivateInfo') ||
+              (!completed && 'buttonsPrivateInfo') ||
               'edit-buttons-private-info'
             }
             type="submit"
             disabled={this.props.privateInfo && !dirty ? false : !isValid}>
-            {!prevPrivateInfo ? 'Continue' : 'Save'}
+            {!completed ? 'Continue' : 'Save'}
           </Button>
         </div>
       </Form>

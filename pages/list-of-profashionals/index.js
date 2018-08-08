@@ -6,7 +6,7 @@ import { find, get } from 'lodash';
 import { withRouter } from 'next/router';
 import moment from 'moment';
 
-import Stepper from '../../components/stepper/index';
+import Transition from '../../components/transition';
 import ModalHeader from '../../components/modalHeader';
 import Typography from '../../components/material-wrap/typography';
 import Header from '../../components/header/index';
@@ -76,17 +76,7 @@ export default class ListOfProfashionals extends React.Component {
                   return (
                     <div key={index} className="grid-field-input-gap">
                       <img alt={alt} src={src} />
-                      <div
-                        ref={this.animation}
-                        className="grid-field-input-gap-signature"
-                        onClick={this.handleAnimation}>
-                        <Typography
-                          variant="title"
-                          fontSize="18px"
-                          className="header">
-                          {title}
-                        </Typography>
-                      </div>
+                      <Transition />
                     </div>
                   );
                 })}
