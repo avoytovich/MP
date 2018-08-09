@@ -10,16 +10,18 @@ import { account, profashionals } from '../../services/cruds';
 import { NON_SCHEDULED } from '../../constants/interview';
 
 import Modal from '../../components/modal';
+import ProfashionalIconWithCover from '../../components/profashionalIconWithCover';
+import Header from '../../components/header';
 import Button from '../../components/material-wrap/button';
 
+import loading from '../../services/decorators/loading';
+import withGallery from '../../services/decorators/withGallery/index';
 import { Router } from '../../routes';
 
 import InterviewModal from './components/interview/modal';
 import GalleryGrid from './components/galleryGrid';
 
 import './profashional.sass';
-import loading from '../../services/decorators/loading';
-import withGallery from '../../services/decorators/withGallery/index';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
@@ -93,12 +95,6 @@ export default class Profashional extends React.Component {
     this.setState({ interviewModal: false });
   };
 
-  edit = () => {
-    Router.pushRoute(
-      `/profashional/${this.props.router.query.id}/edit-profile`,
-    );
-  };
-
   handleClick = () => {
     Router.pushRoute(
       `/profashional/${this.props.router.query.id}/private-info`,
@@ -113,8 +109,11 @@ export default class Profashional extends React.Component {
     if (!this.props.profashionalProfile) return null;
     return (
       <div className="profashional">
+        <ProfashionalIconWithCover
+          profashionalProfile={this.props.profashionalProfile}>
+          <Header />
+        </ProfashionalIconWithCover>
         Profashional
-        <Button onClick={this.edit}>Edit profile</Button>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal onClose={this.close} />
         </Modal>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import NoSSR from 'react-no-ssr';
 import Close from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 import { get, omit } from 'lodash';

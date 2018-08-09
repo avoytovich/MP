@@ -7,6 +7,14 @@ function isILogined() {
   return false;
 }
 
+function getMyFirstAndLastName() {
+  return `${getLocale('firstName')} ${getLocale('lastName')}`;
+}
+
+function getMyPhoto() {
+  return `${getLocale('avaUrl')}`;
+}
+
 function amIProfashional() {
   if (
     getLocale('authorities') &&
@@ -17,4 +25,4 @@ function amIProfashional() {
   return false;
 }
 
-export { isILogined, amIProfashional };
+export { isILogined, amIProfashional, getMyFirstAndLastName, getMyPhoto };

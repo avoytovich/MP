@@ -5,20 +5,36 @@ import Reorder from '@material-ui/icons/Reorder';
 import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Popover from '@material-ui/core/Popover';
+import MenuItem from '@material-ui/core/MenuItem';
+import NoSSR from 'react-no-ssr';
 
 import { Router } from '../../routes';
 
 import i18n from '../../services/decorators/i18n';
+import { clear } from '../../services/serverService';
+import {
+  isILogined,
+  getMyFirstAndLastName,
+  getMyPhoto,
+  amIProfashional,
+} from '../../services/accountService';
 
-import { menuProps } from '../../constants/landing/menu';
+import { menuProps, profashionalOptions } from '../../constants/landing/menu';
+import CustomTypography from '../material-wrap/typography/index';
 
 import './header.sass';
 
 @i18n('menu')
 @withRouter
 export default class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.target = React.createRef();
+  }
   state = {
     opened: false,
+    menuOpen: false,
   };
 
   burgerToggle = () => {
@@ -27,36 +43,108 @@ export default class Header extends Component {
     });
   };
 
+  toggleDropDownDesktop = () => {
+    this.setState({
+      menuOpen: !this.state.menuOpen,
+    });
+  };
+
   onClick = href => {
     Router.pushRoute(href);
   };
 
+  onMenuClick = name => {
+    switch (name) {
+      case 'logOut':
+        clear();
+    }
+    Router.pushRoute('/');
+    this.toggleDropDownDesktop();
+  };
+
   get renderDesktopLinks() {
-    return menuProps.map((element, key) => {
-      return (
-        <Typography
-          variant="subheading"
-          className="menu-item"
-          key={key}
-          onClick={() => this.onClick(element.href)}>
-          {this.props.translate(element.translateVariable)}
-        </Typography>
-      );
-    });
+    if (!isILogined()) {
+      return menuProps.map((element, key) => {
+        return (
+          <Typography
+            variant="subheading"
+            className="menu-item"
+            key={key}
+            onClick={() => this.onClick(element.href)}>
+            {this.props.translate(element.translateVariable)}
+          </Typography>
+        );
+      });
+    }
+    // IF USER IS LOGINED
+    return (
+      <div
+        className="header-logined-wrapper pointer"
+        onClick={this.toggleDropDownDesktop}>
+        <div
+          className="header-avatar"
+          style={{ backgroundImage: `url(${getMyPhoto()})` }}
+        />
+        <CustomTypography fontSize="18px" className="white">
+          {getMyFirstAndLastName()}
+        </CustomTypography>
+        <div className="header-arrow-down" />
+        <Popover
+          anchorEl={this.target.current}
+          open={this.state.menuOpen}
+          onClose={this.toggleDropDownDesktop}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}>
+          {amIProfashional()
+            ? profashionalOptions.map((option, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => this.onMenuClick(option.translateVariable)}
+                  className="header-menu-item">
+                  {this.props.translate(option.translateVariable)}
+                </MenuItem>
+              ))
+            : null}
+        </Popover>
+        <div className="header-hidden-target" ref={this.target} />
+      </div>
+    );
   }
 
   get renderMobileLinks() {
-    return menuProps.map((element, key) => {
-      return (
-        <Typography
-          onClick={() => this.onClick(element.href)}
-          variant="subheading"
-          className="menu-item mobile"
-          key={key}>
-          {this.props.translate(element.translateVariable)}
-        </Typography>
-      );
-    });
+    if (!isILogined()) {
+      return menuProps.map((element, key) => {
+        return (
+          <Typography
+            onClick={() => this.onClick(element.href)}
+            variant="subheading"
+            className="menu-item mobile"
+            key={key}>
+            {this.props.translate(element.translateVariable)}
+          </Typography>
+        );
+      });
+    }
+    if (amIProfashional()) {
+      return profashionalOptions.map((element, key) => {
+        return (
+          <Typography
+            onClick={() => this.onClick(element.href)}
+            variant="subheading"
+            className="menu-item mobile"
+            key={key}>
+            {this.props.translate(element.translateVariable)}
+          </Typography>
+        );
+      });
+    }
+    return null;
   }
 
   get stylesForMenu() {
@@ -80,18 +168,16 @@ export default class Header extends Component {
       <div className="nav-wrapper">
         <nav>
           <div className="navWide">
-            <Typography variant="subheading" className="menu-item logo">
-              Logo
-            </Typography>
-            <div className="wideDiv">{this.renderDesktopLinks}</div>
+            <img src="/static/svg/logoWhite.svg" className="menu-item logo" />
+            <div className="wideDiv">
+              <NoSSR>{this.renderDesktopLinks}</NoSSR>
+            </div>
           </div>
           <div
             className="navNarrow"
             style={{ backgroundColor: opened ? 'white' : 'unset' }}>
-            <Typography variant="subheading" className="menu-item">
-              Logo
-            </Typography>
-            <div className="icon-wrapper">
+            <img src="/static/svg/logoWhite.svg" className="menu-item logo" />
+            <div className="menu-icon-wrapper">
               <IconButton>{this.renderIcon}</IconButton>
             </div>
           </div>

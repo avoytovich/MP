@@ -9,6 +9,11 @@ export default {
       becomeProfashional: 'Become a profashional',
       logIn: 'Log in',
       signUp: 'Sign Up',
+      home: 'Home',
+      profile: 'Profile',
+      privateInfo: 'Private Info',
+      settings: 'Settings',
+      logOut: 'Log Out',
     },
     errors: {
       matchPassword: 'passwords do not match',
@@ -30,6 +35,10 @@ export default {
       ok: 'OK',
       yes: 'yes',
       no: 'no',
+    },
+    common: {
+      hour: 'hour',
+      meetings: 'meetings',
     },
   }),
   // formats: object,

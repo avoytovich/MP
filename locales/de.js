@@ -7,9 +7,14 @@ export default {
       testString: 'German text',
     },
     menu: {
-      becomeProfashional: 'Become a profashional',
-      logIn: 'Log in',
-      signUp: 'Sign Up',
+			becomeProfashional: 'Become a profashional',
+			logIn: 'Log in',
+			signUp: 'Sign Up',
+			home: 'Home',
+			profile: 'Profile',
+			privateInfo: 'Private Info',
+			settings: 'Settings',
+			logOut: 'Log Out',
     },
 		confirmModal: {
       confirm: 'Bestätigen',
@@ -30,6 +35,10 @@ export default {
       onlyLetters: 'Only Letters',
 			onlyNumbers: 'Only Numbers',
     },
+		common: {
+			hour: 'hour',
+			meetings: 'meetings',
+		},
   }),
   // formats: object,
   // messages: object,

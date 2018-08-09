@@ -12,9 +12,9 @@ import { profashionals } from '../../../services/cruds';
 import { Router } from '../../../routes';
 
 import ModalHeader from '../../../components/modalHeader';
+import ProfashionalIconWithCover from '../../../components/profashionalIconWithCover';
 import EditProfile from '../../../forms/editProfile';
 
-import './style.sass';
 import withConfirmModal from '../../../services/decorators/withConfirmModal/index';
 import withModal from '../../../services/decorators/withModal/index';
 
@@ -124,29 +124,6 @@ export default class EditProfileProfashional extends Component {
     };
   }
 
-  get coverPhotoStyle() {
-    const coverUrl = this.state.coverUrl.path;
-    const coverUrlFromServer = get(
-      this.props,
-      'profashionalProfile.coverPhoto.path',
-    );
-    return {
-      border: coverUrl || coverUrlFromServer ? '' : 'dashed 1px #000000',
-      backgroundImage:
-        (coverUrl && `url(${coverUrl})`) ||
-        (coverUrlFromServer && `url(${coverUrlFromServer})`) ||
-        '',
-    };
-  }
-
-  get renderIconPhoto() {
-    return (
-      this.state.iconUrl.path ||
-      get(this.props, 'profashionalProfile.icon.path') ||
-      '/static/svg/placeholder.svg'
-    );
-  }
-
   get getPhotoStatus() {
     const profile = this.props.profashionalProfile;
     const isCoverValid = Boolean(
@@ -164,29 +141,13 @@ export default class EditProfileProfashional extends Component {
           title="Edit Profile"
           onClose={() => this.props.openConfirm()}
         />
-        <div className="cover-wrapper">
-          <IconButton
-            aria-label="Edit"
-            onClick={() => this.openFileDialog('coverInput')}
-            className="edit-button edit-cover icon-edit">
-            <EditIcon />
-          </IconButton>
-          <div className="cover-body" style={this.coverPhotoStyle} />
-          <div className="icon-wrapper">
-            <div
-              style={{
-                backgroundImage: `url(${this.renderIconPhoto})`,
-              }}
-              className="icon-image"
-            />
-            <IconButton
-              aria-label="Edit"
-              onClick={() => this.openFileDialog('iconInput')}
-              className="edit-button edit-icon icon-edit">
-              <EditIcon />
-            </IconButton>
-          </div>
-        </div>
+        <ProfashionalIconWithCover
+          openFileDialog={this.openFileDialog}
+          coverUrl={this.state.coverUrl}
+          iconUrl={this.state.iconUrl}
+          profashionalProfile={this.props.profashionalProfile}
+          isEdit
+        />
         <Grid container justify="center" direction="column" alignItems="center">
           <EditProfile
             {...this.initialValues}

@@ -6,12 +6,13 @@ import Button from '@material-ui/core/Button';
 
 import Typography from '../typography';
 
-import './buttonStyle.sass';
+import './style.sass';
 
-export default class OurButton extends React.Component {
+export default class OurButtonWithIcon extends React.Component {
   static propTypes = {
     variant: PropTypes.string,
     className: PropTypes.string,
+    icon: PropTypes.node.isRequired,
     onClick: PropTypes.func,
   };
 
@@ -24,7 +25,10 @@ export default class OurButton extends React.Component {
     return (
       <Button
         {...omit(this.props, 'className')}
-        className={'def-mp-button ' + this.props.className}>
+        className={'def-icon-button ' + this.props.className}
+        variant="contained"
+        color="default">
+        {this.props.icon}
         <Typography variant="button">{this.props.children}</Typography>
       </Button>
     );
