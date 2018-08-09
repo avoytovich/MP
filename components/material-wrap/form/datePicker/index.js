@@ -45,6 +45,7 @@ export default class DatePickerCustom extends React.Component {
       className = '',
       touched,
       label,
+      maxDate,
       placeholder,
       disabled,
       infoIcon,
@@ -62,6 +63,7 @@ export default class DatePickerCustom extends React.Component {
           disabled={disabled}
           error={!!(touched && error)}
           label={error || label}
+          maxDate={maxDate}
           format="DD.MM.YYYY"
           keyboardIcon={this.renderEndAdornment}
           // handle clearing outside => pass plain array if you are not controlling value outside

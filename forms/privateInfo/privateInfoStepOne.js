@@ -13,7 +13,7 @@ import Button from '../../components/material-wrap/button';
 import { setData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { privateInfo } from '../../constants/texts';
-import { PrivateInfoSchema } from '../../services/validateSchemas';
+import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
 
 import './privateInfo.sass';
 
@@ -26,14 +26,16 @@ const mapDispatchToProps = dispatch =>
   mapDispatchToProps,
 )
 @withFormik({
-  handleSubmit: (values, options) =>
-    options.props.handleSubmit(values, options),
+  handleSubmit: (values, options) => {
+    options.props.handleSubmit(values, options);
+  },
 
-  validationSchema: props => PrivateInfoSchema,
+  validationSchema: props => PrivateInfoSchemaStepOne,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
   render() {
+    //console.log('this.props', this.props);
     const { inputFieldsForStepOne } = privateInfo;
     const {
       touched,
@@ -42,6 +44,7 @@ export default class PrivateInfo extends React.Component {
       handleSubmit,
       setFieldValue,
       isValid,
+      dirty,
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
@@ -72,11 +75,12 @@ export default class PrivateInfo extends React.Component {
           })}
         </Grid>
         <div className="buttonStepOne">
-          {
-            <Button type="submit" disabled={!isValid}>
-              Continue
-            </Button>
-          }
+          <Button
+            className="buttonsPrivateInfo"
+            type="submit"
+            disabled={this.props.privateInfo && !dirty ? false : !isValid}>
+            Continue
+          </Button>
         </div>
       </Form>
     );
