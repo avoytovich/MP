@@ -50,6 +50,7 @@ export default class PrivateInfoProfashional extends React.Component {
     this.child = React.createRef();
     this.state = {
       forwardToNextStep: true,
+      steps: ['Private information', 'ID Card'],
     };
   }
 
@@ -254,7 +255,7 @@ export default class PrivateInfoProfashional extends React.Component {
               !isConfirmed && (
                 <div className="grid-stepper">
                   <Grid className="grid" item xs={12} sm={6}>
-                    <Stepper ref={this.child} />
+                    <Stepper ref={this.child} steps={this.state.steps}/>
                   </Grid>
                 </div>
               )}

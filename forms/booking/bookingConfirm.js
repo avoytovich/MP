@@ -12,10 +12,11 @@ import Button from '../../components/material-wrap/button';
 
 import { setData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
-import { privateInfo } from '../../constants/texts';
+import { bookingLabels } from '../../constants/bookingLabels';
 import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
 
-import './privateInfo.sass';
+import './bookingDetails.sass';
+import Typography from "../../components/material-wrap/typography";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -32,62 +33,70 @@ const mapDispatchToProps = dispatch =>
 
   validationSchema: props => PrivateInfoSchemaStepOne,
 })
-@i18n('errors')
-export default class PrivateInfo extends React.Component {
+@i18n('errors', 'booking')
+export default class Confirm extends React.Component {
   render() {
-    //console.log('this.props', this.props);
-    const { inputFieldsForStepOne } = privateInfo;
+    console.log('this.props', this.props);
+    const { inputFieldsForConfirm} = bookingLabels;
     const {
       touched,
       errors,
       translate,
       handleSubmit,
+      handleBack,
       setFieldValue,
       isValid,
       dirty,
-      completed,
     } = this.props;
+
     return (
-      <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
+      <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
+        <div className="grid-header">
+          <Grid className="grid-header-title" item xs={12} sm={12}>
+            <Typography variant="title" fontSize="20px">
+              {this.props.translate('checkout', 'booking')}
+            </Typography>
+          </Grid>
+        </div>
         <Grid container>
-          {inputFieldsForStepOne.map((item, index) => {
-            const { component, name } = item;
+          {inputFieldsForConfirm.map((item, index) => {
+            const { component, name, sm, additionalClass} = item;
             return (
               <Grid
                 key={index}
                 className="grid-field-input-gap"
                 item
                 xs={12}
-                sm={6}>
+                sm={sm || 6}>
                 <Field
                   {...item}
                   component={component || Input}
                   fullWidth
+
                   setFieldValue={
-                    /* ...this.initialValues ||*/
+                    // [...this.initialValues]
                     setFieldValue
                   }
                   error={translate(errors[name])}
                   touched={touched[name]}
-                  className="default-input "
+                  className={`default-input ${additionalClass}`}
                 />
               </Grid>
             );
           })}
         </Grid>
 
-        <div
-          className={
-            (!completed && 'buttonStepOne') || 'edit-button-step-one'
-          }>
+        <div className="buttonStepTwo">
+          <Button className="buttonsBookingDetails" onClick={handleBack}>
+            Back
+          </Button>
           <Button
-            className={
-              (!completed && 'buttonsPrivateInfo') ||
-              'edit-buttons-private-info'
-            }
+            onClick={this.props.handleSubmit}
+            className="buttonsBookingDetails"
             type="submit"
-            disabled={this.props.privateInfo && !dirty ? false : !isValid}>
-            {!completed ? 'Continue' : 'Save'}
+            // disabled={this.props.privateInfo && !dirty ? false : !isValid}
+          >
+            Book
           </Button>
         </div>
       </Form>
