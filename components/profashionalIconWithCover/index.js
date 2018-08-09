@@ -50,6 +50,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
 
   get renderAddinationalInfoDesctop() {
     const {
+			username,
       firstName,
       currentRate,
       currency,
@@ -64,7 +65,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
               className="flex-with-margin"
               variant="button"
               fontSize="24px">
-              {firstName}
+              {username || firstName}
             </CustomTypography>
             {currentRate && (
               <CustomTypography

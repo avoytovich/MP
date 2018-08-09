@@ -12,6 +12,7 @@ export default {
 			signUp: 'Sign Up',
 			home: 'Home',
 			profile: 'Profile',
+			editProfile: 'Edit Profile',
 			privateInfo: 'Private Info',
 			settings: 'Settings',
 			logOut: 'Log Out',
@@ -60,6 +61,10 @@ export default {
 			SPORTS: 'Sports',
 			CASUAL: 'Casual',
 			BUSINESS: 'Business',
+		},
+		reviews: {
+			reviews: 'Reviews',
+			noReviews: 'No reviews yet!',
 		},
   }),
   // formats: object,

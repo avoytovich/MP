@@ -6,6 +6,8 @@
     width: 100%
     padding-left: 15%
     padding-right: 15%
+    &.availability
+      padding-top: 37px
     .profashional-info
       display: flex
       flex-wrap: wrap
@@ -16,6 +18,8 @@
         align-items: center
         flex-wrap: wrap
         margin-bottom: 16px
+        h3
+          margin-right: 6px
       .first-block
         width: 220px
       .second-block
@@ -27,18 +31,27 @@
           margin-left: 24px
         width: calc(100% - 220px)
 
+@media (max-width: 580px)
+  .profashional-info
+    .first-block
+      min-width: 100%
+    .second-block
+      min-width: 100%
+    .slogan, .occasions-container
+      margin-left: 0!important
+
 @media (max-width: 480px)
   .profashional
     &-grid
       padding-left: 16px
       padding-right: 16px
+      &.availability
+        padding-top: 24px
       .profashional-info
         margin-bottom: 24px
         margin-top: 0
         .info-container
           margin-bottom: 13px
-        .first-block
-          min-width: 100%
-        .second-block
-          width: 100%
+          h3
+            margin-right: 14px
 

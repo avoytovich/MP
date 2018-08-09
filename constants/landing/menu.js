@@ -24,6 +24,9 @@ const profashionalOptions = [
     translateVariable: 'privateInfo',
   },
   {
+    translateVariable: 'editProfile',
+  },
+  {
     translateVariable: 'settings',
   },
   {

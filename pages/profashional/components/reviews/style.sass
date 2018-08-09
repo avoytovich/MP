@@ -1,0 +1,46 @@
+.reviews-wrapper
+  .count-and-rate
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    margin-bottom: 33px
+    h2
+      margin-right: 17px
+  .reviews
+    &-item-wrapper
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      margin-bottom: 33px
+    .comment-body
+      min-width: 100%
+    &-item-first
+      width: 50%
+      .date
+        color: grey
+        margin-top: 8px
+        margin-bottom: 22px
+    &-item-second
+      display: flex
+      justify-content: flex-end
+      width: 50%
+      .rate-wrapper
+        height: auto!important
+        align-items: flex-start!important
+
+@media (max-width: 480px)
+  .reviews-wrapper
+    .count-and-rate
+      margin-bottom: 16px
+      h2
+        margin-right: 8px
+    .reviews
+      &-item-wrapper
+        margin-bottom: 24px
+      &-item-first
+       .date
+        margin-top: 10px
+        margin-bottom: 18px
+      &-item-second
+         .rate-wrapper
+          align-items: center!important

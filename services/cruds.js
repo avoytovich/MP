@@ -13,3 +13,4 @@ export const languages = buildCRUD('languages');
 export const profashionals = buildCRUD('profashionals');
 export const cities = buildCRUD('cities');
 export const countries = buildCRUD('countries');
+export const ratings = buildCRUD('ratings');

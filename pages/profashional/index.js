@@ -5,7 +5,7 @@ import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
 import { updateSpecData } from '../../actions/updateData';
-import { account, profashionals } from '../../services/cruds';
+import { account, profashionals, ratings } from '../../services/cruds';
 
 import { NON_SCHEDULED } from '../../constants/interview';
 
@@ -19,11 +19,12 @@ import withGallery from '../../services/decorators/withGallery/index';
 import { Router } from '../../routes';
 
 import InterviewModal from './components/interview/modal';
+import Reviews from './components/reviews';
 import GalleryGrid from './components/galleryGrid';
-
-import './profashional.sass';
 import CustomTypography from '../../components/material-wrap/typography/index';
 import i18n from '../../services/decorators/i18n';
+
+import './profashional.sass';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
@@ -39,19 +40,20 @@ const mapDispatchToProps = (dispatch, props) =>
 )
 @withRouter
 @withGallery('profashionalProfile', 'galleryPhotos')
-@loading(['profashionalProfile'])
+@loading(['profashionalProfile', 'profashionalRatings'])
 @i18n('common')
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     if (!this.props.router.query.id) {
       Router.pushRoute('/');
     }
     this.loadAndSaveProfashionalAccount();
     this.loadAndSaveProfashionalProfile();
+    this.loadAndSaveRatings();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,23 +67,6 @@ export default class Profashional extends React.Component {
       this.setState({ interviewModal: true });
     }
   }
-
-  loadAndSaveProfashionalProfile = async () => {
-    await this.props.loadData(
-      profashionals.getWithId(this.props.router.query.id),
-      {
-        saveTo: 'profashionalProfile',
-      },
-    );
-  };
-
-  close = () => {
-    this.setState({ interviewModal: false });
-  };
-
-  onPhotoClick = index => {
-    this.props.openGal(index);
-  };
 
   loadAndSaveProfashionalAccount = async () => {
     try {
@@ -100,6 +85,38 @@ export default class Profashional extends React.Component {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  loadAndSaveProfashionalProfile = async () => {
+    await this.props.loadData(
+      profashionals.getWithId(this.props.router.query.id),
+      {
+        saveTo: 'profashionalProfile',
+      },
+    );
+  };
+
+  loadAndSaveRatings = async () => {
+    await this.props.loadData(
+      ratings.getList({
+        params: {
+          profashionalId: this.props.router.query.id,
+          page: 0,
+          size: 10,
+        },
+      }),
+      {
+        saveTo: 'profashionalRatings',
+      },
+    );
+  };
+
+  close = () => {
+    this.setState({ interviewModal: false });
+  };
+
+  onPhotoClick = index => {
+    this.props.openGal(index);
   };
 
   get renderExpertise() {
@@ -196,7 +213,7 @@ export default class Profashional extends React.Component {
 
   render() {
     if (!this.props.profashionalProfile) return null;
-    console.log(this.props.profashionalProfile);
+    if (!this.props.profashionalRatings) return null;
     return (
       <div className="profashional">
         <ProfashionalIconWithCover
@@ -221,6 +238,14 @@ export default class Profashional extends React.Component {
             name="profashionalProfile"
             photos={get(this.props, 'profashionalProfile.galleryPhotos')}
           />
+        </div>
+        <div className="profashional-grid profashional-block availability">
+          <CustomTypography variant="title" fontSize="24px">
+            Availability:
+          </CustomTypography>
+        </div>
+        <div className="profashional-grid profashional-block availability">
+          <Reviews profashionalRatings={this.props.profashionalRatings} profashionalProfile={this.props.profashionalProfile} />
         </div>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal onClose={this.close} />

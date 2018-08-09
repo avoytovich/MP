@@ -12,7 +12,7 @@ import NoSSR from 'react-no-ssr';
 import { Router } from '../../routes';
 
 import i18n from '../../services/decorators/i18n';
-import { clear } from '../../services/serverService';
+import { clear, getLocale } from '../../services/serverService';
 import {
   isILogined,
   getMyFirstAndLastName,
@@ -57,8 +57,15 @@ export default class Header extends Component {
     switch (name) {
       case 'logOut':
         clear();
+        Router.pushRoute('/');
+        break;
+      case 'privateInfo':
+        Router.pushRoute(`/profashional/${getLocale('id')}/private-info`);
+        break;
+      case 'editProfile':
+        Router.pushRoute(`/profashional/${getLocale('id')}/edit-profile`);
+        break;
     }
-    Router.pushRoute('/');
     this.toggleDropDownDesktop();
   };
 
@@ -135,7 +142,7 @@ export default class Header extends Component {
       return profashionalOptions.map((element, key) => {
         return (
           <Typography
-            onClick={() => this.onClick(element.href)}
+            onClick={() => this.onMenuClick(element.translateVariable)}
             variant="subheading"
             className="menu-item mobile"
             key={key}>
