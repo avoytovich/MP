@@ -22,18 +22,10 @@ export default class CancellationPolicy extends React.Component {
 
     return (
       <div>
-        {this.state.expanded ? (
           <Typography variant="subheading" fontSize="16px">
-            {this.props.translate('cancellationPolicyFullText')}
+            {this.props.translate('learnmore', 'booking')}
+            <a href="#">{this.props.translate('learnmoreclick', 'booking')}</a>
           </Typography>
-        ) : (
-          <Typography variant="subheading" fontSize="16px">
-            {this.props.translate('cancellationPolicyShortText')}
-            <span className="more-button" onClick={this.showMore}>
-              {this.props.translate('more')}
-            </span>
-          </Typography>
-        )}
       </div>
     );
   }

@@ -52,9 +52,24 @@ export default class PaymentDetails extends React.Component {
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
+        <div className="grid-header">
+          <Grid className="grid-header-title" item xs={12} sm={12} container justify="space-between" alignItems="center">
+            <Typography variant="title" fontSize="20px">
+              {this.props.translate('addCard', 'booking')}
+            </Typography>
+            <Grid item xs={3} container className="cards-container" alignItems="center">
+              <Grid item xs={6} className="pic-cnt" alignItems="center">
+                <img className="avacard-logo" src="/static/visa-card.png" alt="visa logo"/>
+              </Grid>
+              <Grid item xs={6} className="pic-cnt" alignItems="center">
+                <img className="card-logo" src="/static/mastercard-card.png" alt="mastercard logo"/>
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
         <Grid container>
           {inputFieldsForPaymentDetails.map((item, index) => {
-            const { component, name, sm } = item;
+            const { component, name, sm, additionalClass } = item;
             return (
               <Grid
                 key={index}
@@ -72,7 +87,7 @@ export default class PaymentDetails extends React.Component {
                   }
                   error={translate(errors[name])}
                   touched={touched[name]}
-                  className="default-input "
+                  className={`default-input ${additionalClass}`}
                 />
               </Grid>
             );

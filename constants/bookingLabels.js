@@ -18,11 +18,13 @@ export const bookingLabels = {
       label: 'Start time',
       name: 'startTime',
       component: TimePicker,
+      additionalClass: 'required',
     },
     {
       label: 'End time (Estimated)',
       name: 'endTime',
       component: TimePicker,
+      additionalClass: 'required',
     },
     {
       label: 'Preferred meeting location',
@@ -42,10 +44,12 @@ export const bookingLabels = {
     {
       label: 'First Name',
       name: 'firstName',
+      additionalClass: 'required',
     },
     {
       label: 'Last Name',
       name: 'lastName',
+      additionalClass: 'required',
     },
     {
       label: 'Phone Number',
@@ -53,6 +57,7 @@ export const bookingLabels = {
       infoIcon: true,
       placeholder: '+41793002030',
       sm: 12,
+      additionalClass: 'required',
     },
     {
       label: 'Birthday',
@@ -84,19 +89,23 @@ export const bookingLabels = {
       label: 'Card Holder Name',
       name: 'cardHolderName',
       sm: 12,
+      additionalClass: 'required',
     },
     {
       label: 'Card Number',
       name: 'cardNumber',
       sm: 12,
+      additionalClass: 'required',
     },
     {
       label: 'Expiry Date',
       name: 'expiryDate',
+      additionalClass: 'required',
     },
     {
       label: 'CVV',
       name: 'cvv',
+      additionalClass: 'required',
     },
   ],
   inputFieldsForConfirm: [
@@ -120,6 +129,8 @@ export const bookingLabels = {
       label: 'Estimated Price',
       name: 'estimatedPrice',
       sm: 12,
+      additionalClass: "bold",
+      infoIcon: true,
     },
     {
       name: 'confirmNotebox',

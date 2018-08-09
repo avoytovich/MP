@@ -51,9 +51,16 @@ export default class TripDetails extends React.Component {
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
+        <div className="grid-header">
+          <Grid className="grid-header-title" item xs={12} sm={12}>
+            <Typography variant="title" fontSize="20px">
+              {this.props.translate('where', 'booking')}
+            </Typography>
+          </Grid>
+        </div>
         <Grid container>
           {inputFieldsForTripDetails1.map((item, index) => {
-            const { component, name, sm } = item;
+            const { component, name, sm, additionalClass } = item;
             return (
               <Grid
                 key={index}
@@ -71,7 +78,7 @@ export default class TripDetails extends React.Component {
                   }
                   error={translate(errors[name])}
                   touched={touched[name]}
-                  className="default-input "
+                  className={`default-input ${additionalClass}`}
                 />
               </Grid>
             );
@@ -86,7 +93,7 @@ export default class TripDetails extends React.Component {
         </div>
         <Grid container>
           {inputFieldsForTripDetails2.map((item, index) => {
-            const { component, name, sm } = item;
+            const { component, name, sm, additionalClass } = item;
             return (
               <Grid
                 key={index}
@@ -104,19 +111,12 @@ export default class TripDetails extends React.Component {
                   }
                   error={translate(errors[name])}
                   touched={touched[name]}
-                  className="default-input "
+                  className={`default-input ${additionalClass}`}
                 />
               </Grid>
             );
           })}
         </Grid>
-        <div className="grid-header">
-          <Grid className="grid-header-title" item xs={12} sm={12}>
-            <Typography variant="title" fontSize="20px">
-              {this.props.translate('cancellationPolicyTitle', 'booking')}
-            </Typography>
-          </Grid>
-        </div>
         <div className="cancellation-policy-container">
           <Grid item xs={12} sm={12}>
             <CancellationPolicy/>

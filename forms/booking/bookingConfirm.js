@@ -51,9 +51,16 @@ export default class Confirm extends React.Component {
 
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
+        <div className="grid-header">
+          <Grid className="grid-header-title" item xs={12} sm={12}>
+            <Typography variant="title" fontSize="20px">
+              {this.props.translate('checkout', 'booking')}
+            </Typography>
+          </Grid>
+        </div>
         <Grid container>
           {inputFieldsForConfirm.map((item, index) => {
-            const { component, name, sm} = item;
+            const { component, name, sm, additionalClass} = item;
             return (
               <Grid
                 key={index}
@@ -72,7 +79,7 @@ export default class Confirm extends React.Component {
                   }
                   error={translate(errors[name])}
                   touched={touched[name]}
-                  className="default-input "
+                  className={`default-input ${additionalClass}`}
                 />
               </Grid>
             );
