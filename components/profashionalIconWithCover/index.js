@@ -3,11 +3,13 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { withRouter } from 'next/router';
 import { get } from 'lodash';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import IconOurButton from '../material-wrap/buttonWithIcon';
 import CustomTypography from '../material-wrap/typography/index';
 import Rate from '../rate';
 import i18n from '../../services/decorators/i18n';
+import { createNotification } from '../../services/notification';
 
 import { Router } from '../../routes';
 
@@ -61,7 +63,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
             <CustomTypography
               className="flex-with-margin"
               variant="button"
-              fontSize="20px">
+              fontSize="24px">
               {firstName}
             </CustomTypography>
             {currentRate && (
@@ -74,7 +76,18 @@ export default class ProfashionalCoverPhoto extends React.Component {
               </CustomTypography>
             )}
           </div>
-          <div className="copy-link">button</div>
+          <CopyToClipboard
+            onCopy={() =>
+              createNotification('info', this.props.translate('copied'))
+            }
+            text={`http://demo.myprofashional.com${this.props.router.asPath}`}>
+            <div className="copy-link pointer">
+              <img src="/static/svg/copyLink.svg" />
+              <CustomTypography fontSize="14px" variant="button">
+                {this.props.translate('copyLink')}
+              </CustomTypography>
+            </div>
+          </CopyToClipboard>
         </div>
         {numberOfTrips && (
           <div className="near-icon">
@@ -115,7 +128,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
             <CustomTypography
               className="flex-with-margin"
               variant="button"
-              fontSize="20px">
+              fontSize="24px">
               {firstName}
             </CustomTypography>
           </div>
@@ -123,7 +136,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
         {numberOfTrips && (
           <div className="near-icon">
             <CustomTypography
-              className="flex-with-margin"
+              className="flex-with-margin meetings-mobile"
               variant="subheading"
               fontSize="20px">
               {numberOfTrips}

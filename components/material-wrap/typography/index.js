@@ -23,6 +23,8 @@ export default class CustomTypography extends React.Component {
     switch (this.props.fontSize) {
       case '12px':
         return 'other-text ';
+      case '14px':
+        return 'other-text-big ';
       case '16px':
         return 'default-text ';
       case '18px':

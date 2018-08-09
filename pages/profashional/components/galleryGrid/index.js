@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { withRouter } from 'next/router';
 
-import { isMobile } from '../../../../services/windowService';
 import { profashionals } from '../../../../services/cruds';
 import loading from '../../../../services/decorators/loading';
 import { checkPhoto, sendPhoto } from '../../../../services/photoService';
@@ -53,7 +52,7 @@ export default class GalleryGrid extends Component {
   };
 
   get renderItems() {
-    return new Array(isMobile() ? 6 : 8)
+    return new Array(8)
       .fill(null)
       .map((item, i) => (
         <Item

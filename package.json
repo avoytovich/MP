@@ -37,6 +37,7 @@
     "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",
     "react": "^16.4.1",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.1",
     "react-facebook-login": "^4.0.1",
     "react-google-login": "^3.2.1",
