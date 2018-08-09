@@ -30,6 +30,9 @@ export default class ItemGallery extends Component {
             onClick={e => {
               e.stopPropagation();
               this.props.onLoadClick(e);
+            }}
+            style={{
+              backgroundColor: photo.path ? 'rgba(0,0,0,0.5)' : '',
             }}>
             <img src="/static/svg/addPhoto.svg" />
             <Typography className="text" fontSize="18px" variant="title">

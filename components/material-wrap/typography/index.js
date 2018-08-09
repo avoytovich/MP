@@ -33,6 +33,8 @@ export default class CustomTypography extends React.Component {
         return 'default-sub-header-text ';
       case '24px':
         return 'default-header-text ';
+      case '25.2px':
+        return 'big-text ';
       default:
         return 'default-text ';
     }

@@ -13,6 +13,7 @@ export default {
       profile: 'Profile',
       privateInfo: 'Private Info',
       settings: 'Settings',
+			editProfile: 'Edit Profile',
       logOut: 'Log Out',
     },
     errors: {
@@ -62,6 +63,10 @@ export default {
       SPORTS: 'Sports',
       CASUAL: 'Casual',
       BUSINESS: 'Business',
+    },
+    reviews: {
+      reviews: 'Reviews',
+      noReviews: 'No reviews yet!',
     },
   }),
   // formats: object,
