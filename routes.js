@@ -8,6 +8,11 @@ module.exports = routes()
   .add('shoper', '/shoper', 'shoper')
   .add('profashional', '/profashional/:id', 'profashional')
   .add(
+    'listOfProfashionals',
+    '/list-of-profashionals/:id',
+    'list-of-profashionals',
+  )
+  .add(
     'profashionalEditProfile',
     '/profashional/:id/edit-profile',
     'profashional/edit-profile',
