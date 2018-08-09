@@ -68,6 +68,19 @@ export default {
       reviews: 'Reviews',
       noReviews: 'No reviews yet!',
     },
+    listOfProfashionals: {
+      title: 'HOW TO USE?',
+    },
+    listOfProfashionalsTitle: {
+      0: 'Special ocasion',
+      1: 'Inspiration',
+      2: 'Explore city',
+    },
+    listOfProfashionalsContent: {
+      0: 'Don’t raise your voice, improve your argument',
+      1: 'If you want to achieve greatness stop asking for permission',
+      2: 'To live a creative life, we must lose our fear of being wrong',
+    },
   }),
   // formats: object,
   // messages: object,
