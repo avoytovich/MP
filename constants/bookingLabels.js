@@ -2,10 +2,12 @@ import moment from 'moment';
 import DropDown from '../components/material-wrap/form/dropDown/index';
 import TextArea from '../components/material-wrap/form/textArea/index';
 import DatePicker from '../components/material-wrap/form/datePicker/index';
+import TimePicker from '../components/material-wrap/form/timePicker/index';
+
 import { currencies, countries } from '../services/cruds';
 
 const hours = [
-  { id: 1, name: '9:00' },
+  { id: 1, name: '00:00' },
   { id: 2, name: '10:00' },
   { id: 3, name: '11:00' },
 ];
@@ -15,14 +17,12 @@ export const bookingLabels = {
     {
       label: 'Start time',
       name: 'startTime',
-      component: DropDown,
-      options: hours,
+      component: TimePicker,
     },
     {
       label: 'End time (Estimated)',
       name: 'endTime',
-      component: DropDown,
-      options: hours,
+      component: TimePicker,
     },
     {
       label: 'Preferred meeting location',
@@ -97,6 +97,35 @@ export const bookingLabels = {
     {
       label: 'CVV',
       name: 'cvv',
+    },
+  ],
+  inputFieldsForConfirm: [
+    {
+      label: 'Preferred Meeting Location',
+      name: 'confirmMeetingLocation',
+      sm: 12,
+      setFieldValue: 'Auqapark',
+    },
+    {
+      label: 'Estimated Starting Time',
+      name: 'EstimatedStartTime',
+      fieldValue: '9:00',
+    },
+    {
+      label: 'Estimated End Time',
+      name: 'EstimatedEndTime',
+      fieldValue: '11:00',
+    },
+    {
+      label: 'Estimated Price',
+      name: 'estimatedPrice',
+      sm: 12,
+    },
+    {
+      name: 'confirmNotebox',
+      component: TextArea,
+      sm: 12,
+      placeholder: "I am from NYC and love Shopping in European cities like Zurich. Looking for a local to show me fashion hot-spots. "
     },
   ],
 };

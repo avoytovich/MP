@@ -6,6 +6,7 @@ import Stepper from '../../../components/bookingStepper/index';
 import Typography from '../../../components/material-wrap/typography';
 import TripDetails from '../../../forms/booking/bookingTripDetails';
 import PaymentDetails from '../../../forms/booking/bookingPaymentDetails';
+import Confirm from '../../../forms/booking/bookingConfirm';
 import PrivateInfoStepTwo from '../../../forms/privateInfo/privateInfoStepTwo';
 
 import './booking.sass';
@@ -17,7 +18,7 @@ export default class Booking extends React.Component {
     super(props);
     this.child = React.createRef();
     this.state = {
-      forwardToSecondStep: true,
+      forwardToSecondStep: false,
       forwardToThirdStep: false,
     };
   }
@@ -25,15 +26,32 @@ export default class Booking extends React.Component {
   handleBackForStepTwo = values => {
     this.child.current.handleBack();
     this.setState({
-      forwardToSecondStep: true,
+      forwardToSecondStep: false,
+    });
+  };
+
+  handleBackForStepThree = values => {
+    this.child.current.handleBack();
+    this.setState({
+      forwardToThirdStep: false,
     });
   };
 
   handleSubmitForStepOne = values => {
+    console.log("go handleSubmitForStepOne")
     this.child.current.handleNext();
     console.log("handleSubmitForStepOne", this.state)
     this.setState({
-      forwardToSecondStep: false,
+      forwardToSecondStep: true,
+    });
+  };
+
+  handleSubmitForStepTwo = values => {
+    console.log("go handleSubmitForStepTwo")
+    this.child.current.handleNext();
+    console.log("handleSubmitForStepTwo", this.state)
+    this.setState({
+      forwardToThirdStep: true,
     });
   };
 
@@ -44,11 +62,15 @@ export default class Booking extends React.Component {
     let step;
 
     if (this.state.forwardToThirdStep){
-      step=<Confirm/>
+      step=<Confirm
+        handleBack={this.handleBackForStepThree}
+        // handleSubmit={this.handleSubmitForStepThree}
+      />
     }
     else if (this.state.forwardToSecondStep){
       step=<PaymentDetails
-        handleSubmit={this.handleSubmitForStepTwo}
+        // handleSubmit={this.handleSubmitForStepTwo}
+        handleContinue={this.handleSubmitForStepTwo}
         handleBack={this.handleBackForStepTwo}
       />
     }
@@ -56,7 +78,8 @@ export default class Booking extends React.Component {
       step=<TripDetails
         {...this.initialValues}
         privateInfo={this.props.privateInfo}
-        handleSubmit={this.handleSubmitForStepOne}
+        // handleSubmit={this.handleSubmitForStepOne}
+        handleContinue={this.handleSubmitForStepOne}
       />
     };
 

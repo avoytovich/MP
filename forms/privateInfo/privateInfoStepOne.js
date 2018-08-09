@@ -74,7 +74,7 @@ export default class PrivateInfo extends React.Component {
             );
           })}
         </Grid>
-        <div className="buttonStepOne">
+        <div className="buttonStepTwo">
           <Button
             className="buttonsPrivateInfo"
             type="submit"

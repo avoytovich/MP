@@ -28,9 +28,9 @@ const mapDispatchToProps = dispatch =>
   mapDispatchToProps,
 )
 @withFormik({
-  handleSubmit: (values, options) => {
-    options.props.handleSubmit(values, options);
-  },
+  // handleSubmit: (values, options) => {
+  //   options.props.handleSubmit(values, options);
+  // },
 
   validationSchema: props => PrivateInfoSchemaStepOne,
 })
@@ -44,6 +44,7 @@ export default class TripDetails extends React.Component {
       errors,
       translate,
       handleSubmit,
+      handleContinue,
       setFieldValue,
       isValid,
       dirty,
@@ -123,9 +124,10 @@ export default class TripDetails extends React.Component {
         </div>
         <div className="buttonStepOne">
           <Button
-            onClick={this.props.handleSubmit}
+            // onClick={handleSubmit}
+            onClick={handleContinue}
             className="buttonsBookingDetails"
-            type="submit"
+            // type="submit"
             // disabled={this.props.privateInfo && !dirty ? false : !isValid}
           >
             Continue

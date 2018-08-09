@@ -34,27 +34,26 @@ const mapDispatchToProps = dispatch =>
   validationSchema: props => PrivateInfoSchemaStepOne,
 })
 @i18n('errors', 'booking')
-export default class PaymentDetails extends React.Component {
+export default class Confirm extends React.Component {
   render() {
-    console.log('Payment Rendering');
-    // console.log('this.props', this.props);
-    const {inputFieldsForPaymentDetails} = bookingLabels;
+    console.log('this.props', this.props);
+    const { inputFieldsForConfirm} = bookingLabels;
     const {
       touched,
       errors,
       translate,
       handleSubmit,
       handleBack,
-      handleContinue,
       setFieldValue,
       isValid,
       dirty,
     } = this.props;
+
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
         <Grid container>
-          {inputFieldsForPaymentDetails.map((item, index) => {
-            const { component, name, sm } = item;
+          {inputFieldsForConfirm.map((item, index) => {
+            const { component, name, sm} = item;
             return (
               <Grid
                 key={index}
@@ -66,8 +65,9 @@ export default class PaymentDetails extends React.Component {
                   {...item}
                   component={component || Input}
                   fullWidth
+
                   setFieldValue={
-                    /* ...this.initialValues ||*/
+                    // [...this.initialValues]
                     setFieldValue
                   }
                   error={translate(errors[name])}
@@ -78,17 +78,18 @@ export default class PaymentDetails extends React.Component {
             );
           })}
         </Grid>
+
         <div className="buttonStepTwo">
           <Button className="buttonsBookingDetails" onClick={handleBack}>
             Back
           </Button>
           <Button
+            onClick={this.props.handleSubmit}
             className="buttonsBookingDetails"
-            onClick={handleContinue}
-            // type="submit"
+            type="submit"
             // disabled={this.props.privateInfo && !dirty ? false : !isValid}
-            >
-            Continue
+          >
+            Book
           </Button>
         </div>
       </Form>
