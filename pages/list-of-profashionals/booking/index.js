@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import ModalHeader from '../../../components/modalHeader';
-import Stepper from '../../../components/bookingStepper/index';
+import Stepper from '../../../components/stepper/index';
 import Typography from '../../../components/material-wrap/typography';
 import TripDetails from '../../../forms/booking/bookingTripDetails';
 import PaymentDetails from '../../../forms/booking/bookingPaymentDetails';
@@ -20,6 +20,7 @@ export default class Booking extends React.Component {
     this.state = {
       forwardToSecondStep: false,
       forwardToThirdStep: false,
+      steps: ['Trip details', 'Payment Details', 'Confirm'],
     };
   }
 
@@ -94,7 +95,7 @@ export default class Booking extends React.Component {
             />
             <div className="grid-stepper">
               <Grid className="grid" item xs={12} sm={6}>
-                <Stepper ref={this.child} />
+                <Stepper steps={this.state.steps} ref={this.child}/>
               </Grid>
             </div>
             <div className="profashional-info-section">

@@ -17,7 +17,6 @@ import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
 
 import './bookingDetails.sass';
 import Typography from "../../components/material-wrap/typography";
-import CancellationPolicy from "../../components/cancellationPolicy/index";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -119,7 +118,10 @@ export default class TripDetails extends React.Component {
         </Grid>
         <div className="cancellation-policy-container">
           <Grid item xs={12} sm={12}>
-            <CancellationPolicy/>
+            <Typography variant="subheading" fontSize="16px">
+              {this.props.translate('learnmore', 'booking')}
+              <a href="#">{this.props.translate('learnmoreclick', 'booking')}</a>
+            </Typography>
           </Grid>
         </div>
         <div className="buttonStepOne">
