@@ -1,15 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="295" height="190" viewBox="0 0 295 190">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="295px" height="190px" viewBox="0 0 295 190" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
     <defs>
-        <path id="a" d="M6 0h283a6 6 0 0 1 6 6v178a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/>
-        <mask id="b" width="295" height="190" x="0" y="0" fill="#fff">
-            <use xlink:href="#a"/>
+        <path d="M6,0 L289,0 C292.313708,-6.08718376e-16 295,2.6862915 295,6 L295,184 C295,187.313708 292.313708,190 289,190 L6,190 C2.6862915,190 4.05812251e-16,187.313708 0,184 L0,6 C-4.05812251e-16,2.6862915 2.6862915,6.08718376e-16 6,0 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="295" height="190" fill="white">
+            <use xlink:href="#path-1"></use>
         </mask>
     </defs>
-    <g fill="none" fill-rule="evenodd">
-        <use fill="#FFF" stroke="#979797" stroke-dasharray="10" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".501" stroke-width="4" mask="url(#b)" xlink:href="#a"/>
-        <path fill="#757575" fill-rule="nonzero" d="M171.91 55c3.35 0 6.09 2.33 6.09 5.176v33.648c0 2.847-2.74 5.176-6.09 5.176h-54.82c-3.35 0-6.09-2.33-6.09-5.176V60.176c0-2.847 2.74-5.176 6.09-5.176h54.82zM131.5 65a7.49 7.49 0 0 0-7.5 7.5c0 4.15 3.35 7.5 7.5 7.5s7.5-3.35 7.5-7.5-3.35-7.5-7.5-7.5zm12.941 28.468v-3.312c0-4.73-9.4-7.331-14.1-7.331-4.7 0-14.1 2.601-14.1 7.331v3.312h28.2zm28.377.356V60.176H149.5v33.648h23.318zm-20.727-18.118h18.136v3.882h-18.136v-3.882zm0-7.47h18.136v3.882h-18.136v-3.883zm0 14.94h18.136v3.883h-18.136v-3.883z" opacity=".3"/>
-        <text fill="#000" fill-opacity=".87" font-family="Roboto-Regular, Roboto" font-size="18" transform="translate(98 55)">
-            <tspan x="0" y="77">+ Add Front</tspan>
-        </text>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Private-Info-1.1-" transform="translate(-413.000000, -352.000000)">
+            <g id="Group-4" transform="translate(413.000000, 352.000000)">
+                <g id="Group-9">
+                    <use id="Rectangle-8" stroke-opacity="0.501019022" stroke="#979797" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10" xlink:href="#path-1"></use>
+                    <g id="ic_chrome_reader_mode_24px" opacity="0.300000012" transform="translate(111.000000, 55.000000)" fill="#757575" fill-rule="nonzero">
+                        <path d="M60.9090909,0 C64.2590909,0 67,2.32941176 67,5.17647059 L67,38.8235294 C67,41.6705882 64.2590909,44 60.9090909,44 L6.09090909,44 C2.74090909,44 0,41.6705882 0,38.8235294 L0,5.17647059 C0,2.32941176 2.74090909,0 6.09090909,0 L60.9090909,0 Z M20.5,10 C16.35,10 13,13.35 13,17.5 C13,21.65 16.35,25 20.5,25 C24.65,25 28,21.65 28,17.5 C28,13.35 24.65,10 20.5,10 Z M33.4412735,38.4675996 L33.4412735,35.1564324 C33.4412735,30.4261936 24.0410305,27.8245623 19.3409091,27.8245623 C14.6407876,27.8245623 5.24054473,30.4261936 5.24054473,35.1564324 L5.24054473,38.4675996 L33.4412735,38.4675996 Z M61.8181818,38.8235294 L61.8181818,5.17647059 L38.5,5.17647059 L38.5,38.8235294 L61.8181818,38.8235294 Z M41.0909091,20.7058824 L59.2272727,20.7058824 L59.2272727,24.5882353 L41.0909091,24.5882353 L41.0909091,20.7058824 Z M41.0909091,13.2352941 L59.2272727,13.2352941 L59.2272727,17.1176471 L41.0909091,17.1176471 L41.0909091,13.2352941 Z M41.0909091,28.1764706 L59.2272727,28.1764706 L59.2272727,32.0588235 L41.0909091,32.0588235 L41.0909091,28.1764706 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
     </g>
 </svg>

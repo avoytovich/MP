@@ -66,7 +66,7 @@ export default class HorizontalLinearStepper extends React.Component {
   }
 
   render() {
-    const steps = getSteps();
+    const steps = this.props.steps;
     const { activeStep } = this.state;
 
     return (

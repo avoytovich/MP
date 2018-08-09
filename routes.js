@@ -8,6 +8,11 @@ module.exports = routes()
   .add('shoper', '/shoper', 'shoper')
   .add('profashional', '/profashional/:id', 'profashional')
   .add(
+    'listOfProfashionals',
+    '/list-of-profashionals/:id',
+    'list-of-profashionals',
+  )
+  .add(
     'profashionalEditProfile',
     '/profashional/:id/edit-profile',
     'profashional/edit-profile',
@@ -20,4 +25,5 @@ module.exports = routes()
     '/profashional/:id/private-info',
     'profashional/private-info',
   )
-  .add('activate', '/activate/:code', 'activate');
+  .add('activate', '/activate/:code', 'activate')
+  .add('bookingTripDetails', '/list-of-profashionals/:id/booking/trip-details', 'list-of-profashionals/booking');

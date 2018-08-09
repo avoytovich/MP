@@ -9,10 +9,13 @@ import { updateSpecData, setData } from '../../actions/updateData';
 
 export default function loading(runtimeNames = []) {
   return function(Child) {
-    const mapStateToProps = ({ runtime }) => {
+    const mapStateToProps = ({ runtime }, props) => {
       const returnObj = {
         loading: runtime.loading || false,
       };
+      if (props.runtimeName) {
+        returnObj[name] = runtime[`${name}Data`];
+      }
       runtimeNames.forEach(name => (returnObj[name] = runtime[`${name}Data`]));
       return returnObj;
     };
@@ -29,6 +32,7 @@ export default function loading(runtimeNames = []) {
         showError: false,
         showSuccess: false,
         unsetLoading: true,
+        setData: false,
       };
 
       loadData = async (promise, opts = {}) => {
@@ -38,8 +42,11 @@ export default function loading(runtimeNames = []) {
         try {
           data = await promise;
           if (options.saveTo) {
-            options.saveTo &&
+            if (options.setData) {
+              this.props.setData(data.data, `${options.saveTo}Data`);
+            } else {
               this.props.updateSpecData(data.data, options.saveTo);
+            }
           }
           if (options.showSuccess) {
             createNotification({

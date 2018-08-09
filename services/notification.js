@@ -3,8 +3,8 @@ import { NotificationManager } from 'react-notifications';
 
 export const createNotification = (
   type = 'error',
-  title,
-  msg,
+  title = '',
+  msg = '',
   callback = () => null,
 ) => {
   if (typeof type === 'object') {

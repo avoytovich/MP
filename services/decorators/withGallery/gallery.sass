@@ -1,0 +1,83 @@
+.modal-gallery-wrapper
+  outline: none
+  position: relative
+  height: 100vh
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+  background-color: rgba(0, 0, 0, 0.8)
+  .arrow
+    position: absolute
+    z-index: 999999999
+    top: 40%
+  .back
+    left: 5%
+  .next
+    right: 5%
+  .close-wrapper
+    position: absolute
+    color: white!important
+    top: 38px
+    right: 38px
+  .slider-wrapper
+    width: 80%
+    height: 100vh
+    margin: 0 auto
+    .separator
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding-left: 15px
+      padding-right: 15px
+      height: 45px
+      .text
+        color: white!important
+    .big-slider
+      height: 70%
+      padding-top: 10%
+      .slick-list, .slick-track, .slick-current div
+        height: 100%
+      .photo-wrapper
+        outline: none
+        .photo
+          min-height: 100%
+          background-size: contain
+          background-repeat: no-repeat
+          background-position: center
+    .small-slider
+      height: 20%
+      .slick-list, .slick-track, .slick-slide div
+        height: 100%
+      .photo-wrapper
+        outline: none
+        display: inline
+        .photo
+          min-height: 100%
+          background-size: cover
+          background-repeat: no-repeat
+          background-position: center
+
+@media (max-width: 480px)
+  .modal-gallery-wrapper
+    background-color: black
+    .arrow
+      top: 50%
+      transform: translate(0%, -50%)
+    .close-wrapper
+      right: 16px
+      top: 16px
+      z-index: 999999999
+    .slider-wrapper
+      width: 100%
+      .small-slider
+        display: none
+      .big-slider
+        top: 50%
+        height: 100%
+        transform: translate(0%, -50%)
+        padding-top: 0
+    .separator
+      position: absolute
+      bottom: 0
+      width: 100%
+
+
+
