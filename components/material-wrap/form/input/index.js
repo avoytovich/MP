@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import Input from '@material-ui/core/Input';
 import Popover from '@material-ui/core/Popover';
+import moment from 'moment';
 
 import Typography from '../../typography';
 
@@ -41,6 +42,7 @@ export default class InputCustom extends React.Component {
   }
 
   onIconClick = event => {
+    event.stopPropagation();
     this.setState({
       anchorEl: event.currentTarget,
     });
@@ -56,7 +58,7 @@ export default class InputCustom extends React.Component {
 
   blur = e => {
     this.setState({ focused: false });
-    this.props.field.onBlur(e);
+    this.props.field.onBlur ? this.props.field.onBlur(e) : () => {};
   };
 
   render() {
@@ -71,7 +73,9 @@ export default class InputCustom extends React.Component {
       formHelper,
       placeholder,
       multiline,
+      date,
       disabled,
+      onClick,
       error,
     } = this.props;
     return (
@@ -81,11 +85,14 @@ export default class InputCustom extends React.Component {
         }
         aria-describedby="control-size"
         fullWidth={fullWidth}>
-        <InputLabel error={!!(touched && error)}>{this.labelValue}</InputLabel>
+        <InputLabel error={!!(touched && error)}>
+          {!value && this.labelValue}
+        </InputLabel>
         <Input
           id={id}
-          value={value}
+          value={date && value ? moment(value).format('DD.MM.YYYY') : value}
           name={name}
+          onClick={onClick}
           multiline={multiline}
           placeholder={placeholder}
           disabled={disabled}
