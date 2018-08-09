@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Typography from '../../typography';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import './textArea.sass';
 
@@ -16,10 +17,13 @@ export default class RadioCustom extends React.Component {
       className = '',
       error,
       touched,
+      placeholder,
+      label
     } = this.props;
     return (
       <div>
         <div className={className}>
+          <InputLabel className="textarea-label">{label}</InputLabel>
           <textarea
             color="primary"
             className="text-area-default"
@@ -28,6 +32,7 @@ export default class RadioCustom extends React.Component {
             onBlur={onBlur}
             id={id}
             onChange={onChange}
+            placeholder={placeholder}
           />
           <div className="text-area-validate-wrapper">
             <Typography
