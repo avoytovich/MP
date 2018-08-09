@@ -72,11 +72,11 @@ export default class ListOfProfashionals extends React.Component {
             <div className="grid-field">
               <Grid className="grid-field-image" item xs={12} sm={12}>
                 {images.map((item, index) => {
-                  const { title, alt, src } = item;
+                  const { title, alt, src, content } = item;
                   return (
                     <div key={index} className="grid-field-input-gap">
                       <img alt={alt} src={src} />
-                      <Transition />
+                      <Transition title={title} content={content} />
                     </div>
                   );
                 })}

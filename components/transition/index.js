@@ -1,32 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 
-const styles = theme => ({
-  root: {
-    height: 180,
-  },
-  container: {
-    display: 'flex',
-  },
-  paper: {
-    margin: theme.spacing.unit,
-  },
-  svg: {
-    width: 150,
-    height: 150,
-  },
-  polygon: {
-    fill: theme.palette.common.white,
-    stroke: theme.palette.divider,
-    strokeWidth: 1,
-  },
-});
+import Typography from '../../components/material-wrap/typography';
 
-class SimpleCollapse extends React.Component {
+import './transition.sass';
+
+export default class SimpleCollapse extends React.Component {
   state = {
     checked: false,
   };
@@ -36,17 +16,35 @@ class SimpleCollapse extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { title, content } = this.props;
     const { checked } = this.state;
-
     return (
-      <div className={`${classes.root} grid-field-input-gap-signature`} onClick={this.handleChange} checked={checked} aria-label="Collapse">
-        <div className={`${classes.container} header`}>
+      <div
+        className="grid-field-input-gap-signature grid-field-input-gap-signature-wrapper"
+        onClick={this.handleChange}
+        checked={checked}
+        aria-label="Collapse">
+        <div className="header">
           <Collapse in={checked} collapsedHeight="40px">
-            <Paper elevation={4} className={classes.paper}>
-              <svg className={classes.svg}>
-                <polygon points="0,100 50,00, 100,100" className={classes.polygon} />
-              </svg>
+            <Paper elevation={4} className="paper">
+              {!checked ? (
+                <Typography variant="title" fontSize="18px" className="title">
+                  {title}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="title"
+                  fontSize="12px"
+                  className="sub-title">
+                  <Typography
+                    variant="title"
+                    fontSize="18px"
+                    className="sub-sub-title">
+                    {title}
+                  </Typography>
+                  {content}
+                </Typography>
+              )}
             </Paper>
           </Collapse>
         </div>
@@ -54,9 +52,3 @@ class SimpleCollapse extends React.Component {
     );
   }
 }
-
-SimpleCollapse.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(SimpleCollapse);

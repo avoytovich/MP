@@ -92,16 +92,19 @@ export const listOfProfashionals = {
       title: 'Special ocasion',
       alt: 'special ocasion',
       src: '../static/png/special_ocasion.png',
+      content: 'Don’t raise your voice, improve your argument',
     },
     {
       title: 'Inspiration',
       alt: 'inspiration',
       src: '../static/png/inspiration.png',
+      content: 'If you want to achieve greatness stop asking for permission',
     },
     {
       title: 'Explore city',
       alt: 'explore_city',
       src: '../static/png/explore_city.png',
+      content: 'To live a creative life, we must lose our fear of being wrong',
     },
   ],
 };
