@@ -11,3 +11,8 @@ export function getLocale(key) {
   if (!isServer()) return localStorage.getItem(key);
   return undefined;
 }
+
+export function clear(key) {
+  if (!isServer()) return localStorage.clear(key);
+  return undefined;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="36px" viewBox="0 0 21 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>@2xic_arrow_back_ios_24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="gallery-copy" transform="translate(-179.000000, -388.000000)">
+            <g id="Group-21">
+                <g id="Group-20" transform="translate(157.000000, 84.000000)">
+                    <g id="ic_arrow_back_ios_24px" transform="translate(21.500000, 322.500000) scale(-1, 1) translate(-21.500000, -322.500000) translate(0.000000, 301.000000)">
+                        <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="20.90875 6.75458333 17.7375 3.58333333 0 21.3208333 17.7375 39.0583333 20.90875 35.8870833 6.3425 21.3208333"></polygon>
+                        <polygon id="Shape" points="0 0 43 0 43 43 0 43"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
