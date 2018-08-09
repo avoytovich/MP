@@ -12,8 +12,7 @@ const mapStateToProps = ({ runtime }, props) => ({
 @connect(mapStateToProps)
 export default class Proxy extends React.Component {
   render() {
-    // if (this.props.loading) {
-    if (true) {
+    if (this.props.loading) {
       return (
         <div className="spinner">
           <div className="bounce1" />
