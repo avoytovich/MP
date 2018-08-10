@@ -32,13 +32,20 @@ export default class SimpleCollapse extends React.Component {
                   {title}
                 </Typography>
               ) : (
-                <Typography
-                  variant="title"
-                  fontSize="12px"
-                  className="sub-title">
-                  <p className="sub-sub-title">{title}</p>
-                  {content}
-                </Typography>
+                <div>
+                  <Typography
+                    variant="title"
+                    fontSize="18px"
+                    className="sub-title">
+                    {title}
+                  </Typography>
+                  <Typography
+                    variant="title"
+                    fontSize="12px"
+                    className="sub-title">
+                    {content}
+                  </Typography>
+                </div>
               )}
             </Paper>
           </Collapse>
