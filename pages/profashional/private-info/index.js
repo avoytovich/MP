@@ -236,7 +236,7 @@ export default class PrivateInfoProfashional extends React.Component {
       currency: get(profashionalPrivateInfo, 'currency.id') || '',
       email: profashionalPrivateInfo.email || '',
       firstName: profashionalPrivateInfo.firstName || '',
-      bankAccountNumber:
+      bankAccountNumber: profashionalPrivateInfo.iban &&
         `******************${profashionalPrivateInfo.iban}` || '',
       lastName: profashionalPrivateInfo.lastName || '',
       phoneNumber: profashionalPrivateInfo.phoneNumber || '',
@@ -245,17 +245,18 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   render() {
-    //console.log('THIS PROPS', this.props);
+    console.log('THIS PROPS', this.props);
     // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,
       profashionalAccount,
     } = this.props;
-    const { confirmed } = profashionalAccount.profashional;
+    //const { confirmed } = profashionalAccount.profashional;
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
+        {profashionalPrivateInfo && (
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
             <ModalHeader
@@ -264,7 +265,7 @@ export default class PrivateInfoProfashional extends React.Component {
               onClose={() => this.props.openConfirm()}
             />
             {profashionalAccount &&
-              !confirmed && (
+              !profashionalAccount.profashional.confirmed && (
                 <div className="grid-stepper">
                   <Grid className="grid" item xs={12} sm={6}>
                     <Stepper ref={this.child} steps={this.state.steps}/>
@@ -290,10 +291,11 @@ export default class PrivateInfoProfashional extends React.Component {
                   <PrivateInfoStepOne
                     {...this.initialValues}
                     privateInfo={this.props.privateInfo}
-                    completed={confirmed}
+                    completed={profashionalAccount &&
+                      profashionalAccount.profashional.confirmed}
                     handleSubmit={
                       (profashionalAccount &&
-                        !confirmed &&
+                        !profashionalAccount.profashional.confirmed &&
                         this.handleSubmitForStepOne) ||
                       this.handleSubmitForStepOneEdit
                     }
