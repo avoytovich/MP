@@ -61,6 +61,10 @@ export default {
 			SPORTS: 'Sports',
 			CASUAL: 'Casual',
 			BUSINESS: 'Business',
+			expertise: 'Expertise',
+			languages: 'Languages',
+			city: 'City',
+			addSomePhoto: 'Add some additional photos of your work.',
 		},
 		reviews: {
 			reviews: 'Reviews',

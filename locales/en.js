@@ -13,7 +13,7 @@ export default {
       profile: 'Profile',
       privateInfo: 'Private Info',
       settings: 'Settings',
-			editProfile: 'Edit Profile',
+      editProfile: 'Edit Profile',
       logOut: 'Log Out',
     },
     errors: {
@@ -63,6 +63,10 @@ export default {
       SPORTS: 'Sports',
       CASUAL: 'Casual',
       BUSINESS: 'Business',
+      expertise: 'Expertise',
+      languages: 'Languages',
+      city: 'City',
+      addSomePhoto: 'Add some additional photos of your work.',
     },
     reviews: {
       reviews: 'Reviews',

@@ -38,10 +38,7 @@ export default class InterviewModal extends Component {
       await this.props.loadData(
         interview.post({
           description: values.description,
-          profashionalId: get(
-            this.props.profashionalAccount,
-            'userExtra.profashional.id',
-          ),
+          profashionalId: get(this.props.profashionalAccount, 'id'),
         }),
       );
       await this.props.loadData(account.get(), {

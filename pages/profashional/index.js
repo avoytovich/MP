@@ -58,10 +58,8 @@ export default class Profashional extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      get(
-        nextProps.profashionalAccount,
-        'userExtra.profashional.interviewStatus',
-      ) === NON_SCHEDULED &&
+      get(nextProps.profashionalAccount, 'profashional.interviewStatus') ===
+        NON_SCHEDULED &&
       !this.state.interviewModal
     ) {
       this.setState({ interviewModal: true });
@@ -75,10 +73,8 @@ export default class Profashional extends React.Component {
         this.props.updateSpecData(accountResp.data, 'profashionalAccount');
       }
       if (
-        get(
-          this.props.profashionalAccount,
-          'userExtra.profashional.interviewStatus',
-        ) === NON_SCHEDULED
+        get(this.props.profashionalAccount, 'profashional.interviewStatus') ===
+        NON_SCHEDULED
       ) {
         this.setState({ interviewModal: true });
       }
@@ -92,6 +88,7 @@ export default class Profashional extends React.Component {
       profashionals.getWithId(this.props.router.query.id),
       {
         saveTo: 'profashionalProfile',
+        setData: true,
       },
     );
   };
@@ -107,6 +104,7 @@ export default class Profashional extends React.Component {
       }),
       {
         saveTo: 'profashionalRatings',
+        setData: true,
       },
     );
   };
@@ -125,7 +123,7 @@ export default class Profashional extends React.Component {
       return (
         <div className="info-container">
           <CustomTypography variant="subheading" fontSize="16px">
-            Expertise:{' '}
+            {this.props.translate('expertise')}:{' '}
           </CustomTypography>
           <CustomTypography variant="title" fontSize="16px">
             {expersises.map(item => this.props.translate(item)).join(', ')}
@@ -142,7 +140,7 @@ export default class Profashional extends React.Component {
       return (
         <div className="info-container">
           <CustomTypography variant="subheading" fontSize="16px">
-            Languages:{' '}
+            {this.props.translate('languages')}:{' '}
           </CustomTypography>
           <CustomTypography variant="title" fontSize="16px">
             {languages.map(item => item.name).join(', ')}
@@ -159,7 +157,7 @@ export default class Profashional extends React.Component {
       return (
         <div className="info-container">
           <CustomTypography variant="subheading" fontSize="16px">
-            City:{' '}
+            {this.props.translate('city')}:{' '}
           </CustomTypography>
           <CustomTypography variant="title" fontSize="16px">
             {city.name}
@@ -218,7 +216,11 @@ export default class Profashional extends React.Component {
       <div className="profashional">
         <ProfashionalIconWithCover
           profashionalProfile={this.props.profashionalProfile}>
-          <Header />
+          <Header
+            color={
+              !Boolean(get(this.props, 'profashionalProfile.coverPhoto.path'))
+            }
+          />
         </ProfashionalIconWithCover>
         <div className="profashional-grid profashional-block">
           <div className="profashional-info">
@@ -245,7 +247,10 @@ export default class Profashional extends React.Component {
           </CustomTypography>
         </div>
         <div className="profashional-grid profashional-block availability">
-          <Reviews profashionalRatings={this.props.profashionalRatings} profashionalProfile={this.props.profashionalProfile} />
+          <Reviews
+            profashionalRatings={this.props.profashionalRatings}
+            profashionalProfile={this.props.profashionalProfile}
+          />
         </div>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal onClose={this.close} />

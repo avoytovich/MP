@@ -14,8 +14,7 @@ export const saveToStorage = async res => {
   setLocale('lastName', accoutResp.data.lastName);
   setLocale(
     'avaUrl',
-    get(accoutResp, 'data.userExtra.profashional.icon.path') ||
-      '/static/svg/placeholder.svg',
+    get(accoutResp, 'data.icon.path') || '/static/svg/placeholder.svg',
   );
   if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
     Router.pushRoute('/shoper');
