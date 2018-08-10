@@ -226,8 +226,9 @@ export default class PrivateInfoProfashional extends React.Component {
   get initialValues() {
     const profashionalPrivateInfo =
       get(this.props, 'profashionalPrivateInfo') || {};
+    const privateInfo = get(this.props, 'privateInfo');
+    if (privateInfo) return get(this.props, 'privateInfo');
     return {
-      ...get(this.props, 'privateInfo'),
       ...get(this.props, 'profashionalPrivateInfo'),
       ...get(this.props, 'profashionalAccount'),
       address: profashionalPrivateInfo.address || '',
@@ -245,7 +246,7 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   render() {
-    console.log('THIS PROPS', this.props);
+    //console.log('THIS PROPS', this.props);
     // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
@@ -257,7 +258,6 @@ export default class PrivateInfoProfashional extends React.Component {
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
-        {profashionalPrivateInfo && (
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
             <ModalHeader
@@ -293,7 +293,7 @@ export default class PrivateInfoProfashional extends React.Component {
                     privateInfo={this.props.privateInfo}
                     completed={confirmed}
                     handleSubmit={
-                      (confirmed &&
+                      (!confirmed &&
                         this.handleSubmitForStepOne) ||
                       this.handleSubmitForStepOneEdit
                     }
@@ -304,11 +304,10 @@ export default class PrivateInfoProfashional extends React.Component {
                     handleBack={this.handleBackForStepTwo}
                   />
                 )}
-                </Grid>
-              </div>
-            </Grid>
+              </Grid>
+            </div>
           </Grid>
-        )}
+        </Grid>
       </div>
     );
   }
