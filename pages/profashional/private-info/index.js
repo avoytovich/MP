@@ -240,7 +240,7 @@ export default class PrivateInfoProfashional extends React.Component {
       profashionalProfile,
       profashionalAccount,
     } = this.props;
-    const { isConfirmed } = profashionalAccount.userExtra.profashional;
+    const { confirmed } = profashionalAccount.profashional;
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
@@ -252,7 +252,7 @@ export default class PrivateInfoProfashional extends React.Component {
               onClose={() => this.props.openConfirm()}
             />
             {profashionalAccount &&
-              !isConfirmed && (
+              !confirmed && (
                 <div className="grid-stepper">
                   <Grid className="grid" item xs={12} sm={6}>
                     <Stepper ref={this.child} steps={this.state.steps}/>
@@ -278,10 +278,10 @@ export default class PrivateInfoProfashional extends React.Component {
                   <PrivateInfoStepOne
                     {...this.initialValues}
                     privateInfo={this.props.privateInfo}
-                    completed={isConfirmed}
+                    completed={confirmed}
                     handleSubmit={
                       (profashionalAccount &&
-                        !isConfirmed &&
+                        !confirmed &&
                         this.handleSubmitForStepOne) ||
                       this.handleSubmitForStepOneEdit
                     }

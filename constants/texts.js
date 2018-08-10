@@ -89,14 +89,17 @@ export const privateInfo = {
 export const listOfProfashionals = {
   images: [
     {
+      name: 'specialOcasion',
       alt: 'special ocasion',
       src: '../static/png/special_ocasion.png',
     },
     {
+      name: 'inspiration',
       alt: 'inspiration',
       src: '../static/png/inspiration.png',
     },
     {
+      name: 'exploreCity',
       alt: 'explore_city',
       src: '../static/png/explore_city.png',
     },

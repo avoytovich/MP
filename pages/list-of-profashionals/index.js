@@ -67,7 +67,7 @@ export default class ListOfProfashionals extends React.Component {
   };
 
   render() {
-    console.log('this props', this.props);
+    //console.log('this props', this.props);
     const { translate } = this.props;
     const { images } = listOfProfashionals;
     return (
@@ -75,23 +75,20 @@ export default class ListOfProfashionals extends React.Component {
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
             <Header color />
-            <Typography variant="title" fontSize="24px" className="header">
+            <Typography variant="button" fontSize="24px" className="header">
               {translate('title', 'listOfProfashionals')}
             </Typography>
             <div className="grid-field">
               <Grid className="grid-field-image" item xs={12} sm={12}>
                 {images.map((item, index) => {
-                  const { alt, src } = item;
+                  const { name, alt, src } = item;
                   return (
                     <div key={index} className="grid-field-input-gap">
                       <img alt={alt} src={src} />
                       <Transition
-                        title={translate(
-                          `${index}`,
-                          'listOfProfashionalsTitle',
-                        )}
+                        title={translate(`${name}`, 'listOfProfashionalsTitle')}
                         content={translate(
-                          `${index}`,
+                          `${name}`,
                           'listOfProfashionalsContent',
                         )}
                       />
