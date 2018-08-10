@@ -224,17 +224,29 @@ export default class PrivateInfoProfashional extends React.Component {
   };
 
   get initialValues() {
-    return (
-      get(this.props, 'privateInfo') ||
-      get(this.props, 'profashionalPrivateInfo') ||
-      get(this.props, 'profashionalAccount') ||
-      {}
-    );
+    const profashionalPrivateInfo =
+      get(this.props, 'profashionalPrivateInfo') || {};
+    return {
+      ...get(this.props, 'privateInfo'),
+      ...get(this.props, 'profashionalPrivateInfo'),
+      ...get(this.props, 'profashionalAccount'),
+      address: profashionalPrivateInfo.address || '',
+      city: profashionalPrivateInfo.city || '',
+      country: get(profashionalPrivateInfo, 'country.id') || '',
+      currency: get(profashionalPrivateInfo, 'currency.id') || '',
+      email: profashionalPrivateInfo.email || '',
+      firstName: profashionalPrivateInfo.firstName || '',
+      bankAccountNumber:
+        `******************${profashionalPrivateInfo.iban}` || '',
+      lastName: profashionalPrivateInfo.lastName || '',
+      phoneNumber: profashionalPrivateInfo.phoneNumber || '',
+      zip: profashionalPrivateInfo.zip || '',
+    };
   }
 
   render() {
     //console.log('THIS PROPS', this.props);
-    //console.log('THIS State', this.state);
+    // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,
@@ -292,10 +304,48 @@ export default class PrivateInfoProfashional extends React.Component {
                     handleBack={this.handleBackForStepTwo}
                   />
                 )}
-              </Grid>
-            </div>
+              <div className="grid-header">
+                <Grid className="grid-header-title" item xs={12} sm={6}>
+                  {forwardToNextStep ? (
+                    <Typography variant="title" fontSize="20px">
+                      Please provide your Private information
+                    </Typography>
+                  ) : (
+                    <Typography variant="title" fontSize="20px">
+                      The folowing data is only visible for admin
+                    </Typography>
+                  )}
+                </Grid>
+              </div>
+              <div className="grid-field">
+                <Grid className="grid-field-input" item xs={12} sm={6}>
+                  {forwardToNextStep ? (
+                    <PrivateInfoStepOne
+                      {...this.initialValues}
+                      privateInfo={this.props.privateInfo}
+                      completed={
+                        profashionalAccount &&
+                        profashionalAccount.userExtra.profashional.isConfirmed
+                      }
+                      handleSubmit={
+                        (profashionalAccount &&
+                          !profashionalAccount.userExtra.profashional
+                            .isConfirmed &&
+                          this.handleSubmitForStepOne) ||
+                        this.handleSubmitForStepOneEdit
+                      }
+                    />
+                  ) : (
+                    <PrivateInfoStepTwo
+                      handleSubmit={this.handleSubmitForStepTwo}
+                      handleBack={this.handleBackForStepTwo}
+                    />
+                  )}
+                </Grid>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </div>
     );
   }
