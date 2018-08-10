@@ -62,6 +62,9 @@ export default class Header extends Component {
       case 'privateInfo':
         Router.pushRoute(`/profashional/${getLocale('id')}/private-info`);
         break;
+      case 'profile':
+        Router.pushRoute(`/profashional/${getLocale('id')}`);
+        break;
       case 'editProfile':
         Router.pushRoute(`/profashional/${getLocale('id')}/edit-profile`);
         break;
@@ -92,10 +95,15 @@ export default class Header extends Component {
           className="header-avatar"
           style={{ backgroundImage: `url(${getMyPhoto()})` }}
         />
-        <CustomTypography fontSize="18px" className="white">
+        <CustomTypography
+          fontSize="18px"
+          className={this.props.color ? '' : 'white'}>
           {getMyFirstAndLastName()}
         </CustomTypography>
-        <div className="header-arrow-down" />
+        <div
+          className="header-arrow-down"
+          style={{ borderTopColor: this.props.color ? 'black' : 'white' }}
+        />
         <Popover
           anchorEl={this.target.current}
           open={this.state.menuOpen}
@@ -164,9 +172,20 @@ export default class Header extends Component {
   get renderIcon() {
     const opened = this.state.opened;
     if (!opened) {
-      return <Reorder color="secondary" onClick={this.burgerToggle} />;
+      return (
+        <Reorder
+          color="secondary"
+          style={{ color: this.props.color ? 'black' : 'white'}}
+          onClick={this.burgerToggle}
+        />
+      );
     }
     return <Close color="primary" onClick={this.burgerToggle} />;
+  }
+
+  get renderLogo() {
+    const url = this.props.color ? 'colorLogo' : 'logoWhite';
+    return <img src={`/static/svg/${url}.svg`} className="menu-item logo" />;
   }
 
   render() {
@@ -175,7 +194,7 @@ export default class Header extends Component {
       <div className="nav-wrapper">
         <nav>
           <div className="navWide">
-            <img src="/static/svg/logoWhite.svg" className="menu-item logo" />
+            {this.renderLogo}
             <div className="wideDiv">
               <NoSSR>{this.renderDesktopLinks}</NoSSR>
             </div>
@@ -183,7 +202,7 @@ export default class Header extends Component {
           <div
             className="navNarrow"
             style={{ backgroundColor: opened ? 'white' : 'unset' }}>
-            <img src="/static/svg/logoWhite.svg" className="menu-item logo" />
+            {this.renderLogo}
             <div className="menu-icon-wrapper">
               <IconButton>{this.renderIcon}</IconButton>
             </div>

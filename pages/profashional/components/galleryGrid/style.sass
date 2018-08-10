@@ -1,15 +1,18 @@
 .gallery-wrapper
   width: 100%
+  max-width: calc(280px * 4)
   height: 320px
   max-height: 320px
   overflow: hidden
   display: flex
+  margin: 0 auto
   flex-wrap: wrap
   justify-content: center
   .item
     display: inline-flex
     width: calc(100% / 4)
     min-width: 180px
+    max-width: 280px
     height: calc(100% / 2)
     background-color: #f2f5f5
     background-size: cover
@@ -23,6 +26,8 @@
         margin-top: 10px
         width: 80%
         text-align: center
+        &.with-path
+          color: white
 
 @media (max-width: 530px)
   .gallery-wrapper
