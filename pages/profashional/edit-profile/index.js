@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import { withRouter } from 'next/router';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 
 import { isILogined, amIProfashional } from '../../../services/accountService';
 import { checkPhoto, sendPhoto } from '../../../services/photoService';
 import loading from '../../../services/decorators/loading';
 import { profashionals } from '../../../services/cruds';
+import { setLocale } from '../../../services/serverService';
 import { Router } from '../../../routes';
 
 import ModalHeader from '../../../components/modalHeader';
@@ -98,8 +97,9 @@ export default class EditProfileProfashional extends Component {
         occasions: values.occasion,
         slogan: values.slogan,
       }),
-      { showSuccess: true, saveTo: 'profashionalProfile' },
+      { showSuccess: 'Updated', saveTo: 'profashionalProfile' },
     );
+    setLocale('avaUrl', resp.data.icon.path);
     if (get(resp, 'data.completed') && !oldCompleted) {
       this.props.openModal();
     } else {

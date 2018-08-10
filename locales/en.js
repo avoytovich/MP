@@ -13,7 +13,7 @@ export default {
       profile: 'Profile',
       privateInfo: 'Private Info',
       settings: 'Settings',
-			editProfile: 'Edit Profile',
+      editProfile: 'Edit Profile',
       logOut: 'Log Out',
     },
     errors: {
@@ -63,10 +63,29 @@ export default {
       SPORTS: 'Sports',
       CASUAL: 'Casual',
       BUSINESS: 'Business',
+      expertise: 'Expertise',
+      languages: 'Languages',
+      city: 'City',
+      addSomePhoto: 'Add some additional photos of your work.',
     },
     reviews: {
       reviews: 'Reviews',
       noReviews: 'No reviews yet!',
+    },
+    listOfProfashionals: {
+      title: 'how to use? ',
+    },
+    listOfProfashionalsTitle: {
+      specialOcasion: 'Special ocasion',
+      inspiration: 'Inspiration',
+      exploreCity: 'Explore city',
+    },
+    listOfProfashionalsContent: {
+      specialOcasion: 'Don’t raise your voice, improve your argument',
+      inspiration:
+        'If you want to achieve greatness stop asking for permission',
+      exploreCity:
+        'To live a creative life, we must lose our fear of being wrong',
     },
   }),
   // formats: object,

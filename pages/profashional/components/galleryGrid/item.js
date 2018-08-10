@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Typography from '../../../../components/material-wrap/typography';
+import i18n from '../../../../services/decorators/i18n';
 
+@i18n('common')
 export default class ItemGallery extends Component {
   static propTypes = {
     onLoadClick: PropTypes.func.isRequired,
@@ -34,9 +36,16 @@ export default class ItemGallery extends Component {
             style={{
               backgroundColor: photo.path ? 'rgba(0,0,0,0.5)' : '',
             }}>
-            <img src="/static/svg/addPhoto.svg" />
-            <Typography className="text" fontSize="18px" variant="title">
-              Add some additional photos of your work.
+            {photo.path ? (
+              <img src="/static/svg/whiteAddPhoto.svg" />
+            ) : (
+              <img src="/static/svg/addPhoto.svg" />
+            )}
+            <Typography
+              className={"text " + (photo.path ? 'with-path' : '')}
+              fontSize="18px"
+              variant="title">
+              {this.props.translate('addSomePhoto')}
             </Typography>
           </div>
         )}
