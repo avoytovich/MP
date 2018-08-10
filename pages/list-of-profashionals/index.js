@@ -21,17 +21,23 @@ import loading from '../../services/decorators/loading';
 import './list-of-profashionals.sass';
 import { amIProfashional, isILogined } from '../../services/accountService';
 import withConfirmModal from '../../services/decorators/withConfirmModal';
+import i18n from '../../services/decorators/i18n';
 // import withModal from '../../services/decorators/withModal';
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateSpecData, resetData }, dispatch);
+  bindActionCreators(
+    {
+      /* updateSpecData, resetData*/
+    },
+    dispatch,
+  );
 
 const mapStateToProps = ({ runtime }) => ({
-  privateInfo: runtime.privateInfoData,
-  countryList: runtime.countryList,
-  currencyList: runtime.currencyList,
-  profashionalAccount: runtime.profashionalAccountData,
-  profashionalPrivateInfo: runtime.profashionalPrivateInfoData,
+  // privateInfo: runtime.privateInfoData,
+  // countryList: runtime.countryList,
+  // currencyList: runtime.currencyList,
+  // profashionalAccount: runtime.profashionalAccountData,
+  // profashionalPrivateInfo: runtime.profashionalPrivateInfoData,
 });
 @connect(
   mapStateToProps,
@@ -42,10 +48,11 @@ const mapStateToProps = ({ runtime }) => ({
   'Thank you for filling the information! Admin will contact you shortly',
   props => Router.pushRoute(`/profashional/${props.router.query.id}`),
 )*/
-@withConfirmModal('editPrivateInfo', 'no', 'yes', props =>
+/* @withConfirmModal('editPrivateInfo', 'no', 'yes', props =>
   Router.pushRoute(`/profashional/${props.router.query.id}`),
-)
-@loading(['profashionalProfile'])
+)*/
+@loading(/*['profashionalProfile']*/)
+@i18n()
 export default class ListOfProfashionals extends React.Component {
   constructor(props) {
     super(props);
@@ -60,23 +67,31 @@ export default class ListOfProfashionals extends React.Component {
   };
 
   render() {
+    //console.log('this props', this.props);
+    const { translate } = this.props;
     const { images } = listOfProfashionals;
     return (
       <div className="list-of-profashionals list-of-profashionals-form-wrapper">
         <Grid container spacing={0} justify="center">
           <Grid item xs={12} sm={12}>
             <Header color />
-            <Typography variant="title" fontSize="24px" className="header">
-              HOW TO USE?
+            <Typography variant="button" fontSize="24px" className="header">
+              {translate('title', 'listOfProfashionals')}
             </Typography>
             <div className="grid-field">
               <Grid className="grid-field-image" item xs={12} sm={12}>
                 {images.map((item, index) => {
-                  const { title, alt, src, content } = item;
+                  const { name, alt, src } = item;
                   return (
                     <div key={index} className="grid-field-input-gap">
                       <img alt={alt} src={src} />
-                      <Transition title={title} content={content} />
+                      <Transition
+                        title={translate(`${name}`, 'listOfProfashionalsTitle')}
+                        content={translate(
+                          `${name}`,
+                          'listOfProfashionalsContent',
+                        )}
+                      />
                     </div>
                   );
                 })}
