@@ -304,43 +304,6 @@ export default class PrivateInfoProfashional extends React.Component {
                     handleBack={this.handleBackForStepTwo}
                   />
                 )}
-              <div className="grid-header">
-                <Grid className="grid-header-title" item xs={12} sm={6}>
-                  {forwardToNextStep ? (
-                    <Typography variant="title" fontSize="20px">
-                      Please provide your Private information
-                    </Typography>
-                  ) : (
-                    <Typography variant="title" fontSize="20px">
-                      The folowing data is only visible for admin
-                    </Typography>
-                  )}
-                </Grid>
-              </div>
-              <div className="grid-field">
-                <Grid className="grid-field-input" item xs={12} sm={6}>
-                  {forwardToNextStep ? (
-                    <PrivateInfoStepOne
-                      {...this.initialValues}
-                      privateInfo={this.props.privateInfo}
-                      completed={
-                        profashionalAccount &&
-                        profashionalAccount.userExtra.profashional.isConfirmed
-                      }
-                      handleSubmit={
-                        (profashionalAccount &&
-                          !profashionalAccount.userExtra.profashional
-                            .isConfirmed &&
-                          this.handleSubmitForStepOne) ||
-                        this.handleSubmitForStepOneEdit
-                      }
-                    />
-                  ) : (
-                    <PrivateInfoStepTwo
-                      handleSubmit={this.handleSubmitForStepTwo}
-                      handleBack={this.handleBackForStepTwo}
-                    />
-                  )}
                 </Grid>
               </div>
             </Grid>
