@@ -59,7 +59,9 @@ export default function loading(runtimeNames = []) {
           if (options.showError)
             createNotification({
               type: 'error',
-              title: get(e, 'response.data.title'),
+              title:
+                get(e, 'response.data.title') ||
+                get(e, 'response.data.message'),
               message: '',
             });
           this.setLoader(false);

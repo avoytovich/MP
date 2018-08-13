@@ -19,6 +19,7 @@ import withGallery from '../../services/decorators/withGallery/index';
 import { Router } from '../../routes';
 
 import InterviewModal from './components/interview/modal';
+import TripModal from './components/trip/modal';
 import Reviews from './components/reviews';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
@@ -45,6 +46,7 @@ const mapDispatchToProps = (dispatch, props) =>
 export default class Profashional extends React.Component {
   state = {
     interviewModal: false,
+    tripTracker: false,
   };
 
   componentWillMount() {
@@ -110,12 +112,31 @@ export default class Profashional extends React.Component {
   };
 
   close = () => {
-    this.setState({ interviewModal: false });
+    this.setState({ interviewModal: false, tripTracker: false });
   };
 
   onPhotoClick = index => {
     this.props.openGal(index);
   };
+
+  openTrip = () => {
+    this.setState({ tripTracker: true });
+  };
+
+  get renderCertified() {
+    const { certified } = this.props.profashionalProfile;
+    if (certified) {
+      return (
+        <div className="certified-wrapper">
+          <img src="/static/svg/certified.svg" />
+          <CustomTypography variant="button" fontSize="20px">
+            {this.props.translate('certified')}
+          </CustomTypography>
+        </div>
+      );
+    }
+    return null;
+  }
 
   get renderExpertise() {
     const { expersises } = this.props.profashionalProfile;
@@ -222,7 +243,9 @@ export default class Profashional extends React.Component {
     return (
       <div className="profashional">
         <ProfashionalIconWithCover
-          profashionalProfile={this.props.profashionalProfile}>
+          onTripClick={this.openTrip}
+          profashionalProfile={this.props.profashionalProfile}
+          profashionalRatings={this.props.profashionalRatings}>
           <Header
             point={this.pointArray}
             color={
@@ -233,6 +256,7 @@ export default class Profashional extends React.Component {
         <div className="profashional-grid profashional-block">
           <div className="profashional-info">
             <div className="first-block">
+              {this.renderCertified}
               {this.renderExpertise}
               {this.renderCities}
               {this.renderLanguages}
@@ -262,6 +286,9 @@ export default class Profashional extends React.Component {
         </div>
         <Modal withClose onClose={this.close} open={this.state.interviewModal}>
           <InterviewModal onClose={this.close} />
+        </Modal>
+        <Modal withClose onClose={this.close} open={this.state.tripTracker}>
+          <TripModal onClose={this.close} />
         </Modal>
       </div>
     );
