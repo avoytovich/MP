@@ -85,6 +85,12 @@ const InterviewSchema = Yup.object().shape({
     .max(120, toLong),
 });
 
+const TripSchema = Yup.object().shape({
+  code: Yup.string()
+    .required(required)
+    .max(12, toLong),
+});
+
 const ResetSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, toSmall)
@@ -174,6 +180,7 @@ export {
   LoginSchema,
   ForgotSchema,
   ResetSchema,
+  TripSchema,
   EditProfileSchema,
   InterviewSchema,
   PrivateInfoSchemaStepOne,

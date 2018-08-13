@@ -26,6 +26,10 @@ export default {
       onlyLetters: 'Only Letters',
       onlyNumbers: 'Only Numbers',
     },
+    popups: {
+      startedTrip:
+        'Success. Trip started and is tracking (calculating time) now until the end code will be entered',
+    },
     confirmModal: {
       confirm: 'Confirm',
       editPrivateInfo:
@@ -37,6 +41,9 @@ export default {
       ok: 'OK',
       yes: 'yes',
       no: 'no',
+    },
+    modalHeaders: {
+      enterCode: 'Please enter code.',
     },
     booking: {
       cancellationPolicyFullText:
@@ -54,9 +61,10 @@ export default {
     },
     common: {
       hour: 'hour',
+      certified: 'Certified',
       meetings: 'meetings',
+      copiedLink: 'Your link is copied',
       copyLink: 'Copy link',
-      copied: 'Copy link',
       MEN: 'Men',
       WOMEN: 'Women',
       CHILD: 'Child',

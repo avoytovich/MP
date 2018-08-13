@@ -6,16 +6,14 @@ import { withRouter } from 'next/router';
 
 import { Router } from '../../routes';
 
-import TextArea from '../../components/material-wrap/form/textArea';
+import Input from '../../components/material-wrap/form/input';
 import Button from '../../components/material-wrap/button';
 
 import { setData } from '../../actions/updateData';
-import { InterviewSchema } from '../../services/validateSchemas';
+import { TripSchema } from '../../services/validateSchemas';
 import i18n from '../../services/decorators/i18n';
 
-import Typography from '../../components/material-wrap/typography/index';
-
-import './interview.sass';
+import './trip.sass';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -28,30 +26,27 @@ const mapDispatchToProps = dispatch =>
 @withFormik({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
-  validationSchema: InterviewSchema,
+  validationSchema: TripSchema,
 })
 @i18n('errors')
-export default class InterviewForm extends React.Component {
+export default class TripForm extends React.Component {
   render() {
     const { handleSubmit, errors, touched, isValid, translate } = this.props;
     return (
-      <Form className="interview-form" onSubmit={handleSubmit}>
-        <Typography variant="subheading" className="subheading" fontSize="16px">
-          We will contact you shortly for an interview, in the meanwhile, please
-          complete your profile and let us know your interview-date preferences.
-        </Typography>
+      <Form className="trip-form" onSubmit={handleSubmit}>
         <Field
-          name="description"
-          component={TextArea}
+          name="code"
+          component={Input}
+          fullWidth
           error={translate(errors.description)}
           touched={touched.description}
-          label="Description"
+          label="Code"
         />
         <Button
           disabled={!isValid}
           type="submit"
           className="social-button login-button">
-          Send
+          OK
         </Button>
       </Form>
     );
