@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
+import { get } from 'lodash';
 
 import Reorder from '@material-ui/icons/Reorder';
 import Close from '@material-ui/icons/Close';
@@ -110,7 +111,7 @@ export default class Header extends Component {
         <div
           className="header-avatar"
           style={{ backgroundImage: `url(${getMyPhoto()})` }}>
-          {this.props.point && <div className="point" />}
+          {get(this.props, 'point.length') > 0 && <div className="point" />}
         </div>
         <CustomTypography
           fontSize="18px"
