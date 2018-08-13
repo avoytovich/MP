@@ -209,6 +209,13 @@ export default class Profashional extends React.Component {
     return null;
   }
 
+  get pointArray() {
+    if (!this.props.profashionalProfile.completed) {
+      return ['privateInfo', 'editProfile'];
+    }
+    return null;
+  }
+
   render() {
     if (!this.props.profashionalProfile) return null;
     if (!this.props.profashionalRatings) return null;
@@ -217,6 +224,7 @@ export default class Profashional extends React.Component {
         <ProfashionalIconWithCover
           profashionalProfile={this.props.profashionalProfile}>
           <Header
+            point={this.pointArray}
             color={
               !Boolean(get(this.props, 'profashionalProfile.coverPhoto.path'))
             }

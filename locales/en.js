@@ -32,6 +32,7 @@ export default {
         'Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Do you want to close Edit Profile section? your information will not be saved',
+      wantLogOut: 'Are you sure you want to log out',
       cancel: 'Cancel',
       ok: 'OK',
       yes: 'yes',
