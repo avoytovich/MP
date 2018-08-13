@@ -38,6 +38,7 @@
     "raw-loader": "^0.5.1",
     "react": "^16.4.1",
     "react-copy-to-clipboard": "^5.0.1",
+    "react-day-picker": "^7.1.10",
     "react-dom": "^16.4.1",
     "react-facebook-login": "^4.0.1",
     "react-google-login": "^3.2.1",
