@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { get } from 'lodash';
 import { withRouter } from 'next/router';
 
 import Grid from '@material-ui/core/Grid';
 
 import { Router } from '../../../../routes';
 
-import { interview, account } from '../../../../services/cruds';
+import { bookings } from '../../../../services/cruds';
 import i18n from '../../../../services/decorators/i18n';
 import { updateSpecData } from '../../../../actions/updateData';
 
-import InterviewForm from '../../../../forms/interview';
+import TripForm from '../../../../forms/tripCode';
 import Typography from '../../../../components/material-wrap/typography';
 
-import './interview.sass';
+import './trip.sass';
 import loading from '../../../../services/decorators/loading';
 
 const mapStateToProps = ({ runtime }) => ({
@@ -27,23 +26,26 @@ const mapDispatchToProps = (dispatch, props) =>
 
 @loading()
 @withRouter
-@i18n()
+@i18n('modalHeaders')
 @connect(
   mapStateToProps,
   mapDispatchToProps,
 )
-export default class InterviewModal extends Component {
-  sendInterview = async values => {
+export default class TripModal extends Component {
+  sendTrip = async values => {
     try {
       await this.props.loadData(
-        interview.post({
-          description: values.description,
-          profashionalId: get(this.props.profashionalAccount, 'id'),
-        }),
+        bookings.post(
+          {
+            code: values.code,
+          },
+          '/code',
+        ),
+        {
+          showSuccess: this.props.translate('startedTrip', 'popups'),
+          showError: true,
+        },
       );
-      await this.props.loadData(account.get(), {
-        saveTo: 'profashionalAccount',
-      });
       this.props.onClose();
     } catch (e) {
       console.error(e);
@@ -57,11 +59,11 @@ export default class InterviewModal extends Component {
         justify="center"
         direction="column"
         alignItems="center"
-        className="interview-modal">
+        className="trip-modal">
         <Typography variant="title" fontSize="24px" className="header">
-          Thank you for having entered your personal data!
+          {this.props.translate('enterCode')}
         </Typography>
-        <InterviewForm handleSubmit={this.sendInterview} />
+        <TripForm handleSubmit={this.sendTrip} />
       </Grid>
     );
   }

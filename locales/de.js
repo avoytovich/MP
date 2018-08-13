@@ -42,9 +42,10 @@ export default {
     },
 		common: {
 			hour: 'hour',
+			certified: 'Certified',
 			meetings: 'meetings',
+			copiedLink: 'Your link is copied',
 			copyLink: 'Copy link',
-			copied: 'Your link is copied',
 			MEN: 'Men',
 			WOMEN: 'Women',
 			CHILD: 'Child',
@@ -61,6 +62,10 @@ export default {
 			reviews: 'Reviews',
 			noReviews: 'No reviews yet!',
 		},
+		popups: {
+			startedTrip:
+				'Success. Trip started and is tracking (calculating time) now until the end code will be entered',
+		},
     confirmModal: {
       confirm: 'Bestätigen',
       editPrivateInfo:
@@ -73,6 +78,9 @@ export default {
       yes: 'ja',
       no: 'nein',
     },
+		modalHeaders: {
+			enterCode: 'Please enter code.',
+		},
     listOfProfashionals: {
       title: 'DEUTCHE: how to use? ',
     },

@@ -1,6 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import Alarm from '@material-ui/icons/Alarm';
 import { withRouter } from 'next/router';
 import { get } from 'lodash';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -50,13 +51,14 @@ export default class ProfashionalCoverPhoto extends React.Component {
 
   get renderAddinationalInfoDesctop() {
     const {
-			username,
+      username,
       firstName,
       currentRate,
       currency,
       rating,
       numberOfTrips,
     } = this.props.profashionalProfile;
+    const { pagination } = this.props.profashionalRatings;
     return (
       <div className="addinational-wrapper desctop">
         <div className="name-container">
@@ -79,7 +81,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
           </div>
           <CopyToClipboard
             onCopy={() =>
-              createNotification('info', this.props.translate('copied'))
+              createNotification('info', this.props.translate('copiedLink'))
             }
             text={`http://demo.myprofashional.com${this.props.router.asPath}`}>
             <div className="copy-link pointer">
@@ -102,12 +104,15 @@ export default class ProfashionalCoverPhoto extends React.Component {
           </div>
         )}
         {rating && (
-          <div className="near-icon">
+          <div className="near-icon rate-container">
             <Rate
               className="flex-with-margin"
               initialRating={rating}
               readonly
             />
+            <CustomTypography fontSize="14px" variant="subheading">
+              ({pagination.total})
+            </CustomTypography>
           </div>
         )}
       </div>
@@ -118,6 +123,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
     const {
       firstName,
       currentRate,
+      certified,
       currency,
       rating,
       numberOfTrips,
@@ -132,6 +138,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
               fontSize="24px">
               {firstName}
             </CustomTypography>
+            {certified && <img src="/static/svg/certified.svg" />}
           </div>
         </div>
         {numberOfTrips && (
@@ -190,6 +197,14 @@ export default class ProfashionalCoverPhoto extends React.Component {
             {this.props.children}
             {!isEdit && (
               <div className="buttons-wrapper">
+                {this.props.profashionalProfile.completed && (
+                  <IconOurButton
+                    className="trip-profile-button"
+                    onClick={this.props.onTripClick}
+                    icon={<Alarm />}>
+                    trip tracker
+                  </IconOurButton>
+                )}
                 <IconOurButton
                   className="edit-profile-button"
                   onClick={this.edit}

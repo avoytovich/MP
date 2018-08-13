@@ -12,6 +12,9 @@
       width: 100%
       height: 396px
       position: relative
+      .buttons-wrapper
+        .edit-profile-button
+          margin-left: 16px
       .edit-cover
         top: 24px
         right: 24px
@@ -36,6 +39,9 @@
           margin-left: 24px
         .near-icon
           padding-left: 220px
+        .rate-container
+          display: flex
+          align-items: center
         .name-container
           display: flex
           justify-content: space-between
@@ -56,6 +62,7 @@
       background-size: cover
       .buttons-wrapper
         position: absolute
+        padding-bottom: 24px
         display: flex
         justify-content: flex-end
         align-items: center
@@ -91,6 +98,7 @@
     .cover
       &-wrapper
         height: 132px
+
         &.no-edit
           height: 175px
         .edit-cover
@@ -109,6 +117,12 @@
               padding-top: 0
           .near-icon
             padding-left: 69px
+            display: flex
+            align-items: center
+            img
+              margin-left: 8px
+              max-width: 11px
+              height: 100%
       &-body
         height: 98px
     .icon
@@ -130,6 +144,8 @@
   .profashional-cover
     .cover-wrapper
       .buttons-wrapper
+        padding-right: 16px
+        padding-bottom: 16.8px
         .edit-profile-button
           display: none
       .addinational-wrapper
