@@ -67,6 +67,7 @@ export default {
         'DEUTCHE: Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
+			wantLogOut: "Are you sure you want to log out",
       cancel: 'Abbrechen',
       ok: 'OK',
       yes: 'ja',
