@@ -24,9 +24,14 @@ import { menuProps, profashionalOptions } from '../../constants/landing/menu';
 import CustomTypography from '../material-wrap/typography/index';
 
 import './header.sass';
+import withConfirmModal from '../../services/decorators/withConfirmModal/index';
 
-@i18n('menu')
 @withRouter
+@withConfirmModal('wantLogOut', 'no', 'yes', () => {
+  clear();
+  Router.pushRoute('/');
+})
+@i18n('menu')
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +61,9 @@ export default class Header extends Component {
   onMenuClick = name => {
     switch (name) {
       case 'logOut':
-        clear();
+        this.props.openConfirm();
+        break;
+      case 'home':
         Router.pushRoute('/');
         break;
       case 'privateInfo':
@@ -69,7 +76,16 @@ export default class Header extends Component {
         Router.pushRoute(`/profashional/${getLocale('id')}/edit-profile`);
         break;
     }
-    this.toggleDropDownDesktop();
+
+    this.state.menuOpen && this.toggleDropDownDesktop();
+  };
+
+  renderPoint = option => {
+    const point = this.props.point;
+    if (point && ~point.indexOf(option.translateVariable)) {
+      return <div className="point" />;
+    }
+    return null;
   };
 
   get renderDesktopLinks() {
@@ -93,8 +109,9 @@ export default class Header extends Component {
         onClick={this.toggleDropDownDesktop}>
         <div
           className="header-avatar"
-          style={{ backgroundImage: `url(${getMyPhoto()})` }}
-        />
+          style={{ backgroundImage: `url(${getMyPhoto()})` }}>
+          {this.props.point && <div className="point" />}
+        </div>
         <CustomTypography
           fontSize="18px"
           className={this.props.color ? '' : 'white'}>
@@ -123,6 +140,7 @@ export default class Header extends Component {
                   onClick={() => this.onMenuClick(option.translateVariable)}
                   className="header-menu-item">
                   {this.props.translate(option.translateVariable)}
+                  {this.renderPoint(option)}
                 </MenuItem>
               ))
             : null}
@@ -175,7 +193,7 @@ export default class Header extends Component {
       return (
         <Reorder
           color="secondary"
-          style={{ color: this.props.color ? 'black' : 'white'}}
+          style={{ color: this.props.color ? 'black' : 'white' }}
           onClick={this.burgerToggle}
         />
       );
