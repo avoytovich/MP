@@ -84,6 +84,7 @@ export default {
     },
     listOfProfashionals: {
       title: 'how to use? ',
+      location: 'find your profashional in',
     },
     listOfProfashionalsTitle: {
       specialOcasion: 'Special ocasion',
