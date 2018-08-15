@@ -47,7 +47,7 @@ export default class FromToForm extends React.Component {
             setFieldValue={setFieldValue}
             error={errors[`from${i}`]}
             touched={touched[`from${i}`]}
-            label="from"
+            label="From"
           />
           <Field
             name={`to${i}`}
@@ -55,7 +55,7 @@ export default class FromToForm extends React.Component {
             setFieldValue={setFieldValue}
             error={errors[`to${i}`]}
             touched={touched[`to${i}`]}
-            label="to"
+            label="To"
           />
         </div>,
       );
@@ -74,15 +74,10 @@ export default class FromToForm extends React.Component {
             <Button
               type="button"
               onClick={this.props.onCancel}
-              className="social-button login-button">
+              className="cancel-button">
               cancel
             </Button>
-            <Button
-              disabled={!isValid}
-              type="submit"
-              className="social-button login-button">
-              OK
-            </Button>
+            <Button type="submit">OK</Button>
           </div>
         )}
       </Form>
