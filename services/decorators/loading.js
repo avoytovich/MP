@@ -33,6 +33,7 @@ export default function loading(runtimeNames = []) {
         showSuccess: false,
         unsetLoading: true,
         setData: false,
+        mapper: data => data,
       };
 
       loadData = async (promise, opts = {}) => {
@@ -43,9 +44,15 @@ export default function loading(runtimeNames = []) {
           data = await promise;
           if (options.saveTo) {
             if (options.setData) {
-              this.props.setData(data.data, `${options.saveTo}Data`);
+              this.props.setData(
+                options.mapper(data.data),
+                `${options.saveTo}Data`,
+              );
             } else {
-              this.props.updateSpecData(data.data, options.saveTo);
+              this.props.updateSpecData(
+                options.mapper(data.data),
+                options.saveTo,
+              );
             }
           }
           if (options.showSuccess) {

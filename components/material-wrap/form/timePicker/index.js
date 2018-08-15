@@ -55,7 +55,7 @@ export default class TimePickerCustom extends React.Component {
       setFieldValue,
     } = this.props;
     return (
-      <div>
+      <div className="time-picker-wrapper">
         <TimePicker
           clearable
           ampm={false}

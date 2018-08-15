@@ -45,6 +45,7 @@ export default {
 			certified: 'Certified',
 			meetings: 'meetings',
 			copiedLink: 'Your link is copied',
+			createAvailability: 'To create availability please select date on the calendar.',
 			copyLink: 'Copy link',
 			MEN: 'Men',
 			WOMEN: 'Women',
@@ -57,6 +58,7 @@ export default {
 			languages: 'Languages',
 			city: 'City',
 			addSomePhoto: 'Add some additional photos of your work.',
+			addTime: 'Add time',
 		},
 		reviews: {
 			reviews: 'Reviews',
@@ -72,6 +74,8 @@ export default {
         'DEUTCHE: Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
+			reallyDelete:
+				'Do you really want to delete this time slot?',
 			wantLogOut: "Are you sure you want to log out",
       cancel: 'Abbrechen',
       ok: 'OK',
@@ -83,6 +87,7 @@ export default {
 		},
     listOfProfashionals: {
       title: 'DEUTCHE: how to use? ',
+      location: 'DEUTCHE: find your profashional in',
     },
     listOfProfashionalsTitle: {
       specialOcasion: 'DEUTCHE: Special ocasion',
