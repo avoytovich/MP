@@ -15,3 +15,4 @@ export const cities = buildCRUD('cities');
 export const countries = buildCRUD('countries');
 export const ratings = buildCRUD('ratings');
 export const bookings = buildCRUD('bookings');
+export const availabilities = buildCRUD('availabilities');

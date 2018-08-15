@@ -35,6 +35,7 @@
     "node-sass": "^4.9.1",
     "postcss-loader": "^2.1.6",
     "prop-types": "^15.6.2",
+    "qs": "^6.5.2",
     "raw-loader": "^0.5.1",
     "react": "^16.4.1",
     "react-copy-to-clipboard": "^5.0.1",
@@ -78,7 +79,6 @@
     "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-react": "~6.1.1",
     "moment-timezone": "^0.5.21",
-    "prettier": "^1.9.2",
-    "react-times": "^3.1.8"
+    "prettier": "^1.9.2"
   }
 }

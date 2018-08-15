@@ -1,0 +1,89 @@
+.Selectable
+  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside)
+    background-color: #470b2f
+    color: white
+  .DayPicker-Day--start
+    border-top-left-radius: 50% !important
+    border-bottom-left-radius: 50% !important
+  .DayPicker-Day--end
+    border-top-right-radius: 50% !important
+    border-bottom-right-radius: 50% !important
+
+.DayPicker-Day--events:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)
+  position: relative
+  &:after
+    content: ''
+    color: white
+    position: absolute
+    width: 7px
+    height: 7px
+    bottom: 1rem
+    left: calc(50% - 3.5px)
+    background-color: #774B66
+    border-radius: 50%
+
+.calendar-wrapper
+  display: flex
+  flex-wrap: wrap
+  .second-calendar-block
+    width: 50%
+    .no-content
+      width: 100%
+      height: 100%
+      display: flex
+      text-align: center
+      justify-content: center
+      align-items: center
+    .time-slots-wrapper
+      display: flex
+      flex-direction: column
+      align-items: flex-end
+      .selected-days
+        display: flex
+        justify-content: flex-start
+        width: 80%
+        max-width: 350px
+      .add-time-btn
+        height: 36px
+        margin-top: 24px
+        border: 1px dashed #979797
+        width: 80%
+        max-width: 350px
+      .date-header
+        margin-bottom: 8px
+      .day-wrapper
+        width: 80%
+        max-width: 350px
+        .time-slot-item
+          display: flex
+          justify-content: space-between
+          padding-right: 24px
+          margin-bottom: 17px
+
+@media (max-width: 820px)
+  .DayPicker-Day--events:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)
+    &:after
+      height: 4px
+      width: 4px
+      left: calc(50% - 2px)
+      bottom: 0.5rem
+  .calendar-wrapper
+    .second-calendar-block
+      padding-top: 16px
+      width: 100%
+      .time-slots-wrapper
+        .day-wrapper, .selected-days, .from-to-form
+          width: 100%
+          max-width: unset
+        .add-time-btn
+          margin: 0 auto
+          margin-top: 16px
+
+
+@media (min-width: 1600px)
+  .calendar-wrapper
+    .second-calendar-block
+      .time-slots-wrapper
+        align-items: center
+
+

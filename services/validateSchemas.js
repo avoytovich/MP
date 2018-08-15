@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { mapValues } from 'lodash';
 
 const email = 'email',
   required = 'required',
@@ -26,6 +27,32 @@ function equalTo(ref, msg) {
   });
 }
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
+Yup.addMethod(Yup.date, 'moreThan', (ref, msg) => {
+  return Yup.mixed().test({
+    name: 'moreThan',
+    exclusive: false,
+    message: msg,
+    params: {
+      reference: ref.path,
+    },
+    test: function(value) {
+      return value > this.resolve(ref);
+    },
+  });
+});
+Yup.addMethod(Yup.date, 'lessThan', (ref, msg) => {
+  return Yup.mixed().test({
+    name: 'moreThan',
+    exclusive: false,
+    message: msg,
+    params: {
+      reference: ref.path,
+    },
+    test: function(value) {
+      return value < this.resolve(ref);
+    },
+  });
+});
 
 const SignUpSchema = Yup.object().shape({
   email: Yup.string()
@@ -176,6 +203,7 @@ const EditProfileSchema = Yup.object().shape({
 
 export {
   SignUpSchema,
+  fromTo,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,

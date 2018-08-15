@@ -27,7 +27,7 @@ export default class Reviews extends React.Component {
     const { pagination } = this.props.profashionalRatings;
     return (
       <div className="count-and-rate">
-        <CustomTypography variant="title" fontSize="24px">
+        <CustomTypography variant="button" fontSize="24px">
           {pagination.total
             ? `${pagination.total} ${this.props.translate('reviews')}`
             : this.props.translate('noReviews')}
