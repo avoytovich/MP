@@ -279,7 +279,10 @@ export default class Profashional extends React.Component {
           />
         </div>
         <div className="profashional-grid profashional-block availability">
-          <CustomTypography variant="button" fontSize="24px">
+          <CustomTypography
+            variant="button"
+            fontSize="24px"
+            className="availability-header">
             Availability:
           </CustomTypography>
           <Calendar />

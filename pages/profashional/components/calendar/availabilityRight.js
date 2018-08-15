@@ -15,9 +15,11 @@ import './style.sass';
 import CustomTypography from '../../../../components/material-wrap/typography/index';
 import Button from '../../../../components/material-wrap/button';
 import i18n from '../../../../services/decorators/i18n';
+import withConfirmModal from '../../../../services/decorators/withConfirmModal/index';
 
 @loading(['modifiers', 'timeSlots'])
 @withRouter
+@withConfirmModal('reallyDelete', 'no', 'yes')
 @i18n('common')
 export default class AvailabilityRight extends Component {
   state = {
@@ -47,69 +49,6 @@ export default class AvailabilityRight extends Component {
     this.props.loadAvailabilities();
     this.props.loadTimeSlots();
   };
-
-  get renderTimeSlots() {
-    const timeSlots = this.props.timeSlots;
-    if (timeSlots) {
-      return timeSlots.map(
-        (slot, index) =>
-          slot.timeSlots.length > 0 && (
-            <div key={index} className="day-wrapper">
-              <CustomTypography
-                className="date-header"
-                variant="title"
-                fontSize="16px">
-                {moment(slot.date).format('DD.MM.YYYY')}
-              </CustomTypography>
-              {slot.timeSlots.map((timeSlot, i) => {
-                const arrDate = slot.date.split('-');
-                return (
-                  <div className="time-slot-item" key={i}>
-                    <CustomTypography variant="subheading" fontSize="16px">
-                      {`${moment(
-                        arrDate.concat([
-                          Math.floor(timeSlot.startTime / 60),
-                          timeSlot.startTime % 60,
-                        ]),
-                      ).format('HH:mm')} -
-                ${moment(
-                  arrDate.concat([
-                    Math.floor(timeSlot.endTime / 60),
-                    timeSlot.endTime % 60,
-                  ]),
-                ).format('HH:mm')}`}
-                    </CustomTypography>
-                    <Close
-                      className="pointer"
-                      onClick={() => this.deleteTimeSlot(slot.date, timeSlot)}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ),
-      );
-    }
-    return null;
-  }
-
-  get renderSelectedDays() {
-    return (
-      <CustomTypography fontSize="16px" variant="title">
-        {this.props.selectedDays
-          .map(sd => moment(sd).format('DD.MM.YYYY'))
-          .join(' / ')}
-      </CustomTypography>
-    );
-  }
-
-  get addTimeButton() {
-    return (
-      <Button className="add-time-btn" onClick={this.addCount}>
-        Add time
-      </Button>
-    );
-  }
 
   getTimeSlots = values => {
     const timeSlots = [];
@@ -144,6 +83,74 @@ export default class AvailabilityRight extends Component {
     this.props.loadData(this.props.loadAvailabilities());
     this.props.loadData(this.props.loadTimeSlots());
   };
+
+  get renderTimeSlots() {
+    const timeSlots = this.props.timeSlots;
+    if (timeSlots) {
+      return timeSlots.map(
+        (slot, index) =>
+          slot.timeSlots.length > 0 && (
+            <div key={index} className="day-wrapper">
+              <CustomTypography
+                className="date-header"
+                variant="title"
+                fontSize="16px">
+                {moment(slot.date).format('DD.MM.YYYY')}
+              </CustomTypography>
+              {slot.timeSlots.map((timeSlot, i) => {
+                const arrDate = slot.date.split('-');
+                arrDate[1] = Number(arrDate[1]) - 1;
+                return (
+                  <div className="time-slot-item" key={i}>
+                    <CustomTypography variant="subheading" fontSize="16px">
+                      {`${moment(
+                        arrDate.concat([
+                          Math.floor(timeSlot.startTime / 60),
+                          timeSlot.startTime % 60,
+                        ]),
+                      ).format('HH:mm')} -
+                ${moment(
+                  arrDate.concat([
+                    Math.floor(timeSlot.endTime / 60),
+                    timeSlot.endTime % 60,
+                  ]),
+                ).format('HH:mm')}`}
+                    </CustomTypography>
+                    <Close
+                      className="pointer"
+                      onClick={() =>
+                        this.props.openConfirm(() =>
+                          this.deleteTimeSlot(slot.date, timeSlot),
+                        )
+                      }
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ),
+      );
+    }
+    return null;
+  }
+
+  get addTimeButton() {
+    return (
+      <Button className="add-time-btn" onClick={this.addCount}>
+        {this.props.translate('addTime')}
+      </Button>
+    );
+  }
+
+  get renderSelectedDays() {
+    return (
+      <CustomTypography fontSize="16px" variant="title">
+        {this.props.selectedDays
+          .map(sd => moment(sd).format('DD.MM.YYYY'))
+          .join(' / ')}
+      </CustomTypography>
+    );
+  }
 
   render() {
     if (this.props.selectedDays.length === 0)

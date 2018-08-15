@@ -19,11 +19,14 @@ export default function withConfirmModal(
   return function(Child) {
     @i18n('confirmModal')
     class CustomConfirmModal extends Component {
+      ok = undefined;
+
       state = {
         open: false,
       };
 
-      handleOpen = () => {
+      handleOpen = ok => {
+        this.ok = ok;
         this.setState({ open: true });
       };
 
@@ -33,7 +36,7 @@ export default function withConfirmModal(
 
       render() {
         return (
-          <div>
+          <>
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
@@ -51,7 +54,13 @@ export default function withConfirmModal(
                 <Button onClick={this.handleClose} color="primary">
                   {this.props.translate(cancelText)}
                 </Button>
-                <Button onClick={() => onOk(this.props)} color="primary">
+                <Button
+                  onClick={() => {
+                    if (onOk) onOk(this.props);
+                    if (this.ok) this.ok();
+                    this.handleClose();
+                  }}
+                  color="primary">
                   {this.props.translate(okText)}
                 </Button>
               </DialogActions>
@@ -62,7 +71,7 @@ export default function withConfirmModal(
               openConfirm={this.handleOpen}
               closeConfirm={this.handleClose}
             />
-          </div>
+          </>
         );
       }
     }

@@ -36,6 +36,7 @@ export default {
         'Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Do you want to close Edit Profile section? your information will not be saved',
+      reallyDelete: 'Do you really want to delete this time slot?',
       wantLogOut: 'Are you sure you want to log out',
       cancel: 'Cancel',
       ok: 'OK',
@@ -65,7 +66,8 @@ export default {
       meetings: 'meetings',
       copiedLink: 'Your link is copied',
       copyLink: 'Copy link',
-      createAvailability: 'To create availability please select date on the calendar.',
+      createAvailability:
+        'To create availability please select date on the calendar.',
       MEN: 'Men',
       WOMEN: 'Women',
       CHILD: 'Child',
@@ -77,6 +79,7 @@ export default {
       languages: 'Languages',
       city: 'City',
       addSomePhoto: 'Add some additional photos of your work.',
+      addTime: 'Add time',
     },
     reviews: {
       reviews: 'Reviews',
