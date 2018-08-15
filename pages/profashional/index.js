@@ -232,10 +232,14 @@ export default class Profashional extends React.Component {
   }
 
   get pointArray() {
-    if (!this.props.profashionalProfile.completed) {
-      return ['privateInfo', 'editProfile'];
+    const pointArray = [];
+    if (!this.props.profashionalProfile.privateInfoCompleted) {
+      pointArray.push('privateInfo');
     }
-    return null;
+    if (!this.props.profashionalProfile.profileCompleted) {
+      pointArray.push('editProfile');
+    }
+    return pointArray;
   }
 
   render() {
