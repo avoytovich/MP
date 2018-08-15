@@ -75,10 +75,6 @@ export default class AvailabilityRight extends Component {
       const endTime =
         moment(get(values, `to${i}`)).format('HH') * 60 +
         Number(moment(get(values, `to${i}`)).format('mm'));
-      console.log('i', i);
-      console.log('values', values);
-      console.log('startTime', startTime);
-      console.log('endTime', endTime);
       if (!get(values, `from${i}`)) {
         errors[`from${i}`] = 'Required';
         result = false;
