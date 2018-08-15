@@ -84,6 +84,7 @@ export default {
 		},
     listOfProfashionals: {
       title: 'DEUTCHE: how to use? ',
+      location: 'DEUTCHE: find your profashional in',
     },
     listOfProfashionalsTitle: {
       specialOcasion: 'DEUTCHE: Special ocasion',
