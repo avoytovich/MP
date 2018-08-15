@@ -65,7 +65,41 @@ export default class AvailabilityRight extends Component {
     return timeSlots;
   };
 
-  sendAvaibilities = async (values, { resetForm }) => {
+  validateAvaibilities = (values, { setErrors }) => {
+    let result = true;
+    const errors = {};
+    for (let i = 0; i < this.state.count; i++) {
+      const startTime =
+        moment(get(values, `from${i}`)).format('HH') * 60 +
+        Number(moment(get(values, `from${i}`)).format('mm'));
+      const endTime =
+        moment(get(values, `to${i}`)).format('HH') * 60 +
+        Number(moment(get(values, `to${i}`)).format('mm'));
+      if (!get(values, `from${i}`)) {
+        errors[`from${i}`] = 'Required';
+        result = false;
+      }
+      if (!get(values, `to${i}`)) {
+        errors[`to${i}`] = 'Required';
+        result = false;
+      }
+      if (startTime > endTime) {
+        // error from
+        result = false;
+        errors[`from${i}`] = 'Must be less';
+      }
+      if (endTime < startTime) {
+        // error to
+        result = false;
+        errors[`to${i}`] = 'Must be more';
+      }
+    }
+    if (!result) setErrors(errors);
+    return result;
+  };
+
+  sendAvaibilities = async (values, props) => {
+    if (!this.validateAvaibilities(values, props)) return;
     await this.props.loadData(
       availabilities.post({
         datesTimeSlots: this.props.selectedDays.map(day => ({
@@ -78,7 +112,7 @@ export default class AvailabilityRight extends Component {
         showError: true,
       },
     );
-    resetForm();
+    props.resetForm();
     this.setState({ count: 0 });
     this.props.loadData(this.props.loadAvailabilities());
     this.props.loadData(this.props.loadTimeSlots());
