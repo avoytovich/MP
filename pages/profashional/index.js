@@ -21,6 +21,7 @@ import { Router } from '../../routes';
 import InterviewModal from './components/interview/modal';
 import TripModal from './components/trip/modal';
 import Reviews from './components/reviews';
+import Calendar from './components/calendar';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
 import i18n from '../../services/decorators/i18n';
@@ -278,9 +279,10 @@ export default class Profashional extends React.Component {
           />
         </div>
         <div className="profashional-grid profashional-block availability">
-          <CustomTypography variant="title" fontSize="24px">
+          <CustomTypography variant="button" fontSize="24px">
             Availability:
           </CustomTypography>
+          <Calendar />
         </div>
         <div className="profashional-grid profashional-block availability">
           <Reviews
