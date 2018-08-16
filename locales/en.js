@@ -87,7 +87,7 @@ export default {
     },
     listOfProfashionals: {
       title: 'how to use? ',
-      location: 'find your profashional in',
+      location: 'find your profashional in zurich',
     },
     listOfProfashionalsTitle: {
       specialOcasion: 'Special ocasion',
