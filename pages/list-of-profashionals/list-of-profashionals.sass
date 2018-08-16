@@ -1,8 +1,8 @@
 .list-of-profashionals-form-wrapper
   .info
-    border-left: 1px grey solid
-    border-right: 1px grey solid
-    border-bottom: 1px grey solid
+    height: 115px
+    overflow: hidden
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.26)
     .info-name
       padding: 10px
       text-align: left
@@ -27,7 +27,8 @@
   .grid-field-list
     margin: 0px 0px
     cursor: pointer
-    height: 160px
+    height: 230px
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.26)
     background-repeat: no-repeat
     background-position: center
     background-size: cover
@@ -67,4 +68,41 @@
     margin-bottom: 36px
   .infinite-scroll-component
     overflow: hidden !important
+    .infinite-scroll-component-photo
+      padding: 3px !important
+@media (max-width: 480px)
+  .list-of-profashionals-form-wrapper
+    .header-image, .infinite-scroll-component-photo, .location
+      width: 90% !important
+      margin: auto !important
+    .grid-field-image-gap-1, .grid-field-image-gap-2
+      display: none
+    .grid-field-list
+      height: 130px !important
+    .info
+      height: 55px
+      .info-name
+        padding: 2px
+        text-align: left
+        text-indent: 2px
+        font-size: 12px !important
+      .info-slogan
+        margin: 2px
+        text-align: left
+        text-indent: 2px
+        font-size: 10px !important
+      .info-rate-left
+        text-align: left
+        .info-rate-right
+          margin-right: 2px
+          float: right
+        .info-rate-current
+          display: inline
+          font-size: 8px !important
+      .flex-with-margin
+        display: flex
+        margin-left: 2px
+        .icon
+          width: 7px
+          height: 7px
 
