@@ -203,7 +203,6 @@ const EditProfileSchema = Yup.object().shape({
 
 export {
   SignUpSchema,
-  fromTo,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,

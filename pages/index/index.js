@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'next/router';
+// import Head from 'next/head';
 
 import { Router } from '../../routes';
 
@@ -12,6 +13,8 @@ import EmailModal from './components/user/modal';
 import VerifyModal from './components/verify/modal';
 import ForgotModal from './components/forgot/modal';
 import ResetModal from './components/resetPassword/modal';
+
+// import { metaTags } from '../../services/cruds';
 
 import '../style.sass';
 
@@ -33,6 +36,17 @@ export default class App extends React.Component {
       'reset-password',
     ],
   };
+
+  // static async getInitialProps({ req, query }) {
+  //   let mustReturn = {};
+  //   try {
+  //     const response = await metaTags.get({ name: 'index' }, '/public');
+  //     mustReturn = response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   return mustReturn;
+  // }
 
   componentDidMount() {
     // TODO implemet 404 logic
@@ -75,6 +89,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
+        {/* <Head>*/}
+        {/* <meta name="description" content={this.props.description} />*/}
+        {/* <meta name="keywords" content={this.props.keywords} />*/}
+        {/* <meta name="title" content={this.props.title} />*/}
+        {/* <title>{this.props.title}</title>*/}
+        {/* </Head>*/}
         <div className="landing-wrapper">
           <Header />
         </div>

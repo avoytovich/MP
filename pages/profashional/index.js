@@ -54,7 +54,7 @@ export default class Profashional extends React.Component {
     if (!this.props.router.query.id) {
       Router.pushRoute('/');
     }
-    this.loadAndSaveProfashionalAccount();
+    // this.loadAndSaveProfashionalAccount();
     this.loadAndSaveProfashionalProfile();
     this.loadAndSaveRatings();
   }
