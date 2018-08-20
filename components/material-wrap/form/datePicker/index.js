@@ -17,18 +17,6 @@ export default class DatePickerCustom extends React.Component {
     anchorEl: null
   };
 
-  get renderEndAdornment() {
-    if (this.props.infoIcon) {
-      return (
-        <img
-          src="/static/svg/ic-info-outline-24-px.svg"
-          onClick={this.onIconClick}
-        />
-      );
-    }
-    return null;
-  }
-
   onIconClick = event => {
     this.setState({
       anchorEl: event.currentTarget,
@@ -66,7 +54,7 @@ export default class DatePickerCustom extends React.Component {
         <Input
           id={id}
           field={{ name, value }}
-          infoIcon
+          infoIcon={infoIcon}
           fullWidth={fullWidth}
           placeholder={placeholder}
           className={className}
@@ -77,7 +65,6 @@ export default class DatePickerCustom extends React.Component {
           maxDate={maxDate}
           date
           format="DD.MM.YYYY"
-          keyboardIcon={this.renderEndAdornment}
           value={value}
           onChange={val => setFieldValue(name, val)}
         />

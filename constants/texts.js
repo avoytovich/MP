@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 import DropDown from '../components/material-wrap/form/dropDown/index';
 import DatePicker from '../components/material-wrap/form/datePicker/index';
 import { currencies, countries } from '../services/cruds';
@@ -102,6 +103,14 @@ export const listOfProfashionals = {
       name: 'exploreCity',
       alt: 'explore_city',
       src: '../static/png/explore_city.png',
+    },
+  ],
+  addition: [
+    {
+      label: 'DayPicker',
+      name: 'dayPicker',
+      component: DatePicker,
+      placeholder: 'dd.mm.yyyy',
     },
   ],
 };
