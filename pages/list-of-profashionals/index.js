@@ -214,6 +214,7 @@ export default class ListOfProfashionals extends React.Component {
                             component={component || Input}
                             setFieldValue={setFieldValue}
                             fullWidth
+                            infoReset
                             error={translate(errors[name])}
                             touched={touched[name]}
                             className="default-input "
@@ -234,7 +235,7 @@ export default class ListOfProfashionals extends React.Component {
                       container
                       spacing={16}
                       direction="row"
-                      justify="center"
+                      justify="flex-start"
                       className="infinite-scroll-component-photo">
                       {data.map((item, index) => {
                         const {

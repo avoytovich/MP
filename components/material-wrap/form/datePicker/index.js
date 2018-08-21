@@ -1,20 +1,35 @@
 import React from 'react';
-import Popover from '@material-ui/core/Popover';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import { DatePicker } from 'material-ui-pickers';
+import Popover from '@material-ui/core/Popover';
 
 import Typography from '../../typography';
 import Input from '../input';
 
 import './datePicker.sass';
+import { setData, updateSpecData } from '../../../../actions/updateData';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateSpecData, setData }, dispatch);
+
+const mapStateToProps = ({ runtime }) => ({
+  initialDate: runtime.dateNew,
+  // profashionalPrivateInfo: runtime.profashionalPrivateInfoData,
+});
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
 export default class DatePickerCustom extends React.Component {
   constructor(props) {
     super(props);
     this.calendar = React.createRef();
   }
   state = {
-    anchorEl: null
+    anchorEl: null,
   };
 
   onIconClick = event => {
@@ -32,11 +47,12 @@ export default class DatePickerCustom extends React.Component {
 
   openCalendar = () => {
     this.calendar.current.open();
-  }
+  };
 
   render() {
+    const { initialDate } = this.props;
     const {
-      field: { name, value = '', onBlur },
+      field: { name, value = initialDate || '', onBlur },
       id = name,
       fullWidth,
       className = '',
@@ -46,6 +62,7 @@ export default class DatePickerCustom extends React.Component {
       placeholder,
       disabled,
       infoIcon,
+      infoReset,
       error,
       setFieldValue,
     } = this.props;
@@ -55,6 +72,7 @@ export default class DatePickerCustom extends React.Component {
           id={id}
           field={{ name, value }}
           infoIcon={infoIcon}
+          infoReset={infoReset}
           fullWidth={fullWidth}
           placeholder={placeholder}
           className={className}
@@ -85,7 +103,10 @@ export default class DatePickerCustom extends React.Component {
           // handle clearing outside => pass plain array if you are not controlling value outside
           // mask={val => (val ? [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/] : [])}
           value={value}
-          onChange={val => setFieldValue(name, val)}
+          onChange={val => {
+            setFieldValue(name, val);
+            this.props.setData(val, 'dateNew');
+          }}
           onBlur={onBlur}
         />
         {infoIcon && (

@@ -107,7 +107,7 @@ export const listOfProfashionals = {
   ],
   addition: [
     {
-      label: 'DayPicker',
+      label: 'Date',
       name: 'dayPicker',
       component: DatePicker,
       placeholder: 'dd.mm.yyyy',
