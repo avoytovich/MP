@@ -214,7 +214,7 @@ export default class ListOfProfashionals extends React.Component {
                             component={component || Input}
                             setFieldValue={setFieldValue}
                             fullWidth
-                            infoReset
+                            infoReset={false}
                             error={translate(errors[name])}
                             touched={touched[name]}
                             className="default-input "

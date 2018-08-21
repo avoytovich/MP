@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch =>
 
 const mapStateToProps = ({ runtime }) => ({
   initialDate: runtime.dateNew,
+  initialReset: runtime.resetNew,
   // profashionalPrivateInfo: runtime.profashionalPrivateInfoData,
 });
 
@@ -63,6 +64,7 @@ export default class DatePickerCustom extends React.Component {
       disabled,
       infoIcon,
       infoReset,
+      initialReset,
       error,
       setFieldValue,
     } = this.props;
@@ -72,7 +74,7 @@ export default class DatePickerCustom extends React.Component {
           id={id}
           field={{ name, value }}
           infoIcon={infoIcon}
-          infoReset={infoReset}
+          infoReset={(!infoIcon && initialReset) || infoReset}
           fullWidth={fullWidth}
           placeholder={placeholder}
           className={className}
@@ -106,6 +108,7 @@ export default class DatePickerCustom extends React.Component {
           onChange={val => {
             setFieldValue(name, val);
             this.props.setData(val, 'dateNew');
+            this.props.setData(true, 'resetNew');
           }}
           onBlur={onBlur}
         />
