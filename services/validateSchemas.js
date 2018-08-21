@@ -168,6 +168,59 @@ const EditProfileSchema = Yup.object().shape({
     .required(required),
 });
 
+const TripDetailsSchema = Yup.object().shape({
+  endTime: Yup.string()
+    .required(required),
+  startTime: Yup.string()
+    .required(required),
+  someName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  birthday: Yup.string()
+    .required(required),
+  gender: Yup.string()
+    .required(required),
+  firstName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  lastName: Yup.string()
+    .min(2, toSmall)
+    .max(50, toLong)
+    .matches(/[a-zA-Z]/, onlyLetters)
+    .required(required),
+  email: Yup.string()
+    .email(email)
+    .required(required),
+  phoneNumber: Yup.string()
+    .min(13, toSmall)
+    .max(13, toLong)
+    .matches(/^[+][0-9]*$/, phoneNumberReq)
+    .required(required),
+  address: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  zip: Yup.string()
+    .min(4, toSmall)
+    .max(4, toLong)
+    .matches(/^[0-9]*$/, zipReq)
+    .required(required),
+  city: Yup.string()
+    .min(2, toSmall)
+    .max(30, toLong)
+    .required(required),
+  bankAccountNumber: Yup.string()
+    .min(22, toSmall)
+    .max(22, toLong)
+    .matches(/^[C][H][0-9]*$/, bankAccountNumberReq)
+    .required(required),
+  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
 export {
   SignUpSchema,
   SocialSignUpSchema,
@@ -178,4 +231,5 @@ export {
   InterviewSchema,
   PrivateInfoSchemaStepOne,
   PrivateInfoSchemaStepTwo,
+  TripDetailsSchema,
 };

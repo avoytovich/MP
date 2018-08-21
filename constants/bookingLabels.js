@@ -18,26 +18,33 @@ export const bookingLabels = {
       label: 'Start time',
       name: 'startTime',
       component: TimePicker,
-      additionalClass: 'required',
+      additionalClass: 'required input-custom',
     },
     {
       label: 'End time (Estimated)',
       name: 'endTime',
       component: TimePicker,
+      additionalClass: 'required input-custom',
+    },
+    {
+      label: 'Some Name',
+      name: 'someName',
       additionalClass: 'required',
+      sm: 12,
     },
     {
       label: 'Preferred meeting location',
       name: 'meetingLocation',
       infoIcon: true,
-        sm: 12,
+      sm: 12,
     },
     {
       label: 'Notebox',
       name: 'notebox',
       component: TextArea,
       sm: 12,
-      placeholder: "Please let us know what are you looking for and your possible budget."
+      placeholder: "Please let us know what are you looking for and your possible budget.",
+      additionalClass: 'input-custom',
       },
   ],
   inputFieldsForTripDetails2: [
@@ -110,27 +117,15 @@ export const bookingLabels = {
   ],
   inputFieldsForConfirm: [
     {
-      label: 'Preferred Meeting Location',
-      name: 'confirmMeetingLocation',
-      sm: 12,
-      setFieldValue: 'Auqapark',
-    },
-    {
-      label: 'Estimated Starting Time',
-      name: 'EstimatedStartTime',
-      fieldValue: '9:00',
-    },
-    {
-      label: 'Estimated End Time',
-      name: 'EstimatedEndTime',
-      fieldValue: '11:00',
-    },
-    {
       label: 'Estimated Price',
       name: 'estimatedPrice',
-      sm: 12,
       additionalClass: "bold",
       infoIcon: true,
+    },
+    {
+      label: 'Preferred Meeting Location',
+      name: 'confirmMeetingLocation',
+      setFieldValue: 'Auqapark',
     },
     {
       name: 'confirmNotebox',

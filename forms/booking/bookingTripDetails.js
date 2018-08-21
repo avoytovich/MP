@@ -13,7 +13,7 @@ import Button from '../../components/material-wrap/button';
 import { setData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { bookingLabels } from '../../constants/bookingLabels';
-import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
+import { TripDetailsSchema } from '../../services/validateSchemas';
 
 import './bookingDetails.sass';
 import Typography from "../../components/material-wrap/typography";
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch =>
   //   options.props.handleSubmit(values, options);
   // },
 
-  validationSchema: props => PrivateInfoSchemaStepOne,
+  validationSchema: props => TripDetailsSchema,
 })
 @i18n('errors', 'booking')
 export default class TripDetails extends React.Component {
