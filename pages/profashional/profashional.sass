@@ -1,0 +1,75 @@
+.profashional
+  &-block
+    border-bottom: 1px solid #979797
+    padding-bottom: 37px
+  &-grid
+    width: 100%
+    padding-left: 15%
+    padding-right: 15%
+    .availability-header
+      margin-bottom: 24px
+    &.availability
+      padding-top: 37px
+      .count-and-rate
+        margin-bottom: 24px
+        .rate-wrapper
+          margin-left: 10px
+    .profashional-info
+      display: flex
+      flex-wrap: wrap
+      margin-bottom: 37px
+      margin-top: 24px
+      .certified-wrapper
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 15px
+        img
+          margin-right: 16px
+      .info-container
+        display: flex
+        align-items: center
+        flex-wrap: wrap
+        margin-bottom: 16px
+        h3
+          color: #4A4A4A!important
+          margin-right: 6px
+      .first-block
+        width: 220px
+      .second-block
+        .occasions-container
+          display: flex
+          flex-wrap: wrap
+          margin-left: 24px
+        .slogan
+          margin-left: 24px
+        width: calc(100% - 220px)
+
+@media (max-width: 580px)
+  .profashional-info
+    .first-block
+      min-width: 100%
+    .second-block
+      min-width: 100%
+    .slogan, .occasions-container
+      margin-left: 0!important
+
+@media (max-width: 480px)
+  .profashional
+    &-grid
+      padding-left: 16px
+      padding-right: 16px
+      &.availability
+        padding-top: 24px
+        span
+          margin-bottom: 16px
+      .profashional-info
+        margin-bottom: 24px
+        margin-top: 0
+        .certified-wrapper
+          display: none
+        .info-container
+          margin-bottom: 13px
+          h3
+            margin-right: 14px
+

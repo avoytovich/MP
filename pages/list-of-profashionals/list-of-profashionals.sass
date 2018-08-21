@@ -1,29 +1,57 @@
 .list-of-profashionals-form-wrapper
-  .grid-field-image
-    display: flex
-    justify-content: center
-    padding: 10px
-  .grid-field-input-gap
-    position: relative
-    margin: 30px 10px
-    .grid-field-input-gap-signature
-      position: absolute
-      bottom: 0px
-      text-indent: 20px
-      min-height: 20%
-      width: 100%
-      line-height: 1.7
-      cursor: pointer
+  .info
+    height: 115px
+    overflow: hidden
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.26)
+    .info-name
+      padding: 10px
       text-align: left
-      opacity: 0.85
-      z-index: 1000
-      background-color: #470b2f
-      .header
+      text-indent: 10px
+    .info-slogan
+      margin: 10px
+      text-align: left
+      text-indent: 10px
+    .info-rate-left
+      text-align: left
+      .info-rate-right
+        margin-right: 10px
+        float: right
+      .info-rate-current
         display: inline
-        vertical-align: middle
-        color: #ffffff
-    .animation
-      height: 100%
+    .flex-with-margin
+      display: flex
+      margin-left: 24px
+      .icon
+        width: 13px
+        height: 12.6px
+  .grid-field-list
+    margin: 0px 0px
+    cursor: pointer
+    height: 230px
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.26)
+    background-repeat: no-repeat
+    background-position: center
+    background-size: cover
+  .grid-field-image-gap
+    position: relative
+    margin: 0px 0px
+    height: 165px
+  .grid-field-input-gap-signature
+    position: absolute
+    bottom: 0px
+    text-indent: 20px
+    min-height: 20%
+    width: 100%
+    line-height: 1.7
+    cursor: pointer
+    text-align: left
+    opacity: 0.85
+    z-index: 1000
+    background-color: #470b2f
+    .header
+      display: inline
+      vertical-align: middle
+      color: #ffffff
 .list-of-profashionals
   height: 64px
   text-align: center
@@ -33,4 +61,48 @@
   .nav-wrapper .menu-item
     color: black !important
   .header
-    margin-top: 50px
+    margin-top: 26px
+    margin-bottom: 36px
+  .location
+    margin-top: 26px
+    margin-bottom: 36px
+  .infinite-scroll-component
+    overflow: hidden !important
+    .infinite-scroll-component-photo
+      padding: 3px !important
+@media (max-width: 480px)
+  .list-of-profashionals-form-wrapper
+    .header-image, .infinite-scroll-component-photo, .location
+      width: 90% !important
+      margin: auto !important
+    .grid-field-image-gap-1, .grid-field-image-gap-2
+      display: none
+    .grid-field-list
+      height: 130px !important
+    .info
+      height: 55px
+      .info-name
+        padding: 2px
+        text-align: left
+        text-indent: 2px
+        font-size: 12px !important
+      .info-slogan
+        margin: 2px
+        text-align: left
+        text-indent: 2px
+        font-size: 10px !important
+      .info-rate-left
+        text-align: left
+        .info-rate-right
+          margin-right: 2px
+          float: right
+        .info-rate-current
+          display: inline
+          font-size: 8px !important
+      .flex-with-margin
+        display: flex
+        margin-left: 2px
+        .icon
+          width: 7px
+          height: 7px
+

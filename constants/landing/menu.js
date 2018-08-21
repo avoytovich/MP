@@ -13,4 +13,25 @@ const menuProps = [
   },
 ];
 
-export { menuProps };
+const profashionalOptions = [
+  {
+    translateVariable: 'home',
+  },
+  {
+    translateVariable: 'profile',
+  },
+  {
+    translateVariable: 'privateInfo',
+  },
+  {
+    translateVariable: 'editProfile',
+  },
+  {
+    translateVariable: 'settings',
+  },
+  {
+    translateVariable: 'logOut',
+  },
+];
+
+export { menuProps, profashionalOptions };

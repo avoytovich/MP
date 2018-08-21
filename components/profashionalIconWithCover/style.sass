@@ -1,0 +1,161 @@
+.profashional-cover
+  .icon-edit
+    width: 38px
+    height: 38px
+  .edit-button
+    position: absolute
+    color: white
+    background-color: black
+    opacity: 0.52 !important
+  .cover
+    &-wrapper
+      width: 100%
+      height: 396px
+      position: relative
+      .buttons-wrapper
+        .edit-profile-button
+          margin-left: 16px
+      .edit-cover
+        top: 24px
+        right: 24px
+        z-index: 1
+      .mobile
+        display: none
+      .desctop
+        display: block
+      .addinational-wrapper
+        width: 100%
+        padding-left: 15%
+        padding-right: 15%
+        .copy-link
+          display: flex
+          align-items: center
+          width: 116px
+          justify-content: space-between
+        .meetings-mobile
+          font-size: 12px!important
+        .flex-with-margin
+          display: flex
+          margin-left: 24px
+        .near-icon
+          padding-left: 220px
+        .rate-container
+          display: flex
+          align-items: center
+        .name-container
+          display: flex
+          justify-content: space-between
+          padding-top: 16px
+          .name-currency
+            display: flex
+            flex-wrap: wrap
+          .currency
+            margin-left: 16px
+
+
+    &-body
+      position: relative
+      height: 286px
+      background-color: #f2f5f5
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
+      .buttons-wrapper
+        position: absolute
+        padding-bottom: 24px
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        bottom: 0
+        height: 50px
+        width: 100%
+        padding-right: 15%
+  .icon
+    &-wrapper
+      position: absolute
+      left: calc(50% - 220px/2)
+      bottom: 0
+      width: 220px
+      height: 220px
+      &.no-edit
+        left: 15%
+      .edit-icon
+        bottom: 16px
+        right: 11px
+    &-image
+      width: 100%
+      height: 100%
+      background-position: center
+      background-size: cover
+      border-radius: 50%
+
+@media (max-width: 480px)
+  .profashional-cover
+    .icon-wrapper
+      &.no-edit
+        left: 16px
+        bottom: 43px
+    .cover
+      &-wrapper
+        height: 132px
+
+        &.no-edit
+          height: 175px
+        .edit-cover
+          top: 18px
+          right: 18px
+        .desctop
+          display: none
+        .mobile
+          display: block
+          padding-left: 16px
+          padding-right: 16px
+        .addinational-wrapper
+          .name-container
+            padding-top: 8px
+            &.currency
+              padding-top: 0
+          .near-icon
+            padding-left: 69px
+            display: flex
+            align-items: center
+            img
+              margin-left: 8px
+              max-width: 11px
+              height: 100%
+      &-body
+        height: 98px
+    .icon
+      &-wrapper
+        height: 69px
+        width: 69px
+        left: calc(50% - 79px/2)
+        .edit-icon
+          bottom: 1px
+          right: 7px
+    .icon-edit
+      width: 18px
+      height: 18px
+      span svg
+        width: 10px
+        height: 10px
+
+@media (max-width: 790px)
+  .profashional-cover
+    .cover-wrapper
+      .buttons-wrapper
+        padding-right: 16px
+        padding-bottom: 16.8px
+        .edit-profile-button
+          display: none
+      .addinational-wrapper
+        padding-right: 0
+        .copy-link
+          display: none
+        .flex-with-margin
+          margin-left: 8px
+
+
+
+
+

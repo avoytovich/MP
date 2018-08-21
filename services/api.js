@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { get as getParam } from 'lodash';
+import qs from 'qs';
 
 import { Router } from '../routes';
 
@@ -55,11 +56,22 @@ export const buildCRUD = url => {
       if (!data || !id) return Promise.reject('Need Data or id');
       return wrapRequest({ method: 'PUT', url: `${url}/${id}`, data });
     },
-    deleteRequest: id => {
-      if (!id) return Promise.reject('Need id');
-      return wrapRequest({ method: 'DELETE', url: `${url}/${id}` });
+    patch: (id, data) => {
+      if (!data || !id) return Promise.reject('Need Data or id');
+      return wrapRequest({ method: 'PATCH', url: `${url}/${id}`, data });
     },
-    get: (params = {}) => wrapRequest({ method: 'GET', url, params }),
+    deleteRequest: data => {
+      return wrapRequest({ method: 'DELETE', url: `${url}`, data });
+    },
+    get: (params = {}, plusUrl = '', needParamsSerializer) =>
+      wrapRequest({
+        method: 'GET',
+        url: `${url}${plusUrl}`,
+        params,
+        paramsSerializer: needParamsSerializer
+          ? par => qs.stringify(par, { arrayFormat: 'indices', allowDots: true })
+          : undefined,
+      }),
     getWithId: (id, plusUrl = '') => {
       if (!id) return Promise.reject('Need id');
       return wrapRequest({ method: 'GET', url: `${url}/${id}${plusUrl}` });

@@ -9,6 +9,12 @@ export default {
       becomeProfashional: 'Become a profashional',
       logIn: 'Log in',
       signUp: 'Sign Up',
+      home: 'Home',
+      profile: 'Profile',
+      privateInfo: 'Private Info',
+      settings: 'Settings',
+      editProfile: 'Edit Profile',
+      logOut: 'Log Out',
     },
     errors: {
       matchPassword: 'passwords do not match',
@@ -20,16 +26,25 @@ export default {
       onlyLetters: 'Only Letters',
       onlyNumbers: 'Only Numbers',
     },
+    popups: {
+      startedTrip:
+        'Success. Trip started and is tracking (calculating time) now until the end code will be entered',
+    },
     confirmModal: {
       confirm: 'Confirm',
       editPrivateInfo:
         'Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Do you want to close Edit Profile section? your information will not be saved',
+      reallyDelete: 'Do you really want to delete this time slot?',
+      wantLogOut: 'Are you sure you want to log out',
       cancel: 'Cancel',
       ok: 'OK',
       yes: 'yes',
       no: 'no',
+    },
+    modalHeaders: {
+      enterCode: 'Please enter code.',
     },
     booking: {
       cancellationPolicyFullText:
@@ -42,8 +57,49 @@ export default {
       where: 'Where, when, and what would you like to shop',
       learnmore: 'To learn more about our cancellation policy please click ',
       learnmoreclick: 'here',
-      addCard: "Please add your Visa or Master Card",
-      checkout: "Please checkout details",
+      addCard: 'Please add your Visa or Master Card',
+      checkout: 'Please checkout details',
+    },
+    common: {
+      hour: 'hour',
+      certified: 'Certified',
+      meetings: 'meetings',
+      copiedLink: 'Your link is copied',
+      copyLink: 'Copy link',
+      createAvailability:
+        'To create availability please select date on the calendar.',
+      MEN: 'Men',
+      WOMEN: 'Women',
+      CHILD: 'Child',
+      EVENT: 'Event',
+      SPORTS: 'Sports',
+      CASUAL: 'Casual',
+      BUSINESS: 'Business',
+      expertise: 'Expertise',
+      languages: 'Languages',
+      city: 'City',
+      addSomePhoto: 'Add some additional photos of your work.',
+      addTime: 'Add time',
+    },
+    reviews: {
+      reviews: 'Reviews',
+      noReviews: 'No reviews yet!',
+    },
+    listOfProfashionals: {
+      title: 'how to use? ',
+      location: 'find your profashional in zurich',
+    },
+    listOfProfashionalsTitle: {
+      specialOcasion: 'Special ocasion',
+      inspiration: 'Inspiration',
+      exploreCity: 'Explore city',
+    },
+    listOfProfashionalsContent: {
+      specialOcasion: 'Don’t raise your voice, improve your argument',
+      inspiration:
+        'If you want to achieve greatness stop asking for permission',
+      exploreCity:
+        'To live a creative life, we must lose our fear of being wrong',
     },
   }),
   // formats: object,

@@ -41,7 +41,7 @@ export default class TimePickerCustom extends React.Component {
 
   render() {
     const {
-      field: { name, value = null },
+      field: { name, value = null, onBlur },
       id = name,
       fullWidth,
       className = '',
@@ -55,17 +55,18 @@ export default class TimePickerCustom extends React.Component {
       setFieldValue,
     } = this.props;
     return (
-      <div>
+      <div className="time-picker-wrapper">
         <TimePicker
           clearable
           ampm={false}
           id={id}
           name={name}
           fullWidth={fullWidth}
+          onBlur={onBlur}
           placeholder={placeholder}
           className={className}
           disabled={disabled}
-          error={!!(touched && error)}
+          error={!!error}
           label={error || label}
           maxDate={maxDate}
           keyboardIcon={this.renderEndAdornment}

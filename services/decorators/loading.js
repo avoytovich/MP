@@ -9,10 +9,13 @@ import { updateSpecData, setData } from '../../actions/updateData';
 
 export default function loading(runtimeNames = []) {
   return function(Child) {
-    const mapStateToProps = ({ runtime }) => {
+    const mapStateToProps = ({ runtime }, props) => {
       const returnObj = {
         loading: runtime.loading || false,
       };
+      if (props.runtimeName) {
+        returnObj[name] = runtime[`${name}Data`];
+      }
       runtimeNames.forEach(name => (returnObj[name] = runtime[`${name}Data`]));
       return returnObj;
     };
@@ -29,6 +32,8 @@ export default function loading(runtimeNames = []) {
         showError: false,
         showSuccess: false,
         unsetLoading: true,
+        setData: false,
+        mapper: data => data,
       };
 
       loadData = async (promise, opts = {}) => {
@@ -38,8 +43,17 @@ export default function loading(runtimeNames = []) {
         try {
           data = await promise;
           if (options.saveTo) {
-            options.saveTo &&
-              this.props.updateSpecData(data.data, options.saveTo);
+            if (options.setData) {
+              this.props.setData(
+                options.mapper(data.data),
+                `${options.saveTo}Data`,
+              );
+            } else {
+              this.props.updateSpecData(
+                options.mapper(data.data),
+                options.saveTo,
+              );
+            }
           }
           if (options.showSuccess) {
             createNotification({
@@ -52,7 +66,9 @@ export default function loading(runtimeNames = []) {
           if (options.showError)
             createNotification({
               type: 'error',
-              title: get(e, 'response.data.title'),
+              title:
+                get(e, 'response.data.title') ||
+                get(e, 'response.data.message'),
               message: '',
             });
           this.setLoader(false);

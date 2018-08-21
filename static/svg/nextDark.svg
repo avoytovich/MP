@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="5px" height="8px" viewBox="0 0 5 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_chevron_right_24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Profile-full-4-mob-" transform="translate(-261.000000, -784.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="Group-4" transform="translate(0.000000, 171.000000)">
+                <g id="Group-21" transform="translate(24.000000, 600.000000)">
+                    <g id="calendar">
+                        <g id="Group-10" transform="translate(209.809709, 13.600000)">
+                            <g id="ic_chevron_right_24px" transform="translate(26.935922, 0.000000)">
+                                <polygon id="Shape" points="1.32038835 0.26407767 0.482601942 1.10186408 3.20392233 3.82912621 0.482601942 6.55638835 1.32038835 7.39417476 4.88543689 3.82912621"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -224,23 +224,37 @@ export default class PrivateInfoProfashional extends React.Component {
   };
 
   get initialValues() {
-    return (
-      get(this.props, 'privateInfo') ||
-      get(this.props, 'profashionalPrivateInfo') ||
-      get(this.props, 'profashionalAccount') ||
-      {}
-    );
+    const profashionalPrivateInfo =
+      get(this.props, 'profashionalPrivateInfo') || {};
+    const privateInfo = get(this.props, 'privateInfo');
+    if (privateInfo) return get(this.props, 'privateInfo');
+    return {
+      ...get(this.props, 'profashionalPrivateInfo'),
+      ...get(this.props, 'profashionalAccount'),
+      address: profashionalPrivateInfo.address || '',
+      city: profashionalPrivateInfo.city || '',
+      country: get(profashionalPrivateInfo, 'country.id') || '',
+      currency: get(profashionalPrivateInfo, 'currency.id') || '',
+      email: profashionalPrivateInfo.email || '',
+      firstName: profashionalPrivateInfo.firstName || '',
+      bankAccountNumber: profashionalPrivateInfo.iban &&
+        `******************${profashionalPrivateInfo.iban}` || '',
+      lastName: profashionalPrivateInfo.lastName || '',
+      phoneNumber: profashionalPrivateInfo.phoneNumber || '',
+      zip: profashionalPrivateInfo.zip || '',
+    };
   }
 
   render() {
     //console.log('THIS PROPS', this.props);
-    //console.log('THIS State', this.state);
+    // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,
       profashionalAccount,
     } = this.props;
-    const { isConfirmed } = profashionalAccount.userExtra.profashional;
+    if (!(profashionalPrivateInfo && profashionalAccount)) return null;
+    const { confirmed } = profashionalAccount.profashional;
     const { forwardToNextStep } = this.state;
     return (
       <div className="private-info private-info-form-wrapper">
@@ -251,14 +265,13 @@ export default class PrivateInfoProfashional extends React.Component {
               className="test"
               onClose={() => this.props.openConfirm()}
             />
-            {profashionalAccount &&
-              !isConfirmed && (
-                <div className="grid-stepper">
-                  <Grid className="grid" item xs={12} sm={6}>
-                    <Stepper ref={this.child} steps={this.state.steps}/>
-                  </Grid>
-                </div>
-              )}
+            {!confirmed && (
+              <div className="grid-stepper">
+                <Grid className="grid" item xs={12} sm={6}>
+                  <Stepper ref={this.child} steps={this.state.steps}/>
+                </Grid>
+              </div>
+            )}
             <div className="grid-header">
               <Grid className="grid-header-title" item xs={12} sm={6}>
                 {forwardToNextStep ? (
@@ -278,10 +291,9 @@ export default class PrivateInfoProfashional extends React.Component {
                   <PrivateInfoStepOne
                     {...this.initialValues}
                     privateInfo={this.props.privateInfo}
-                    completed={isConfirmed}
+                    completed={confirmed}
                     handleSubmit={
-                      (profashionalAccount &&
-                        !isConfirmed &&
+                      (!confirmed &&
                         this.handleSubmitForStepOne) ||
                       this.handleSubmitForStepOneEdit
                     }

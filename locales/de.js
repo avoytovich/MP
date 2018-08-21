@@ -7,18 +7,15 @@ export default {
       testString: 'German text',
     },
     menu: {
-      becomeProfashional: 'Become a profashional',
-      logIn: 'Log in',
-      signUp: 'Sign Up',
-    },
-		confirmModal: {
-      confirm: 'Bestätigen',
-      cancel: 'Abbrechen',
-			editProfile:
-				'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
-      ok: 'OK',
-      yes: 'ja',
-      no: 'nein',
+			becomeProfashional: 'Become a profashional',
+			logIn: 'Log in',
+			signUp: 'Sign Up',
+			home: 'Home',
+			profile: 'Profile',
+			editProfile: 'Edit Profile',
+			privateInfo: 'Private Info',
+			settings: 'Settings',
+			logOut: 'Log Out',
     },
     errors: {
       matchPassword: 'passwords do not match1',
@@ -42,6 +39,65 @@ export default {
       learnmore: 'To learn more about our cancellation policy please click ',
       learnmoreclick: 'here',
       addCard: "Please add your Visa or Master Card"
+    },
+		common: {
+			hour: 'hour',
+			certified: 'Certified',
+			meetings: 'meetings',
+			copiedLink: 'Your link is copied',
+			createAvailability: 'To create availability please select date on the calendar.',
+			copyLink: 'Copy link',
+			MEN: 'Men',
+			WOMEN: 'Women',
+			CHILD: 'Child',
+			EVENT: 'Event',
+			SPORTS: 'Sports',
+			CASUAL: 'Casual',
+			BUSINESS: 'Business',
+			expertise: 'Expertise',
+			languages: 'Languages',
+			city: 'City',
+			addSomePhoto: 'Add some additional photos of your work.',
+			addTime: 'Add time',
+		},
+		reviews: {
+			reviews: 'Reviews',
+			noReviews: 'No reviews yet!',
+		},
+		popups: {
+			startedTrip:
+				'Success. Trip started and is tracking (calculating time) now until the end code will be entered',
+		},
+    confirmModal: {
+      confirm: 'Bestätigen',
+      editPrivateInfo:
+        'DEUTCHE: Do you want to close Private Info section? your information will not be saved',
+      editProfile:
+        'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
+			reallyDelete:
+				'Do you really want to delete this time slot?',
+			wantLogOut: "Are you sure you want to log out",
+      cancel: 'Abbrechen',
+      ok: 'OK',
+      yes: 'ja',
+      no: 'nein',
+    },
+		modalHeaders: {
+			enterCode: 'Please enter code.',
+		},
+    listOfProfashionals: {
+      title: 'DEUTCHE: how to use? ',
+      location: 'DEUTCHE: find your profashional in zurich',
+    },
+    listOfProfashionalsTitle: {
+      specialOcasion: 'DEUTCHE: Special ocasion',
+      inspiration: 'DEUTCHE: Inspiration',
+      exploreCity: 'DEUTCHE: Explore city',
+    },
+    listOfProfashionalsContent: {
+      specialOcasion: 'DEUTCHE: Don’t raise your voice, improve your argument',
+      inspiration: 'DEUTCHE: If you want to achieve greatness stop asking for permission',
+      exploreCity: 'DEUTCHE: To live a creative life, we must lose our fear of being wrong',
     },
   }),
   // formats: object,

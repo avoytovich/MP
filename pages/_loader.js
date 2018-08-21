@@ -13,7 +13,13 @@ const mapStateToProps = ({ runtime }, props) => ({
 export default class Proxy extends React.Component {
   render() {
     if (this.props.loading) {
-      return <CircularProgress className="circular" size={250} thickness={1} />;
+      return (
+        <div className="spinner">
+          <div className="bounce1" />
+          <div className="bounce2" />
+          <div className="bounce3" />
+        </div>
+      );
     }
     return null;
   }
