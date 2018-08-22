@@ -51,6 +51,10 @@ export default class PrivateInfoProfashional extends React.Component {
     this.state = {
       forwardToNextStep: true,
       steps: ['Private information', 'ID Card'],
+      infoStepTwo: {
+        gender: '',
+        dob: '',
+      },
     };
   }
 
@@ -216,14 +220,21 @@ export default class PrivateInfoProfashional extends React.Component {
     }
   };
 
-  handleBackForStepTwo = values => {
+  handleBackForStepTwo = data => {
+    const { gender, dob } = data;
+    this.setState({
+      infoStepTwo: {
+        gender,
+        dob,
+      }
+    });
     this.child.current.handleBack();
     this.setState({
       forwardToNextStep: true,
     });
   };
 
-  get initialValues() {
+  get initialValuesStepOne() {
     const profashionalPrivateInfo =
       get(this.props, 'profashionalPrivateInfo') || {};
     const privateInfo = get(this.props, 'privateInfo');
@@ -245,8 +256,12 @@ export default class PrivateInfoProfashional extends React.Component {
     };
   }
 
+  get initialValuesStepTwo() {
+    return this.state.infoStepTwo;
+  }
+
   render() {
-    //console.log('THIS PROPS', this.props);
+    // console.log('THIS PROPS', this.props);
     // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
@@ -289,7 +304,7 @@ export default class PrivateInfoProfashional extends React.Component {
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
-                    {...this.initialValues}
+                    {...this.initialValuesStepOne}
                     privateInfo={this.props.privateInfo}
                     completed={confirmed}
                     handleSubmit={
@@ -300,6 +315,7 @@ export default class PrivateInfoProfashional extends React.Component {
                   />
                 ) : (
                   <PrivateInfoStepTwo
+                    {...this.initialValuesStepTwo}
                     handleSubmit={this.handleSubmitForStepTwo}
                     handleBack={this.handleBackForStepTwo}
                   />
