@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
-import { updateSpecData } from '../../actions/updateData';
+import { updateSpecData, resetData } from '../../actions/updateData';
 import { account, profashionals, ratings } from '../../services/cruds';
 
 import { NON_SCHEDULED } from '../../constants/interview';
@@ -34,7 +34,7 @@ const mapStateToProps = ({ runtime }) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ updateSpecData }, dispatch);
+  bindActionCreators({ updateSpecData, resetData }, dispatch);
 
 @connect(
   mapStateToProps,
@@ -57,6 +57,14 @@ export default class Profashional extends React.Component {
     this.loadAndSaveProfashionalAccount();
     this.loadAndSaveProfashionalProfile();
     this.loadAndSaveRatings();
+  }
+
+  componentWillUnmount() {
+    this.props.resetData('profashionalAccount');
+    this.props.resetData('profashionalProfile');
+    this.props.resetData('profashionalRatings');
+    this.props.resetData('modifiers');
+    this.props.resetData('timeSlots');
   }
 
   componentWillReceiveProps(nextProps) {
