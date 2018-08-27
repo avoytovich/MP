@@ -117,7 +117,7 @@ export default class EditProfileProfashional extends Component {
       hourlyRate: profashionalProfile.currentRate / 100 || '',
       slogan: profashionalProfile.slogan || '',
       aboutMe: profashionalProfile.description || '',
-      expersises: profashionalProfile.expersises || '',
+      expersises: profashionalProfile.expersises || [],
       occasion: profashionalProfile.occasions || '',
       city: get(profashionalProfile, 'city.id') || '',
       languages: lang.map(item => item.id),

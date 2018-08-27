@@ -194,7 +194,7 @@ export default class Header extends Component {
       return (
         <Reorder
           color="secondary"
-          style={{ color: this.props.color ? 'black' : 'white' }}
+          style={{ color: this.props.color ? '#470b2f' : 'white' }}
           onClick={this.burgerToggle}
         />
       );

@@ -65,7 +65,7 @@ export default class LoginForm extends React.Component {
           Forgot Password?
         </Typography>
         <Button
-          disabled={!isValid}
+
           type="submit"
           className="social-button login-button">
           Log in
