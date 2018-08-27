@@ -211,7 +211,7 @@ export default class Header extends Component {
     const opened = this.state.opened;
     return (
       <div className="nav-wrapper" style={this.props.style}>
-        <nav>
+        <nav style={this.props.navStyle}>
           <div className="navWide">
             {this.renderLogo}
             <div className="wideDiv">

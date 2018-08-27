@@ -2,10 +2,10 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Alarm from '@material-ui/icons/Alarm';
+import Waypoint from 'react-waypoint';
 import { withRouter } from 'next/router';
-import { get, debounce } from 'lodash';
+import { get } from 'lodash';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import IconOurButton from '../material-wrap/buttonWithIcon';
 import CustomTypography from '../material-wrap/typography/index';
@@ -21,28 +21,8 @@ import './style.sass';
 @i18n('common')
 @withRouter
 export default class ProfashionalCoverPhoto extends React.Component {
-  scroll = React.createRef();
-
-  componentDidMount() {
-    window.addEventListener('scroll', debounce(this.handleScroll, 300));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', debounce(this.handleScroll, 300));
-  }
-
-  handleScroll = () => {
-    const scrollY = window.pageYOffset;
-    console.log(this.scroll);
-    console.log(this.scroll.current.classList.contains('show'));
-    if (scrollY > 396 && !this.scroll.current.classList.contains('show')) {
-      this.scroll.current.classList.add('show');
-      console.log('added');
-    }
-    if (scrollY < 396 && this.scroll.current.classList.contains('show')) {
-      this.scroll.current.classList.remove('show');
-      console.log('removed');
-    }
+  state = {
+    show: false,
   };
 
   checlAvailability = () => {
@@ -215,6 +195,17 @@ export default class ProfashionalCoverPhoto extends React.Component {
     );
   }
 
+  getStyleForScroll = () => {
+    console.log('getstyle', this.state.show);
+    if (this.state.show) return 'show';
+    return '';
+  };
+
+  setAddinationView = show => {
+    console.log('setAddinationView', show);
+    if (show !== this.state.show) this.setState({ show });
+  };
+
   render() {
     const { isEdit, showEditButtons } = this.props;
     return (
@@ -257,6 +248,10 @@ export default class ProfashionalCoverPhoto extends React.Component {
                       Edit profile
                     </IconOurButton>
                   )}
+                  <Waypoint
+                    onEnter={() => this.setAddinationView(false)}
+                    onLeave={() => this.setAddinationView(true)}
+                  />
                 </div>
               )}
             </div>
@@ -280,8 +275,21 @@ export default class ProfashionalCoverPhoto extends React.Component {
             {!isEdit && this.renderAddinationalInfoMobile}
           </div>
         </div>
-        <div className="add-info-on-scroll" ref={this.scroll}>
-          <Header color style={{ background: '#f2f5f5' }} />
+        <div className={'add-info-on-scroll ' + this.getStyleForScroll()}>
+          <Header
+            color
+            style={{ background: '#f2f5f5' }}
+            navStyle={{ paddingBottom: '0px' }}
+          />
+          <div className="check-availability">
+            <div className="check-availability-first-block">
+              <div
+                className="small-icon"
+                style={{ backgroundImage: `url(${this.renderIconPhoto})` }}
+              />
+            </div>
+            <div className="check-availability-second-block" />
+          </div>
         </div>
       </>
     );
