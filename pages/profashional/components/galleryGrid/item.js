@@ -26,29 +26,45 @@ export default class ItemGallery extends Component {
           backgroundImage: `url(${photo.path})`,
         }}
         onClick={() => photo.path && this.props.onPhotoClick(this.props.index)}>
-        {this.props.index === 0 && (
-          <div
-            className="cover pointer"
-            onClick={e => {
-              e.stopPropagation();
-              this.props.onLoadClick(e);
-            }}
-            style={{
-              backgroundColor: photo.path ? 'rgba(0,0,0,0.5)' : '',
-            }}>
-            {photo.path ? (
-              <img src="/static/svg/whiteAddPhoto.svg" />
-            ) : (
-              <img src="/static/svg/addPhoto.svg" />
-            )}
-            <Typography
-              className={"text " + (photo.path ? 'with-path' : '')}
-              fontSize="18px"
-              variant="title">
-              {this.props.translate('addSomePhoto')}
-            </Typography>
-          </div>
-        )}
+        {this.props.index === 0 &&
+          this.props.showUpload && (
+            <div
+              className="cover pointer"
+              onClick={e => {
+                e.stopPropagation();
+                this.props.onLoadClick(e);
+              }}
+              style={{
+                backgroundColor: photo.path ? 'rgba(0,0,0,0.5)' : '',
+              }}>
+              {photo.path ? (
+                <img src="/static/svg/whiteAddPhoto.svg" />
+              ) : (
+                <img src="/static/svg/addPhoto.svg" />
+              )}
+              <Typography
+                className={'text ' + (photo.path ? 'with-path' : '')}
+                fontSize="18px"
+                variant="title">
+                {this.props.translate('addSomePhoto')}
+              </Typography>
+            </div>
+          )}
+        {this.props.index === 7 &&
+          this.props.size > 8 && (
+            <div
+              className="cover pointer"
+              style={{
+                backgroundColor: photo.path ? 'rgba(0,0,0,0.5)' : '',
+              }}>
+              <Typography
+                className="text with-path"
+                fontSize="24px"
+                variant="title">
+                {`+ ${this.props.size - 8}`}
+              </Typography>
+            </div>
+          )}
       </div>
     );
   }

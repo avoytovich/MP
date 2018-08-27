@@ -210,7 +210,7 @@ export default class Header extends Component {
   render() {
     const opened = this.state.opened;
     return (
-      <div className="nav-wrapper">
+      <div className="nav-wrapper" style={this.props.style}>
         <nav>
           <div className="navWide">
             {this.renderLogo}

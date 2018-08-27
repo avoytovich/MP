@@ -24,6 +24,11 @@ import Reviews from './components/reviews';
 import Calendar from './components/calendar';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
+import {
+  amILogined,
+  amIProfashional,
+  isItMyPage,
+} from '../../services/accountService';
 import i18n from '../../services/decorators/i18n';
 
 import './profashional.sass';
@@ -54,7 +59,7 @@ export default class Profashional extends React.Component {
     if (!this.props.router.query.id) {
       Router.pushRoute('/');
     }
-    // this.loadAndSaveProfashionalAccount();
+    this.loadAndSaveProfashionalAccount();
     this.loadAndSaveProfashionalProfile();
     this.loadAndSaveRatings();
   }
@@ -71,15 +76,23 @@ export default class Profashional extends React.Component {
 
   loadAndSaveProfashionalAccount = async () => {
     try {
-      const accountResp = await account.get();
-      if (!this.props.profashionalAccount.id) {
-        this.props.updateSpecData(accountResp.data, 'profashionalAccount');
-      }
       if (
-        get(this.props.profashionalAccount, 'profashional.interviewStatus') ===
-        NON_SCHEDULED
+        amILogined() &&
+        amIProfashional() &&
+        isItMyPage(this.props.router.query.id)
       ) {
-        this.setState({ interviewModal: true });
+        const accountResp = await account.get();
+        if (!this.props.profashionalAccount.id) {
+          this.props.updateSpecData(accountResp.data, 'profashionalAccount');
+        }
+        if (
+          get(
+            this.props.profashionalAccount,
+            'profashional.interviewStatus',
+          ) === NON_SCHEDULED
+        ) {
+          this.setState({ interviewModal: true });
+        }
       }
     } catch (e) {
       console.error(e);
@@ -242,6 +255,10 @@ export default class Profashional extends React.Component {
     return pointArray;
   }
 
+  get isItMyProfashionalPage() {
+    return !!(amIProfashional() && isItMyPage(this.props.router.query.id));
+  }
+
   render() {
     if (!this.props.profashionalProfile) return null;
     if (!this.props.profashionalRatings) return null;
@@ -249,6 +266,7 @@ export default class Profashional extends React.Component {
       <div className="profashional">
         <ProfashionalIconWithCover
           onTripClick={this.openTrip}
+          showEditButtons={this.isItMyProfashionalPage}
           profashionalProfile={this.props.profashionalProfile}
           profashionalRatings={this.props.profashionalRatings}>
           <Header
@@ -274,11 +292,14 @@ export default class Profashional extends React.Component {
           </div>
           <GalleryGrid
             onPhotoClick={this.onPhotoClick}
+            showUpload={this.isItMyProfashionalPage}
             name="profashionalProfile"
             photos={get(this.props, 'profashionalProfile.galleryPhotos')}
           />
         </div>
-        <div className="profashional-grid profashional-block availability">
+        <div
+          className="profashional-grid profashional-block availability"
+          id="availability-section">
           <CustomTypography
             variant="button"
             fontSize="24px"
