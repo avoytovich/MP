@@ -39,6 +39,7 @@ export default class EditProfile extends React.Component {
       errors,
       touched,
       isValid,
+      dirty,
       validPhotos,
       translate,
     } = this.props;
@@ -166,7 +167,9 @@ export default class EditProfile extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <Button disabled={!(isValid && validPhotos)} type="submit">
+          <Button
+            disabled={validPhotos && !dirty ? false : !(isValid && validPhotos)}
+            type="submit">
             Save
           </Button>
         </div>
