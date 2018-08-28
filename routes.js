@@ -26,4 +26,8 @@ module.exports = routes()
     'profashional/private-info',
   )
   .add('activate', '/activate/:code', 'activate')
-  .add('bookingTripDetails', '/list-of-profashionals/:id/booking/trip-details', 'list-of-profashionals/booking');
+  .add(
+    'bookingTripDetails',
+    '/list-of-profashionals/:id/booking/trip-details',
+    'list-of-profashionals/booking',
+  );
