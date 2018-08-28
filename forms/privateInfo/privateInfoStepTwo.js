@@ -40,7 +40,7 @@ const mapStateToProps = ({ runtime }) => ({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
 
-  //validationSchema: props => PrivateInfoSchemaStepTwo,
+  // validationSchema: props => PrivateInfoSchemaStepTwo,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
@@ -88,6 +88,20 @@ export default class PrivateInfo extends React.Component {
         back: this.state.back,
       },
       'privateInfo',
+    );
+  };
+
+  get statusEnableOrDisable() {
+    const { frontId, backId } = this.state;
+    const {
+      isValid,
+      initialValues: { privateInfoStepTwo },
+      gender,
+      dob,
+    } = this.props;
+    return !(
+      (frontId && backId && isValid) ||
+      (gender && dob && privateInfoStepTwo.backId && privateInfoStepTwo.frontId)
     );
   };
 
@@ -206,15 +220,7 @@ export default class PrivateInfo extends React.Component {
           <Button
             className="buttonsPrivateInfo"
             type="submit"
-            disabled={
-              !(
-                (frontId && backId && isValid) ||
-                (gender &&
-                  dob &&
-                  privateInfoStepTwo.backId &&
-                  privateInfoStepTwo.frontId)
-              )
-            }>
+            disabled={this.statusEnableOrDisable}>
             Save
           </Button>
         </div>
