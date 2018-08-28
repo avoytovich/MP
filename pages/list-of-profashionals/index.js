@@ -134,8 +134,8 @@ export default class ListOfProfashionals extends React.Component {
   };
 
   render() {
-    //console.log('this props', this.props);
-    //console.log('this state', this.state);
+    // console.log('this props', this.props);
+    // console.log('this state', this.state);
     const {
       translate,
       profashionalsList,
@@ -252,7 +252,10 @@ export default class ListOfProfashionals extends React.Component {
                             <div
                               ref={this.profashional}
                               onClick={() => this.handleClick(id)}
-                              style={{ backgroundImage: `url(${icon.path})` }}
+                              style={{
+                                backgroundImage: `url(${get(icon, 'path') ||
+                                  '/static/svg/placeholder.svg'})`,
+                              }}
                               className="grid-field-list"
                             />
                             <div className="info">
