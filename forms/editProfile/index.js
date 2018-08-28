@@ -172,6 +172,10 @@ export default class EditProfile extends React.Component {
           </div>
         </div>
         <div className="footer">
+          {console.log(validPhotos && !dirty)}
+          {console.log('validPhotos', validPhotos)}
+          {console.log('dirty', dirty)}
+          {console.log('errors', errors)}
           <Button
             disabled={validPhotos && !dirty ? false : !(isValid && validPhotos)}
             type="submit">
