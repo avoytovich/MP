@@ -42,7 +42,7 @@ export default class Availability extends Component {
             .join(','),
           profashionalId: this.props.router.query.id,
         },
-        '/timeSlots',
+        '/time-slots',
       ),
       {
         saveTo: 'timeSlots',
