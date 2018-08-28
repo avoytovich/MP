@@ -18,7 +18,7 @@ export default class RadioCustom extends React.Component {
       error,
       touched,
       placeholder,
-      label
+      label,
     } = this.props;
     return (
       <div>

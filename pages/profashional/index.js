@@ -22,6 +22,7 @@ import InterviewModal from './components/interview/modal';
 import TripModal from './components/trip/modal';
 import Reviews from './components/reviews';
 import Calendar from './components/calendar';
+import OpenCalendar from './components/openCalendar';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
 import {
@@ -32,7 +33,6 @@ import {
 import i18n from '../../services/decorators/i18n';
 
 import './profashional.sass';
-import { amIProfashional } from '../../services/accountService';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
@@ -255,7 +255,7 @@ export default class Profashional extends React.Component {
 
   get renderCalendar() {
     if (amIProfashional()) return <Calendar />;
-    return null;
+    return <OpenCalendar />;
   }
 
   get pointArray() {

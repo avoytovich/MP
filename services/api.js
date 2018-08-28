@@ -69,7 +69,8 @@ export const buildCRUD = url => {
         url: `${url}${plusUrl}`,
         params,
         paramsSerializer: needParamsSerializer
-          ? par => qs.stringify(par, { arrayFormat: 'indices', allowDots: true })
+          ? par =>
+              qs.stringify(par, { arrayFormat: 'indices', allowDots: true })
           : undefined,
       }),
     getWithId: (id, plusUrl = '') => {

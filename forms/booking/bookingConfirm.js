@@ -36,7 +36,6 @@ const mapDispatchToProps = dispatch =>
 @i18n('errors', 'booking')
 export default class Confirm extends React.Component {
   render() {
-    console.log('this.props', this.props);
     const { inputFieldsForConfirm} = bookingLabels;
     const {
       touched,

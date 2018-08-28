@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import qs from 'qs';
 import { get } from 'lodash';
-import Close from '@material-ui/icons/Close';
 
 import { withRouter } from 'next/router';
 
 import { Router } from '../../../../routes';
 import loading from '../../../../services/decorators/loading';
-import FromTo from '../../../../forms/fromTo';
-import { availabilities } from '../../../../services/cruds';
 
 import './default.sass';
 import './style.sass';
 import CustomTypography from '../../../../components/material-wrap/typography/index';
-import Button from '../../../../components/material-wrap/button';
 import i18n from '../../../../services/decorators/i18n';
+import { availabilities } from '../../../../services/cruds';
 import withConfirmModal from '../../../../services/decorators/withConfirmModal/index';
+import BookProfashionalForm from '../../../../forms/bookProfashionalForm/index';
 
 @loading(['modifiers', 'timeSlots'])
 @withRouter
@@ -27,7 +26,7 @@ export default class AvailabilityRight extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.selectedDays.length !== this.props.selectedDays.length) {
+    if (prevProps.selectedDays[0] !== this.props.selectedDays[0]) {
       this.resetState();
       return;
     }
@@ -35,34 +34,14 @@ export default class AvailabilityRight extends Component {
 
   resetState = () => this.setState({ count: 0 });
 
-  addCount = () => this.setState({ count: this.state.count + 1 });
-
-  deleteTimeSlot = async (date, { startTime, endTime }) => {
-    await this.props.loadData(
-      availabilities.deleteRequest({
-        date,
-        startTime,
-        endTime,
+  submitBook = values => {
+    Router.pushRoute(
+      `/list-of-profashionals/:id/booking/trip-details?${qs.stringify({
+        ...values.slot.timeSlots[values.time],
         profashionalId: this.props.router.query.id,
-      }),
+        date: values.slot.date,
+      })}`,
     );
-    this.props.loadAvailabilities();
-    this.props.loadTimeSlots();
-  };
-
-  getTimeSlots = values => {
-    const timeSlots = [];
-    for (let i = 0; i < this.state.count; i++) {
-      timeSlots.push({
-        startTime:
-          moment(get(values, `from${i}`)).format('HH') * 60 +
-          Number(moment(get(values, `from${i}`)).format('mm')),
-        endTime:
-          moment(get(values, `to${i}`)).format('HH') * 60 +
-          Number(moment(get(values, `to${i}`)).format('mm')),
-      });
-    }
-    return timeSlots;
   };
 
   validateAvaibilities = (values, { setErrors }) => {
@@ -100,22 +79,22 @@ export default class AvailabilityRight extends Component {
 
   sendAvaibilities = async (values, props) => {
     if (!this.validateAvaibilities(values, props)) return;
+    const body = {
+      date: moment(this.props.selectedDays[0]).format('YYYY-MM-DD'),
+      startTime: values.from0.hours() * 60 + values.from0.minutes(),
+      endTime: values.to0.hours() * 60 + values.to0.minutes(),
+      profashionalId: this.props.router.query.id,
+    };
     await this.props.loadData(
-      availabilities.post({
-        datesTimeSlots: this.props.selectedDays.map(day => ({
-          date: moment(day).format('YYYY-MM-DD'),
-          timeSlots: this.getTimeSlots(values),
-        })),
-        profashionalId: this.props.router.query.id,
-      }),
+      availabilities.get(body, '/time-slots/is-available'),
       {
         showError: true,
       },
     );
     props.resetForm();
-    this.setState({ count: 0 });
-    this.props.loadData(this.props.loadAvailabilities());
-    this.props.loadData(this.props.loadTimeSlots());
+    Router.pushRoute(
+      `/list-of-profashionals/:id/booking/trip-details?${qs.stringify(body)}`,
+    );
   };
 
   get renderTimeSlots() {
@@ -131,59 +110,17 @@ export default class AvailabilityRight extends Component {
                 fontSize="16px">
                 {moment(slot.date).format('DD.MM.YYYY')}
               </CustomTypography>
-              {slot.timeSlots.map((timeSlot, i) => {
-                const arrDate = slot.date.split('-');
-                arrDate[1] = Number(arrDate[1]) - 1;
-                return (
-                  <div className="time-slot-item" key={i}>
-                    <CustomTypography variant="subheading" fontSize="16px">
-                      {`${moment(
-                        arrDate.concat([
-                          Math.floor(timeSlot.startTime / 60),
-                          timeSlot.startTime % 60,
-                        ]),
-                      ).format('HH:mm')} -
-                ${moment(
-                  arrDate.concat([
-                    Math.floor(timeSlot.endTime / 60),
-                    timeSlot.endTime % 60,
-                  ]),
-                ).format('HH:mm')}`}
-                    </CustomTypography>
-                    <Close
-                      className="pointer"
-                      onClick={() =>
-                        this.props.openConfirm(() =>
-                          this.deleteTimeSlot(slot.date, timeSlot),
-                        )
-                      }
-                    />
-                  </div>
-                );
-              })}
+              <BookProfashionalForm
+                slot={slot}
+                fromToSubmit={this.sendAvaibilities}
+                selectedDay={this.props.selectedDays[0]}
+                handleSubmit={this.submitBook}
+              />
             </div>
           ),
       );
     }
     return null;
-  }
-
-  get addTimeButton() {
-    return (
-      <Button className="add-time-btn" onClick={this.addCount}>
-        {this.props.translate('addTime')}
-      </Button>
-    );
-  }
-
-  get renderSelectedDays() {
-    return (
-      <CustomTypography fontSize="16px" variant="title">
-        {this.props.selectedDays
-          .map(sd => moment(sd).format('DD.MM.YYYY'))
-          .join(' / ')}
-      </CustomTypography>
-    );
   }
 
   render() {
@@ -195,22 +132,6 @@ export default class AvailabilityRight extends Component {
           </CustomTypography>
         </div>
       );
-    return (
-      <div className="time-slots-wrapper">
-        {this.renderTimeSlots}
-        <div className="selected-days">{this.renderSelectedDays}</div>
-        {this.props.selectedDays.length > 0 && (
-          <FromTo
-            handleSubmit={this.sendAvaibilities}
-            className="selected-days"
-            count={this.state.count}
-            onCancel={this.resetState}
-            selectedDays={this.props.selectedDays}
-            button={this.addTimeButton}
-          />
-        )}
-        {this.props.selectedDays.length === 1 && this.addTimeButton}
-      </div>
-    );
+    return <div className="time-slots-wrapper">{this.renderTimeSlots}</div>;
   }
 }
