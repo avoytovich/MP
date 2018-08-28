@@ -7,6 +7,8 @@ const isDev = process.env.NODE_ENV !== 'production';
 const app = next({ dev: isDev });
 const handler = routes.getRequestHandler(app);
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
 const getPort = env => {
   switch (env) {
     case 'production':

@@ -51,6 +51,10 @@ export default class PrivateInfoProfashional extends React.Component {
     this.state = {
       forwardToNextStep: true,
       steps: ['Private information', 'ID Card'],
+      infoStepTwo: {
+        gender: '',
+        dob: '',
+      },
     };
   }
 
@@ -188,6 +192,7 @@ export default class PrivateInfoProfashional extends React.Component {
 
   handleSubmitForStepTwo = async values => {
     const { privateInfo } = this.props;
+    const { infoStepTwo: { dob } } = this.state;
     const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.post(
@@ -202,7 +207,7 @@ export default class PrivateInfoProfashional extends React.Component {
           phoneNumber: privateInfo.phoneNumber,
           zip: privateInfo.zip,
           gender: values.gender,
-          dob: moment(values.birthday).format('YYYY-MM-DD'),
+          dob: dob && moment(dob).format('YYYY-MM-DD') || moment(values.birthday).format('YYYY-MM-DD'),
           frontImageId: privateInfo.frontId,
           backImageId: privateInfo.backId,
         },
@@ -216,14 +221,21 @@ export default class PrivateInfoProfashional extends React.Component {
     }
   };
 
-  handleBackForStepTwo = values => {
+  handleBackForStepTwo = data => {
+    const { gender, dob } = data;
+    this.setState({
+      infoStepTwo: {
+        gender,
+        dob,
+      }
+    });
     this.child.current.handleBack();
     this.setState({
       forwardToNextStep: true,
     });
   };
 
-  get initialValues() {
+  get initialValuesStepOne() {
     const profashionalPrivateInfo =
       get(this.props, 'profashionalPrivateInfo') || {};
     const privateInfo = get(this.props, 'privateInfo');
@@ -245,8 +257,12 @@ export default class PrivateInfoProfashional extends React.Component {
     };
   }
 
+  get initialValuesStepTwo() {
+    return this.state.infoStepTwo;
+  }
+
   render() {
-    //console.log('THIS PROPS', this.props);
+    // console.log('THIS PROPS', this.props);
     // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
@@ -289,7 +305,7 @@ export default class PrivateInfoProfashional extends React.Component {
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
-                    {...this.initialValues}
+                    {...this.initialValuesStepOne}
                     privateInfo={this.props.privateInfo}
                     completed={confirmed}
                     handleSubmit={
@@ -300,6 +316,7 @@ export default class PrivateInfoProfashional extends React.Component {
                   />
                 ) : (
                   <PrivateInfoStepTwo
+                    {...this.initialValuesStepTwo}
                     handleSubmit={this.handleSubmitForStepTwo}
                     handleBack={this.handleBackForStepTwo}
                   />

@@ -185,7 +185,7 @@ const EditProfileSchema = Yup.object().shape({
   aboutMe: Yup.string()
     .max(350, toLong)
     .required(required),
-  expersises: Yup.array()
+	expertises: Yup.array()
     .of(Yup.string())
     .required(required),
   occasion: Yup.array()
@@ -203,7 +203,6 @@ const EditProfileSchema = Yup.object().shape({
 
 export {
   SignUpSchema,
-  fromTo,
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,

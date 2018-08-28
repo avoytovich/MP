@@ -11,7 +11,7 @@ import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
 import Typography from '../../components/material-wrap/typography';
 
-import { updateSpecData } from '../../actions/updateData';
+import { resetData, updateSpecData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { privateInfo } from '../../constants/texts';
 import { PrivateInfoSchemaStepTwo } from '../../services/validateSchemas';
@@ -26,16 +26,21 @@ import {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSpecData }, dispatch);
 
+const mapStateToProps = ({ runtime }) => ({
+  privateInfoStepTwo: runtime.privateInfoData,
+  //countryList: runtime.countryList,
+});
+
 @withRouter
 @connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )
 @withFormik({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
 
-  validationSchema: props => PrivateInfoSchemaStepTwo,
+  // validationSchema: props => PrivateInfoSchemaStepTwo,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
@@ -45,11 +50,16 @@ export default class PrivateInfo extends React.Component {
     this.back = React.createRef();
   }
   state = {
-    front: {},
-    back: {},
+    front: '',
+    back: '',
     frontId: '',
     backId: '',
+    infoStepTwo: {
+      frontImage: this.props.privateInfoStepTwo.front || '',
+      backImage: this.props.privateInfoStepTwo.back || '',
+    },
   };
+
   openFileDialog = refName => this[refName].current.click();
 
   fileFrontChange = e => {
@@ -73,9 +83,25 @@ export default class PrivateInfo extends React.Component {
     this.props.updateSpecData(
       {
         frontId: this.state.frontId,
+        front: this.state.front,
         backId: this.state.backId,
+        back: this.state.back,
       },
       'privateInfo',
+    );
+  };
+
+  get statusEnableOrDisable() {
+    const { frontId, backId } = this.state;
+    const {
+      isValid,
+      initialValues: { privateInfoStepTwo },
+      gender,
+      dob,
+    } = this.props;
+    return !(
+      (frontId && backId && isValid) ||
+      (gender && dob && privateInfoStepTwo.backId && privateInfoStepTwo.frontId)
     );
   };
 
@@ -83,7 +109,11 @@ export default class PrivateInfo extends React.Component {
     // console.log('this.props', this.props);
     // console.log('this.state', this.state);
     const { inputFieldsForStepTwo } = privateInfo;
-    const { frontId, backId } = this.state;
+    const {
+      frontId,
+      backId,
+      infoStepTwo: { frontImage, backImage },
+    } = this.state;
     const {
       touched,
       errors,
@@ -92,6 +122,11 @@ export default class PrivateInfo extends React.Component {
       handleBack,
       setFieldValue,
       isValid,
+      values,
+      privateInfoStepTwo: { front, back },
+      initialValues: { privateInfoStepTwo },
+      gender,
+      dob,
     } = this.props;
     return (
       <Form onSubmit={handleSubmit} className="private-info-form-wrapper">
@@ -127,17 +162,20 @@ export default class PrivateInfo extends React.Component {
               <div
                 className="front pointer"
                 style={{
-                  backgroundImage: `url(${this.state.front})`,
+                  backgroundImage:
+                    (this.state.front && `url(${this.state.front})`) ||
+                    (frontImage && `url(${frontImage})`),
                 }}
                 onClick={() => this.openFileDialog('front')}>
-                {!frontId && (
-                  <Typography
-                    className="card-side"
-                    fontSize="18px"
-                    variant="title">
-                    + Add Front
-                  </Typography>
-                )}
+                {!frontId &&
+                  !front && (
+                    <Typography
+                      className="card-side"
+                      fontSize="18px"
+                      variant="title">
+                      + Add Front
+                    </Typography>
+                  )}
               </div>
             </div>
           </Grid>
@@ -150,29 +188,39 @@ export default class PrivateInfo extends React.Component {
               <div
                 className="back pointer"
                 style={{
-                  backgroundImage: `url(${this.state.back})`,
+                  backgroundImage:
+                    (this.state.back && `url(${this.state.back})`) ||
+                    (backImage && `url(${backImage})`),
                 }}
                 onClick={() => this.openFileDialog('back')}>
-                {!backId && (
-                  <Typography
-                    className="card-side"
-                    fontSize="18px"
-                    variant="title">
-                    + Add Back
-                  </Typography>
-                )}
+                {!backId &&
+                  !back && (
+                    <Typography
+                      className="card-side"
+                      fontSize="18px"
+                      variant="title">
+                      + Add Back
+                    </Typography>
+                  )}
               </div>
             </div>
           </Grid>
         </Grid>
         <div className="buttonStepTwo">
-          <Button className="buttonsPrivateInfo" onClick={handleBack}>
+          <Button
+            className="buttonsPrivateInfo"
+            onClick={() =>
+              handleBack({
+                gender: values.gender,
+                dob: values.birthday || dob,
+              })
+            }>
             Back
           </Button>
           <Button
             className="buttonsPrivateInfo"
             type="submit"
-            disabled={!(frontId && backId && isValid)}>
+            disabled={this.statusEnableOrDisable}>
             Save
           </Button>
         </div>

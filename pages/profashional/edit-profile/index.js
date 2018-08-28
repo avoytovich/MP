@@ -88,13 +88,13 @@ export default class EditProfileProfashional extends Component {
         currencyId: values.currency,
         currentRate: Number(values.hourlyRate) * 100,
         description: values.aboutMe,
-        expersises: values.expersises,
+        expertiseIds: values.expertises,
         firstName: values.firstName,
         iconId:
           this.state.iconUrl.id ||
           get(this.props, 'profashionalProfile.icon.id'),
         languages: values.languages,
-        occasions: values.occasion,
+        occasionIds: values.occasion,
         slogan: values.slogan,
       }),
       { showSuccess: 'Updated', saveTo: 'profashionalProfile' },
@@ -110,6 +110,8 @@ export default class EditProfileProfashional extends Component {
   get initialValues() {
     const profashionalProfile = get(this.props, 'profashionalProfile') || {};
     const lang = profashionalProfile.languages || [{}];
+    const exper = profashionalProfile.expertises || [{}];
+    const occas = profashionalProfile.occasions || [{}];
     return {
       firstName:
         profashionalProfile.username || profashionalProfile.firstName || '',
@@ -117,8 +119,8 @@ export default class EditProfileProfashional extends Component {
       hourlyRate: profashionalProfile.currentRate / 100 || '',
       slogan: profashionalProfile.slogan || '',
       aboutMe: profashionalProfile.description || '',
-      expersises: profashionalProfile.expersises || '',
-      occasion: profashionalProfile.occasions || '',
+      expertises: exper.map(i => i.id),
+      occasion: occas.map(i => i.id),
       city: get(profashionalProfile, 'city.id') || '',
       languages: lang.map(item => item.id),
     };

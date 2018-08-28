@@ -3,6 +3,7 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Close from '@material-ui/icons/Close';
 
 import Input from '@material-ui/core/Input';
 import Popover from '@material-ui/core/Popover';
@@ -38,6 +39,9 @@ export default class InputCustom extends React.Component {
         />
       );
     }
+    if (this.props.infoReset) {
+      return <Close className="icon pointer" onClick={this.onResetClick} />;
+    }
     return null;
   }
 
@@ -47,6 +51,11 @@ export default class InputCustom extends React.Component {
       anchorEl: event.currentTarget,
     });
   };
+
+  onResetClick = event => {
+    event.stopPropagation();
+    location.reload();
+  }
 
   handleClose = () => {
     this.setState({
