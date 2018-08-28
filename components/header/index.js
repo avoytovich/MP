@@ -96,6 +96,7 @@ export default class Header extends Component {
           <Typography
             variant="subheading"
             className="menu-item"
+            style={{ color: this.props.color ? 'black' : 'white' }}
             key={key}
             onClick={() => this.onClick(element.href)}>
             {this.props.translate(element.translateVariable)}

@@ -208,6 +208,13 @@ export default class ProfashionalCoverPhoto extends React.Component {
 
   render() {
     const { isEdit, showEditButtons } = this.props;
+    const {
+      username,
+      firstName,
+      currentRate,
+      currency,
+      rating,
+    } = this.props.profashionalProfile;
     return (
       <>
         <div className="profashional-cover" id="profashional-section">
@@ -275,22 +282,56 @@ export default class ProfashionalCoverPhoto extends React.Component {
             {!isEdit && this.renderAddinationalInfoMobile}
           </div>
         </div>
-        <div className={'add-info-on-scroll ' + this.getStyleForScroll()}>
-          <Header
-            color
-            style={{ background: '#f2f5f5' }}
-            navStyle={{ paddingBottom: '0px' }}
-          />
-          <div className="check-availability">
-            <div className="check-availability-first-block">
-              <div
-                className="small-icon"
-                style={{ backgroundImage: `url(${this.renderIconPhoto})` }}
+        {!isEdit &&
+          !showEditButtons && (
+            <div className={'add-info-on-scroll ' + this.getStyleForScroll()}>
+              <Header
+                color
+                style={{ background: '#f2f5f5' }}
+                navStyle={{ paddingBottom: '0px' }}
               />
+              <div className="check-availability">
+                <div className="check-availability-first-block">
+                  <div
+                    className="small-icon"
+                    style={{ backgroundImage: `url(${this.renderIconPhoto})` }}
+                  />
+                  <div className="check-availability-name-wrapper">
+                    <div className="flex-centering">
+                      <CustomTypography variant="button" fontSize="18px">
+                        {username || firstName}
+                      </CustomTypography>
+                      <CustomTypography
+                        className="currency"
+                        fontSize="18px"
+                        variant="subheading">
+                        {currentRate / 100}
+                        {` ${get(currency, 'name')}`} /{' '}
+                        {this.props.translate('hour')}
+                      </CustomTypography>
+                    </div>
+                    <div className="flex-centering">
+                      <Rate
+                        className="flex-with-margin"
+                        initialRating={rating}
+                        readonly
+                      />
+                      <CustomTypography fontSize="14px" variant="subheading">
+                        ({get(this.props, 'profashionalRatings.pagination.total')})
+                      </CustomTypography>
+                    </div>
+                  </div>
+                </div>
+                <div className="check-availability-second-block">
+                  <IconOurButton
+                    className="trip-profile-button"
+                    onClick={this.checlAvailability}>
+                    check availability
+                  </IconOurButton>
+                </div>
+              </div>
             </div>
-            <div className="check-availability-second-block" />
-          </div>
-        </div>
+          )}
       </>
     );
   }

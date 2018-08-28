@@ -217,7 +217,7 @@ export default class Profashional extends React.Component {
       return (
         <div className="occasions-container">
           {occasions.map((item, key) => (
-            <Label key={key} name={this.props.translate(item)} />
+            <Label key={key} name={this.props.translate(item.name)} />
           ))}
         </div>
       );
