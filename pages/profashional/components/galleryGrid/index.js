@@ -58,7 +58,9 @@ export default class GalleryGrid extends Component {
         <Item
           key={i}
           photo={get(this.props, `photos[${i}]`)}
+          size={get(this.props, `photos.length`)}
           index={i}
+          showUpload={this.props.showUpload}
           onPhotoClick={this.props.onPhotoClick}
           onLoadClick={this.onLoadClick}
         />
