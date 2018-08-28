@@ -7,6 +7,7 @@ import { withRouter } from 'next/router';
 import { Router } from '../../routes';
 
 import Input from '../../components/material-wrap/form/input/index';
+import TextArea from '../../components/material-wrap/form/textArea/index';
 import DropDown from '../../components/material-wrap/form/dropDown/index';
 import Button from '../../components/material-wrap/button';
 
@@ -81,7 +82,7 @@ export default class EditProfile extends React.Component {
               name="hourlyRate"
               component={Input}
               fullWidth
-              placeholder="20.5"
+              placeholder="20.50"
               type="hourlyRate"
               infoIcon
               error={translate(errors.hourlyRate)}
@@ -106,7 +107,7 @@ export default class EditProfile extends React.Component {
         <div className="row-padding">
           <Field
             name="aboutMe"
-            component={Input}
+            component={TextArea}
             fullWidth
             multiline
             formHelper={350}
