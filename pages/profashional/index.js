@@ -27,6 +27,7 @@ import CustomTypography from '../../components/material-wrap/typography/index';
 import i18n from '../../services/decorators/i18n';
 
 import './profashional.sass';
+import { amIProfashional } from '../../services/accountService';
 
 const mapStateToProps = ({ runtime }) => ({
   profashionalAccount: runtime.profashionalAccountData || {},
@@ -231,6 +232,11 @@ export default class Profashional extends React.Component {
     return null;
   }
 
+  get renderCalendar() {
+    if (amIProfashional()) return <Calendar />;
+    return null;
+  }
+
   get pointArray() {
     const pointArray = [];
     if (!this.props.profashionalProfile.privateInfoCompleted) {
@@ -285,7 +291,7 @@ export default class Profashional extends React.Component {
             className="availability-header">
             Availability:
           </CustomTypography>
-          <Calendar />
+          {this.renderCalendar}
         </div>
         <div className="profashional-grid profashional-block availability">
           <Reviews
