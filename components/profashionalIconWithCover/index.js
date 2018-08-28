@@ -25,7 +25,22 @@ export default class ProfashionalCoverPhoto extends React.Component {
     show: false,
   };
 
-  checlAvailability = () => {
+  componentDidMount() {
+    if (!this.props.isEdit && !this.props.showEditButtons)
+      window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const scrollY = window.pageYOffset;
+    if (scrollY > 360) this.setAddinationView(true);
+    if (scrollY < 360) this.setAddinationView(false);
+  };
+
+  checkAvailability = () => {
     const avaibleBlock = document.getElementById('availability-section');
     avaibleBlock.scrollIntoView(true);
   };
@@ -196,13 +211,11 @@ export default class ProfashionalCoverPhoto extends React.Component {
   }
 
   getStyleForScroll = () => {
-    console.log('getstyle', this.state.show);
     if (this.state.show) return 'show';
     return '';
   };
 
   setAddinationView = show => {
-    console.log('setAddinationView', show);
     if (show !== this.state.show) this.setState({ show });
   };
 
@@ -243,7 +256,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
                   {!showEditButtons && (
                     <IconOurButton
                       className="trip-profile-button"
-                      onClick={this.checlAvailability}>
+                      onClick={this.checkAvailability}>
                       check availability
                     </IconOurButton>
                   )}
@@ -255,10 +268,6 @@ export default class ProfashionalCoverPhoto extends React.Component {
                       Edit profile
                     </IconOurButton>
                   )}
-                  <Waypoint
-                    onEnter={() => this.setAddinationView(false)}
-                    onLeave={() => this.setAddinationView(true)}
-                  />
                 </div>
               )}
             </div>
@@ -317,7 +326,10 @@ export default class ProfashionalCoverPhoto extends React.Component {
                         readonly
                       />
                       <CustomTypography fontSize="14px" variant="subheading">
-                        ({get(this.props, 'profashionalRatings.pagination.total')})
+                        ({get(
+                          this.props,
+                          'profashionalRatings.pagination.total',
+                        )})
                       </CustomTypography>
                     </div>
                   </div>
@@ -325,7 +337,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
                 <div className="check-availability-second-block">
                   <IconOurButton
                     className="trip-profile-button"
-                    onClick={this.checlAvailability}>
+                    onClick={this.checkAvailability}>
                     check availability
                   </IconOurButton>
                 </div>

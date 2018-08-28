@@ -152,7 +152,6 @@ export default class EditProfileProfashional extends Component {
         />
         <Grid container justify="center" direction="column" alignItems="center">
           <EditProfile
-            {...this.initialValues}
             handleSubmit={this.handleSubmit}
             validPhotos={this.getPhotoStatus}
           />
