@@ -193,7 +193,7 @@ export default class PrivateInfoProfashional extends React.Component {
   handleSubmitForStepTwo = async values => {
     const { privateInfo } = this.props;
     const { infoStepTwo: { dob } } = this.state;
-    const { frontId, backId } =values.privateInfoStepTwo.privateInfo;
+    const { frontId, backId } = values.privateInfoStepTwo.privateInfo;
     const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.post(
