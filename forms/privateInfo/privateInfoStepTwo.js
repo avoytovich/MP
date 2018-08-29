@@ -118,8 +118,8 @@ export default class PrivateInfo extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props);
-    console.log('this.state', this.state);
+    // console.log('this.props', this.props);
+    // console.log('this.state', this.state);
     const { inputFieldsForStepTwo } = privateInfo;
     const {
       frontId,
