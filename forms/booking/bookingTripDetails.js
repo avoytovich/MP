@@ -21,15 +21,14 @@ import Typography from "../../components/material-wrap/typography";
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
 
-@withRouter
 @connect(
   null,
   mapDispatchToProps,
 )
 @withFormik({
-  // handleSubmit: (values, options) => {
-  //   options.props.handleSubmit(values, options);
-  // },
+  handleSubmit: (values, options) => {
+    options.props.handleSubmit(values, options);
+  },
 
   validationSchema: props => TripDetailsSchema,
 })
@@ -124,13 +123,13 @@ export default class TripDetails extends React.Component {
             </Typography>
           </Grid>
         </div>
-        <div className="buttonStepOne">
+        <div className="buttons-cnt buttonStepOne">
           <Button
             // onClick={handleSubmit}
-            onClick={handleContinue}
+            // onClick={handleContinue}
             className="buttonsBookingDetails"
-            // type="submit"
-            // disabled={this.props.privateInfo && !dirty ? false : !isValid}
+            type="submit"
+            disabled={this.props.bookingInfo && !dirty ? false : !isValid}
           >
             Continue
           </Button>

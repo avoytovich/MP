@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch =>
     options.props.handleSubmit(values, options);
   },
 
-  validationSchema: props => PrivateInАfoSchemaStepOne,
+  validationSchema: props => PrivateInfoSchemaStepOne,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {

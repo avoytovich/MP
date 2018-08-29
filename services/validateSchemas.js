@@ -11,7 +11,11 @@ const email = 'email',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
   onlyNumbers = 'onlyNumbers',
-  onlyLetters = 'onlyLetters';
+  onlyLetters = 'onlyLetters',
+  cardNumberReq = 'cardNumberReq',
+  expiryDateReq = 'expiryDateReq',
+  cvvReq = 'cvvReq',
+  cardHolderReq = 'cardHolderReq';
 
 function equalTo(ref, msg) {
   return Yup.mixed().test({
@@ -206,15 +210,6 @@ const TripDetailsSchema = Yup.object().shape({
     .required(required),
   startTime: Yup.string()
     .required(required),
-  someName: Yup.string()
-    .min(2, toSmall)
-    .max(50, toLong)
-    .matches(/[a-zA-Z]/, onlyLetters)
-    .required(required),
-  birthday: Yup.string()
-    .required(required),
-  gender: Yup.string()
-    .required(required),
   firstName: Yup.string()
     .min(2, toSmall)
     .max(50, toLong)
@@ -225,33 +220,34 @@ const TripDetailsSchema = Yup.object().shape({
     .max(50, toLong)
     .matches(/[a-zA-Z]/, onlyLetters)
     .required(required),
-  email: Yup.string()
-    .email(email)
-    .required(required),
   phoneNumber: Yup.string()
     .min(13, toSmall)
     .max(13, toLong)
     .matches(/^[+][0-9]*$/, phoneNumberReq)
     .required(required),
-  address: Yup.string()
+});
+
+const PaymentDetailsSchema = Yup.object().shape({
+  cardHolderName: Yup.string()
     .min(2, toSmall)
-    .max(30, toLong)
+    .max(50, toLong)
+    .matches(/^[a-zA-Z]+\s[a-zA-Z]+$/, cardHolderReq)
     .required(required),
-  zip: Yup.string()
+  cardNumber: Yup.string()
+    .min(16, toSmall)
+    .max(16, toLong)
+    .matches(/^[0-9]*$/, cardNumberReq)
+    .required(required),
+  expiryDate: Yup.string()
     .min(4, toSmall)
     .max(4, toLong)
-    .matches(/^[0-9]*$/, zipReq)
+    .matches(/^[0-9]*$/, expiryDateReq)
     .required(required),
-  city: Yup.string()
-    .min(2, toSmall)
-    .max(30, toLong)
+  cvv: Yup.string()
+    .min(3, toSmall)
+    .max(3, toLong)
+    .matches(/^[0-9]*$/, cvvReq)
     .required(required),
-  bankAccountNumber: Yup.string()
-    .min(22, toSmall)
-    .max(22, toLong)
-    .matches(/^[C][H][0-9]*$/, bankAccountNumberReq)
-    .required(required),
-  confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
 export {
@@ -267,4 +263,5 @@ export {
   PrivateInfoSchemaStepOne,
   PrivateInfoSchemaStepTwo,
   TripDetailsSchema,
+  PaymentDetailsSchema,
 };

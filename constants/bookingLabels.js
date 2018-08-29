@@ -27,12 +27,6 @@ export const bookingLabels = {
       additionalClass: 'required input-custom',
     },
     {
-      label: 'Some Name',
-      name: 'someName',
-      additionalClass: 'required',
-      sm: 12,
-    },
-    {
       label: 'Preferred meeting location',
       name: 'meetingLocation',
       infoIcon: true,
@@ -51,11 +45,13 @@ export const bookingLabels = {
     {
       label: 'First Name',
       name: 'firstName',
+      placeholder: 'First Name',
       additionalClass: 'required',
     },
     {
       label: 'Last Name',
       name: 'lastName',
+      placeholder: 'Last Name',
       additionalClass: 'required',
     },
     {
@@ -98,40 +94,27 @@ export const bookingLabels = {
       sm: 12,
       additionalClass: 'required',
     },
-    {
-      label: 'Card Number',
-      name: 'cardNumber',
-      sm: 12,
-      additionalClass: 'required',
-    },
-    {
-      label: 'Expiry Date',
-      name: 'expiryDate',
-      additionalClass: 'required',
-    },
-    {
-      label: 'CVV',
-      name: 'cvv',
-      additionalClass: 'required',
-    },
   ],
   inputFieldsForConfirm: [
     {
       label: 'Estimated Price',
       name: 'estimatedPrice',
-      additionalClass: "bold",
+      additionalClass: "bold disabled",
       infoIcon: true,
     },
     {
       label: 'Preferred Meeting Location',
-      name: 'confirmMeetingLocation',
-      setFieldValue: 'Auqapark',
+      name: 'meetingLocation',
+      additionalClass: "disabled",
+
     },
     {
       name: 'confirmNotebox',
       component: TextArea,
+      name: 'notebox',
       sm: 12,
-      placeholder: "I am from NYC and love Shopping in European cities like Zurich. Looking for a local to show me fashion hot-spots. "
+      additionalClass: "disabled",
+
     },
   ],
 };
