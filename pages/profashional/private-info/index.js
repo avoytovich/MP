@@ -51,10 +51,6 @@ export default class PrivateInfoProfashional extends React.Component {
     this.state = {
       forwardToNextStep: true,
       steps: ['Private information', 'ID Card'],
-      infoStepTwo: {
-        gender: '',
-        dob: '',
-      },
     };
   }
 
@@ -194,7 +190,6 @@ export default class PrivateInfoProfashional extends React.Component {
 
   handleSubmitForStepTwo = async values => {
     const { privateInfo } = this.props;
-    const { infoStepTwo: { dob } } = this.state;
     const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.post(
@@ -209,9 +204,9 @@ export default class PrivateInfoProfashional extends React.Component {
           phoneNumber: privateInfo.phoneNumber,
           zip: privateInfo.zip,
           gender: values.gender,
-          dob: dob && moment(dob).format('YYYY-MM-DD') || moment(values.birthday).format('YYYY-MM-DD'),
-          frontImageId: privateInfo.frontId || values.privateInfoStepTwo.privateInfo.frontId,
-          backImageId: privateInfo.backId || values.privateInfoStepTwo.privateInfo.backId,
+          dob: moment(values.birthday).format('YYYY-MM-DD'),
+          frontImageId: privateInfo.frontId,
+          backImageId: privateInfo.backId,
         },
         `/${this.props.privateInfo.router.query.id}/privateInfo`,
       ),
@@ -223,21 +218,14 @@ export default class PrivateInfoProfashional extends React.Component {
     }
   };
 
-  handleBackForStepTwo = data => {
-    const { gender, dob } = data;
-    this.setState({
-      infoStepTwo: {
-        gender,
-        dob,
-      }
-    });
+  handleBackForStepTwo = values => {
     this.child.current.handleBack();
     this.setState({
       forwardToNextStep: true,
     });
   };
 
-  get initialValuesStepOne() {
+  get initialValues() {
     const profashionalPrivateInfo =
       get(this.props, 'profashionalPrivateInfo') || {};
     const privateInfo = get(this.props, 'privateInfo');
@@ -259,15 +247,8 @@ export default class PrivateInfoProfashional extends React.Component {
     };
   }
 
-  get initialValuesStepTwo() {
-    const stepBody = cloneDeep(this.state.infoStepTwo);
-    stepBody.birthday = stepBody.dob;
-    return stepBody;
-    //return this.state.infoStepTwo;
-  }
-
   render() {
-    // console.log('THIS PROPS', this.props);
+    //console.log('THIS PROPS', this.props);
     // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
@@ -310,7 +291,7 @@ export default class PrivateInfoProfashional extends React.Component {
               <Grid className="grid-field-input" item xs={12} sm={6}>
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
-                    {...this.initialValuesStepOne}
+                    {...this.initialValues}
                     privateInfo={this.props.privateInfo}
                     completed={confirmed}
                     handleSubmit={
@@ -321,7 +302,6 @@ export default class PrivateInfoProfashional extends React.Component {
                   />
                 ) : (
                   <PrivateInfoStepTwo
-                    {...this.initialValuesStepTwo}
                     handleSubmit={this.handleSubmitForStepTwo}
                     handleBack={this.handleBackForStepTwo}
                   />

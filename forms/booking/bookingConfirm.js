@@ -10,7 +10,7 @@ import { Router } from '../../routes';
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
 
-import { setData } from '../../actions/updateData';
+import {setData, updateSpecData} from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { bookingLabels } from '../../constants/bookingLabels';
 import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch =>
     options.props.handleSubmit(values, options);
   },
 
-  validationSchema: props => PrivateInfoSchemaStepOne,
+  validationSchema: undefined,
 })
 @i18n('errors', 'booking')
 export default class Confirm extends React.Component {
@@ -47,6 +47,7 @@ export default class Confirm extends React.Component {
       isValid,
       dirty,
     } = this.props;
+
 
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
@@ -70,7 +71,7 @@ export default class Confirm extends React.Component {
                 <Field
                   {...item}
                   component={component || Input}
-                  fullWidth
+                  dirty={true}
 
                   setFieldValue={
                     // [...this.initialValues]
@@ -79,18 +80,18 @@ export default class Confirm extends React.Component {
                   error={translate(errors[name])}
                   touched={touched[name]}
                   className={`default-input ${additionalClass}`}
+                  disabled
                 />
               </Grid>
             );
           })}
         </Grid>
 
-        <div className="buttonStepTwo">
+        <div className="buttons-cnt buttonStepTwo">
           <Button className="buttonsBookingDetails" onClick={handleBack}>
             Back
           </Button>
           <Button
-            onClick={this.props.handleSubmit}
             className="buttonsBookingDetails"
             type="submit"
             // disabled={this.props.privateInfo && !dirty ? false : !isValid}

@@ -3,6 +3,7 @@ const routes = require('next-routes');
 // Restart server after
 // Name   Page      Pattern
 module.exports = routes()
+  .add('booking', '/booking', 'list-of-profashionals/booking')
   .add('about-with-id', '/about/:id', 'about')
   .add('about', '/about', 'about')
   .add('shoper', '/shoper', 'shoper')
@@ -26,8 +27,3 @@ module.exports = routes()
     'profashional/private-info',
   )
   .add('activate', '/activate/:code', 'activate')
-  .add(
-    'bookingTripDetails',
-    '/list-of-profashionals/:id/booking/trip-details',
-    'list-of-profashionals/booking',
-  );

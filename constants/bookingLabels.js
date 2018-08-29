@@ -18,37 +18,40 @@ export const bookingLabels = {
       label: 'Start time',
       name: 'startTime',
       component: TimePicker,
-      additionalClass: 'required',
+      additionalClass: 'required input-custom',
     },
     {
       label: 'End time (Estimated)',
       name: 'endTime',
       component: TimePicker,
-      additionalClass: 'required',
+      additionalClass: 'required input-custom',
     },
     {
       label: 'Preferred meeting location',
       name: 'meetingLocation',
       infoIcon: true,
-        sm: 12,
+      sm: 12,
     },
     {
       label: 'Notebox',
       name: 'notebox',
       component: TextArea,
       sm: 12,
-      placeholder: "Please let us know what are you looking for and your possible budget."
+      placeholder: "Please let us know what are you looking for and your possible budget.",
+      additionalClass: 'input-custom',
       },
   ],
   inputFieldsForTripDetails2: [
     {
       label: 'First Name',
       name: 'firstName',
+      placeholder: 'First Name',
       additionalClass: 'required',
     },
     {
       label: 'Last Name',
       name: 'lastName',
+      placeholder: 'Last Name',
       additionalClass: 'required',
     },
     {
@@ -91,52 +94,27 @@ export const bookingLabels = {
       sm: 12,
       additionalClass: 'required',
     },
-    {
-      label: 'Card Number',
-      name: 'cardNumber',
-      sm: 12,
-      additionalClass: 'required',
-    },
-    {
-      label: 'Expiry Date',
-      name: 'expiryDate',
-      additionalClass: 'required',
-    },
-    {
-      label: 'CVV',
-      name: 'cvv',
-      additionalClass: 'required',
-    },
   ],
   inputFieldsForConfirm: [
     {
-      label: 'Preferred Meeting Location',
-      name: 'confirmMeetingLocation',
-      sm: 12,
-      setFieldValue: 'Auqapark',
-    },
-    {
-      label: 'Estimated Starting Time',
-      name: 'EstimatedStartTime',
-      fieldValue: '9:00',
-    },
-    {
-      label: 'Estimated End Time',
-      name: 'EstimatedEndTime',
-      fieldValue: '11:00',
-    },
-    {
       label: 'Estimated Price',
       name: 'estimatedPrice',
-      sm: 12,
-      additionalClass: "bold",
+      additionalClass: "bold disabled",
       infoIcon: true,
+    },
+    {
+      label: 'Preferred Meeting Location',
+      name: 'meetingLocation',
+      additionalClass: "disabled",
+
     },
     {
       name: 'confirmNotebox',
       component: TextArea,
+      name: 'notebox',
       sm: 12,
-      placeholder: "I am from NYC and love Shopping in European cities like Zurich. Looking for a local to show me fashion hot-spots. "
+      additionalClass: "disabled",
+
     },
   ],
 };
