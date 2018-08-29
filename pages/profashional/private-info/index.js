@@ -60,6 +60,8 @@ export default class PrivateInfoProfashional extends React.Component {
 
   componentWillUnmount() {
     this.props.resetData('privateInfo');
+    this.props.resetData('profashionalAccount');
+    this.props.resetData('profashionalPrivateInfo');
   }
 
   componentWillMount() {
