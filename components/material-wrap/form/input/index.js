@@ -95,7 +95,7 @@ export default class InputCustom extends React.Component {
         aria-describedby="control-size"
         fullWidth={fullWidth}>
         <InputLabel error={!!(touched && error)}>
-          {!value && this.labelValue}
+          {this.labelValue}
         </InputLabel>
         <Input
           id={id}
