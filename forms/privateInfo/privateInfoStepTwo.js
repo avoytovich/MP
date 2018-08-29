@@ -80,12 +80,21 @@ export default class PrivateInfo extends React.Component {
     const res = await promise;
     const photo = await getPhotoById(res.data.id);
     this.setState({ [name]: photo, [`${name}Id`]: res.data.id });
-    const body = {};
+    this.props.updateSpecData(
+      {
+        frontId: this.state.frontId ? this.state.frontId : this.props.privateInfoStepTwo.frontId,
+        front: this.state.front ? this.state.front : this.props.privateInfoStepTwo.front,
+        backId: this.state.backId ? this.state.backId : this.props.privateInfoStepTwo.backId,
+        back: this.state.back ? this.state.back : this.props.privateInfoStepTwo.back,
+      },
+      'privateInfo',
+    );
+    /*const body = {};
     this.state.frontId ? (body.frontId = this.state.frontId) : null;
     this.state.front ? (body.front = this.state.front) : null;
     this.state.backId ? (body.backId = this.state.backId) : null;
     this.state.back ? (body.back = this.state.back) : null;
-    this.props.updateSpecData(body, 'privateInfo');
+    this.props.updateSpecData(body, 'privateInfo');*/
   };
 
   get statusEnableOrDisable() {
@@ -188,8 +197,8 @@ export default class PrivateInfo extends React.Component {
                 style={{
                   backgroundImage:
                     (this.state.back && `url(${this.state.back})`) ||
-                    (backImage && `url(${backImage})`) ||
-                    (this.state.back && `url(${this.state.back})`),
+                    (backImage && `url(${backImage})`),
+                  //(this.state.back && `url(${this.state.back})`),
                 }}
                 onClick={() => this.openFileDialog('back')}>
                 {!backId &&
