@@ -193,7 +193,6 @@ export default class PrivateInfoProfashional extends React.Component {
   handleSubmitForStepTwo = async values => {
     const { privateInfo } = this.props;
     const { infoStepTwo: { dob } } = this.state;
-    const { frontId, backId } = values.privateInfoStepTwo.privateInfo;
     const oldCompleted = get(this.props, 'profashionalProfile.completed');
     const resp = await this.props.loadData(
       profashionals.post(
@@ -209,8 +208,8 @@ export default class PrivateInfoProfashional extends React.Component {
           zip: privateInfo.zip,
           gender: values.gender,
           dob: dob && moment(dob).format('YYYY-MM-DD') || moment(values.birthday).format('YYYY-MM-DD'),
-          frontImageId: privateInfo.frontId || frontId,
-          backImageId: privateInfo.backId || backId,
+          frontImageId: privateInfo.frontId || values.privateInfoStepTwo.privateInfo.frontId,
+          backImageId: privateInfo.backId || values.privateInfoStepTwo.privateInfo.backId,
         },
         `/${this.props.privateInfo.router.query.id}/privateInfo`,
       ),
@@ -266,8 +265,8 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   render() {
-    console.log('THIS PROPS', this.props);
-    console.log('THIS State', this.state);
+    // console.log('THIS PROPS', this.props);
+    // console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,
