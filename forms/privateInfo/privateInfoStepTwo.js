@@ -40,7 +40,7 @@ const mapStateToProps = ({ runtime }) => ({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
 
-  // validationSchema: props => PrivateInfoSchemaStepTwo,
+  validationSchema: props => PrivateInfoSchemaStepTwo,
 })
 @i18n('errors')
 export default class PrivateInfo extends React.Component {
@@ -80,15 +80,12 @@ export default class PrivateInfo extends React.Component {
     const res = await promise;
     const photo = await getPhotoById(res.data.id);
     this.setState({ [name]: photo, [`${name}Id`]: res.data.id });
-    this.props.updateSpecData(
-      {
-        frontId: this.state.frontId,
-        front: this.state.front,
-        backId: this.state.backId,
-        back: this.state.back,
-      },
-      'privateInfo',
-    );
+    const body = {};
+    this.state.frontId ? (body.frontId = this.state.frontId) : null;
+    this.state.front ? (body.front = this.state.front) : null;
+    this.state.backId ? (body.backId = this.state.backId) : null;
+    this.state.back ? (body.back = this.state.back) : null;
+    this.props.updateSpecData(body, 'privateInfo');
   };
 
   get statusEnableOrDisable() {
@@ -103,7 +100,7 @@ export default class PrivateInfo extends React.Component {
       (frontId && backId && isValid) ||
       (gender && dob && privateInfoStepTwo.backId && privateInfoStepTwo.frontId)
     );
-  };
+  }
 
   render() {
     // console.log('this.props', this.props);
@@ -168,7 +165,8 @@ export default class PrivateInfo extends React.Component {
                 }}
                 onClick={() => this.openFileDialog('front')}>
                 {!frontId &&
-                  !front && (
+                  !front &&
+                  !frontImage && (
                     <Typography
                       className="card-side"
                       fontSize="18px"
@@ -190,11 +188,13 @@ export default class PrivateInfo extends React.Component {
                 style={{
                   backgroundImage:
                     (this.state.back && `url(${this.state.back})`) ||
-                    (backImage && `url(${backImage})`),
+                    (backImage && `url(${backImage})`) ||
+                    (this.state.back && `url(${this.state.back})`),
                 }}
                 onClick={() => this.openFileDialog('back')}>
                 {!backId &&
-                  !back && (
+                  !back &&
+                  !frontImage && (
                     <Typography
                       className="card-side"
                       fontSize="18px"
