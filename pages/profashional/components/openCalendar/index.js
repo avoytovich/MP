@@ -27,8 +27,8 @@ export default class Availability extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const currentLength = this.state.selectedDays.length;
-    if (prevState.selectedDays.length !== currentLength && currentLength > 0) {
+    const current = this.state.selectedDays;
+    if (prevState.selectedDays[0] !== current[0] && current.length > 0) {
       this.loadTimeSlots();
     }
   }
@@ -68,19 +68,8 @@ export default class Availability extends Component {
       },
     );
 
-  handleDayClick = (day, { selected, disabled }) => {
-    if (selected) {
-      const newArray = [...this.state.selectedDays];
-      for (let i = 0; i < this.state.selectedDays.length; i++) {
-        if (+this.state.selectedDays[i] === +day) {
-          newArray.splice(i, 1);
-          this.setState({ selectedDays: newArray });
-          return;
-        }
-      }
-    }
-    if (!disabled)
-      this.setState({ selectedDays: [...this.state.selectedDays, day] });
+  handleDayClick = (day, { disabled }) => {
+    if (!disabled) this.setState({ selectedDays: [day] });
   };
 
   render() {

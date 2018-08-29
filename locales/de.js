@@ -46,6 +46,8 @@ export default {
 			meetings: 'meetings',
 			copiedLink: 'Your link is copied',
 			createAvailability: 'To create availability please select date on the calendar.',
+			bookAvailability:
+				'To book profashional please select date on the calendar',
 			copyLink: 'Copy link',
 			MEN: 'Men',
 			WOMEN: 'Women',

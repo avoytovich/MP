@@ -70,6 +70,8 @@ export default {
       copyLink: 'Copy link',
       createAvailability:
         'To create availability please select date on the calendar.',
+      bookAvailability:
+        'To book profashional please select date on the calendar',
       MEN: 'Men',
       WOMEN: 'Women',
       CHILD: 'Child',

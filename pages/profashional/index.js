@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
-import { updateSpecData } from '../../actions/updateData';
+import { updateSpecData, resetData } from '../../actions/updateData';
 import { account, profashionals, ratings } from '../../services/cruds';
 
 import { NON_SCHEDULED } from '../../constants/interview';
@@ -22,8 +22,14 @@ import InterviewModal from './components/interview/modal';
 import TripModal from './components/trip/modal';
 import Reviews from './components/reviews';
 import Calendar from './components/calendar';
+import OpenCalendar from './components/openCalendar';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
+import {
+  amILogined,
+  amIProfashional,
+  isItMyPage,
+} from '../../services/accountService';
 import i18n from '../../services/decorators/i18n';
 
 import './profashional.sass';
@@ -34,7 +40,7 @@ const mapStateToProps = ({ runtime }) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ updateSpecData }, dispatch);
+  bindActionCreators({ updateSpecData, resetData }, dispatch);
 
 @connect(
   mapStateToProps,
@@ -59,6 +65,14 @@ export default class Profashional extends React.Component {
     this.loadAndSaveRatings();
   }
 
+  componentWillUnmount() {
+    this.props.resetData('profashionalAccount');
+    this.props.resetData('profashionalProfile');
+    this.props.resetData('profashionalRatings');
+    this.props.resetData('modifiers');
+    this.props.resetData('timeSlots');
+  }
+
   componentWillReceiveProps(nextProps) {
     if (
       get(nextProps.profashionalAccount, 'profashional.interviewStatus') ===
@@ -71,15 +85,23 @@ export default class Profashional extends React.Component {
 
   loadAndSaveProfashionalAccount = async () => {
     try {
-      const accountResp = await account.get();
-      if (!this.props.profashionalAccount.id) {
-        this.props.updateSpecData(accountResp.data, 'profashionalAccount');
-      }
       if (
-        get(this.props.profashionalAccount, 'profashional.interviewStatus') ===
-        NON_SCHEDULED
+        amILogined() &&
+        amIProfashional() &&
+        isItMyPage(this.props.router.query.id)
       ) {
-        this.setState({ interviewModal: true });
+        const accountResp = await account.get();
+        if (!this.props.profashionalAccount.id) {
+          this.props.updateSpecData(accountResp.data, 'profashionalAccount');
+        }
+        if (
+          get(
+            this.props.profashionalAccount,
+            'profashional.interviewStatus',
+          ) === NON_SCHEDULED
+        ) {
+          this.setState({ interviewModal: true });
+        }
       }
     } catch (e) {
       console.error(e);
@@ -117,6 +139,7 @@ export default class Profashional extends React.Component {
   };
 
   onPhotoClick = index => {
+    console.log(index);
     this.props.openGal(index);
   };
 
@@ -196,7 +219,7 @@ export default class Profashional extends React.Component {
       return (
         <div className="occasions-container">
           {occasions.map((item, key) => (
-            <Label key={key} name={this.props.translate(item)} />
+            <Label key={key} name={this.props.translate(item.name)} />
           ))}
         </div>
       );
@@ -231,6 +254,11 @@ export default class Profashional extends React.Component {
     return null;
   }
 
+  get renderCalendar() {
+    if (amIProfashional()) return <Calendar />;
+    return <OpenCalendar />;
+  }
+
   get pointArray() {
     const pointArray = [];
     if (!this.props.profashionalProfile.privateInfoCompleted) {
@@ -242,6 +270,10 @@ export default class Profashional extends React.Component {
     return pointArray;
   }
 
+  get isItMyProfashionalPage() {
+    return !!(amIProfashional() && isItMyPage(this.props.router.query.id));
+  }
+
   render() {
     if (!this.props.profashionalProfile) return null;
     if (!this.props.profashionalRatings) return null;
@@ -249,6 +281,7 @@ export default class Profashional extends React.Component {
       <div className="profashional">
         <ProfashionalIconWithCover
           onTripClick={this.openTrip}
+          showEditButtons={this.isItMyProfashionalPage}
           profashionalProfile={this.props.profashionalProfile}
           profashionalRatings={this.props.profashionalRatings}>
           <Header
@@ -274,18 +307,21 @@ export default class Profashional extends React.Component {
           </div>
           <GalleryGrid
             onPhotoClick={this.onPhotoClick}
+            showUpload={this.isItMyProfashionalPage}
             name="profashionalProfile"
             photos={get(this.props, 'profashionalProfile.galleryPhotos')}
           />
         </div>
-        <div className="profashional-grid profashional-block availability">
+        <div
+          className="profashional-grid profashional-block availability"
+          id="availability-section">
           <CustomTypography
             variant="button"
             fontSize="24px"
             className="availability-header">
             Availability:
           </CustomTypography>
-          <Calendar />
+          {this.renderCalendar}
         </div>
         <div className="profashional-grid profashional-block availability">
           <Reviews

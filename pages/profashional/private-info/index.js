@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { find, get } from 'lodash';
+import { find, get, cloneDeep } from 'lodash';
 import { withRouter } from 'next/router';
 import moment from 'moment';
 
@@ -108,9 +108,6 @@ export default class PrivateInfoProfashional extends React.Component {
 
   handleSubmitForStepOne = values => {
     this.props.updateSpecData(values, 'privateInfo');
-    console.log('THiS', this);
-    console.log('values', values);
-    console.log('this props', this.props);
     const stripe = Stripe('pk_test_opVhyp1UCaDDjQ5riDJapXY3');
     const { firstName, lastName, bankAccountNumber } = values;
     const { privateInfo, countryList, currencyList } = this.props;
@@ -229,8 +226,7 @@ export default class PrivateInfoProfashional extends React.Component {
   get initialValues() {
     const profashionalPrivateInfo =
       get(this.props, 'profashionalPrivateInfo') || {};
-    const privateInfo = get(this.props, 'privateInfo')
-    console.log('profashionalPrivateInfo', profashionalPrivateInfo);
+    const privateInfo = get(this.props, 'privateInfo');
     if (privateInfo) return get(this.props, 'privateInfo');
     return {
       ...get(this.props, 'profashionalPrivateInfo'),
@@ -294,7 +290,7 @@ export default class PrivateInfoProfashional extends React.Component {
                 {forwardToNextStep ? (
                   <PrivateInfoStepOne
                     {...this.initialValues}
-                    // privateInfo={this.props.privateInfo}
+                    privateInfo={this.props.privateInfo}
                     completed={confirmed}
                     handleSubmit={
                       (!confirmed &&

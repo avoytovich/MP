@@ -25,4 +25,25 @@ function amIProfashional() {
   return false;
 }
 
-export { isILogined, amIProfashional, getMyFirstAndLastName, getMyPhoto };
+function amILogined() {
+  if (getLocale('id_token')) {
+    return true;
+  }
+  return false;
+}
+
+function isItMyPage(id) {
+  if (getLocale('id') === id) {
+    return true;
+  }
+  return false;
+}
+
+export {
+  isILogined,
+  amIProfashional,
+  getMyFirstAndLastName,
+  getMyPhoto,
+  isItMyPage,
+	amILogined,
+};
