@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { find, get } from 'lodash';
+import { find, get, cloneDeep } from 'lodash';
 import { withRouter } from 'next/router';
 import moment from 'moment';
 
@@ -259,12 +259,15 @@ export default class PrivateInfoProfashional extends React.Component {
   }
 
   get initialValuesStepTwo() {
-    return this.state.infoStepTwo;
+    const stepBody = cloneDeep(this.state.infoStepTwo);
+    stepBody.birthday = stepBody.dob;
+    return stepBody;
+    //return this.state.infoStepTwo;
   }
 
   render() {
-    // console.log('THIS PROPS', this.props);
-    // console.log('THIS State', this.state);
+    console.log('THIS PROPS', this.props);
+    console.log('THIS State', this.state);
     const {
       profashionalPrivateInfo,
       profashionalProfile,

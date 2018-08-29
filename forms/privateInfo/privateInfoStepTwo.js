@@ -79,16 +79,22 @@ export default class PrivateInfo extends React.Component {
   savePhotoToState = async (promise, name) => {
     const res = await promise;
     const photo = await getPhotoById(res.data.id);
+    const { frontId, front, backId, back } = this.state;
+    const { privateInfoStepTwo } = this.props;
     this.setState({ [name]: photo, [`${name}Id`]: res.data.id });
-    this.props.updateSpecData(
+    const body = {};
+    body[`${name}Id`] = this.state[`${name}Id`] || privateInfoStepTwo[`${name}Id`];
+    body[name] = this.state[name] || privateInfoStepTwo[name];
+    this.props.updateSpecData(body, 'privateInfo');
+    /*this.props.updateSpecData(
       {
-        frontId: this.state.frontId ? this.state.frontId : this.props.privateInfoStepTwo.frontId,
-        front: this.state.front ? this.state.front : this.props.privateInfoStepTwo.front,
-        backId: this.state.backId ? this.state.backId : this.props.privateInfoStepTwo.backId,
-        back: this.state.back ? this.state.back : this.props.privateInfoStepTwo.back,
+        frontId: frontId || privateInfoStepTwo.frontId,
+        front: front || privateInfoStepTwo.front,
+        backId: backId || privateInfoStepTwo.backId,
+        back: back || privateInfoStepTwo.back,
       },
       'privateInfo',
-    );
+    );*/
     /*const body = {};
     this.state.frontId ? (body.frontId = this.state.frontId) : null;
     this.state.front ? (body.front = this.state.front) : null;
@@ -112,8 +118,8 @@ export default class PrivateInfo extends React.Component {
   }
 
   render() {
-    // console.log('this.props', this.props);
-    // console.log('this.state', this.state);
+    console.log('this.props', this.props);
+    console.log('this.state', this.state);
     const { inputFieldsForStepTwo } = privateInfo;
     const {
       frontId,
