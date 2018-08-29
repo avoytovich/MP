@@ -13,6 +13,7 @@ import CheckboxRadio from '../../components/material-wrap/form/checkboxRadio';
 import { setData } from '../../actions/updateData';
 import FromTo from '../fromTo';
 import i18n from '../../services/decorators/i18n';
+import { checkAvailability } from '../../services/validateSchemas';
 
 import './bookProfashional.sass';
 
@@ -27,7 +28,7 @@ const mapDispatchToProps = dispatch =>
 @withFormik({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
-  validationSchema: undefined,
+  validationSchema: checkAvailability,
 })
 @i18n('errors')
 export default class BookProfashionalForm extends React.Component {
@@ -54,6 +55,7 @@ export default class BookProfashionalForm extends React.Component {
             component={CheckboxRadio}
             id={i}
             className="default-radio"
+            checkboxStyle="checkbox-item"
             setFieldValue={this.props.setFieldValue}
             label={`${moment(
               arrDate.concat([
@@ -85,14 +87,19 @@ export default class BookProfashionalForm extends React.Component {
         onSubmit={!this.state.showSuggestForm && handleSubmit}>
         {this.renderList}
         {!this.state.showSuggestForm && (
-          <div className="from-to-form-button-container">
+          <div className="book-profashional-button-container">
             <Button
               type="button"
               onClick={this.onSuggest}
-              className="cancel-button">
+              buttonFontSize="12px"
+              className="suggest-button">
               suggest time
             </Button>
-            <Button type="submit">Book</Button>
+            {this.props.slot.timeSlots.length > 0 && (
+              <Button disabled={!isValid} type="submit">
+                Book
+              </Button>
+            )}
           </div>
         )}
         {this.state.showSuggestForm && (

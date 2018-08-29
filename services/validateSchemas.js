@@ -79,6 +79,10 @@ const SignUpSchema = Yup.object().shape({
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
+const checkAvailability = Yup.object().shape({
+  time: Yup.number().required(required),
+});
+
 const SocialSignUpSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, toSmall)
@@ -185,7 +189,7 @@ const EditProfileSchema = Yup.object().shape({
   aboutMe: Yup.string()
     .max(350, toLong)
     .required(required),
-	expertises: Yup.array()
+  expertises: Yup.array()
     .of(Yup.string())
     .required(required),
   occasion: Yup.array()
@@ -208,6 +212,7 @@ export {
   ForgotSchema,
   ResetSchema,
   TripSchema,
+	checkAvailability,
   EditProfileSchema,
   InterviewSchema,
   PrivateInfoSchemaStepOne,

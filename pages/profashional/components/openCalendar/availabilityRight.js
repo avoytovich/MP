@@ -36,7 +36,7 @@ export default class AvailabilityRight extends Component {
 
   submitBook = values => {
     Router.pushRoute(
-      `/list-of-profashionals/:id/booking/trip-details?${qs.stringify({
+      `/booking?${qs.stringify({
         ...values.slot.timeSlots[values.time],
         profashionalId: this.props.router.query.id,
         date: values.slot.date,
@@ -93,12 +93,30 @@ export default class AvailabilityRight extends Component {
     );
     props.resetForm();
     Router.pushRoute(
-      `/list-of-profashionals/:id/booking/trip-details?${qs.stringify(body)}`,
+      `/booking?${qs.stringify(body)}`,
     );
   };
 
   get renderTimeSlots() {
     const timeSlots = this.props.timeSlots;
+    if (timeSlots && timeSlots.length > 0) {
+      return (
+        <div className="day-wrapper">
+          <CustomTypography
+            className="date-header"
+            variant="title"
+            fontSize="16px">
+            {moment(timeSlots[0].date).format('DD.MM.YYYY')}
+          </CustomTypography>
+          <BookProfashionalForm
+            slot={timeSlots[0]}
+            fromToSubmit={this.sendAvaibilities}
+            selectedDay={this.props.selectedDays[0]}
+            handleSubmit={this.submitBook}
+          />
+        </div>
+      );
+    }
     if (timeSlots) {
       return timeSlots.map(
         (slot, index) =>
@@ -128,7 +146,7 @@ export default class AvailabilityRight extends Component {
       return (
         <div className="no-content">
           <CustomTypography fontSize="20px" variant="subheading">
-            {this.props.translate('createAvailability')}
+            {this.props.translate('bookAvailability')}
           </CustomTypography>
         </div>
       );

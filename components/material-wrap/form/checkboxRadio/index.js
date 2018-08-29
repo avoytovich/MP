@@ -11,6 +11,7 @@ export default class CheckboxRadio extends React.Component {
       id,
       label,
       className = '',
+			checkboxStyle,
       labelClassName = '',
       setFieldValue,
     } = this.props;
@@ -22,6 +23,7 @@ export default class CheckboxRadio extends React.Component {
             value={value}
             checked={id === value}
             name={name}
+            className={checkboxStyle}
             onChange={() => setFieldValue(name, id)}
             onBlur={onBlur}
             id={id}
