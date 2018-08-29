@@ -110,7 +110,7 @@ export default class EditProfile extends React.Component {
             component={TextArea}
             fullWidth
             multiline
-            formHelper={350}
+            maxSize={350}
             error={translate(errors.aboutMe)}
             touched={touched.aboutMe}
             className="default-input"

@@ -6,6 +6,7 @@ import CustomTypography from '../../../components/material-wrap/typography/index
 
 import loading from '../loading';
 import { profashionals } from '../../cruds';
+import { amIProfashional, isItMyPage } from '../../accountService';
 
 @loading()
 @withRouter
@@ -26,10 +27,8 @@ export default class GalleryItem extends Component {
 
   initState = () => {
     const index = this.props.index;
-    if (index) {
-      this.setState({ current: index + 1 });
-      this.state.nav1.current.slickGoTo(index);
-    }
+    this.setState({ current: index + 1 });
+    this.state.nav1.current.slickGoTo(index);
   };
 
   setCurrent = index => {
@@ -85,13 +84,27 @@ export default class GalleryItem extends Component {
       profashionals.patch(`${this.props.router.query.id}/galleryPhotos`, {
         galleryPhotos: this.props.photos
           .filter(
-            element => element.id !== this.props.photos[this.state.current - 1].id,
+            element =>
+              element.id !== this.props.photos[this.state.current - 1].id,
           )
           .map(element => element.id),
       }),
       { saveTo: this.props.runtimeName, setData: true },
     );
   };
+
+  get renderDelete() {
+    if (amIProfashional() && isItMyPage(this.props.router.query.id)) {
+      return (
+        <img
+          src="/static/svg/delete.svg"
+          className="pointer"
+          onClick={this.deletePhoto}
+        />
+      );
+    }
+    return null;
+  }
 
   render() {
     if (!this.props.photos) return null;
@@ -116,11 +129,7 @@ export default class GalleryItem extends Component {
             fontSize="20px">
             {this.state.current} / {this.props.photos.length}
           </CustomTypography>
-          <img
-            src="/static/svg/delete.svg"
-            className="pointer"
-            onClick={this.deletePhoto}
-          />
+          {this.renderDelete}
         </div>
         <Slider
           className="small-slider"

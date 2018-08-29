@@ -22,6 +22,7 @@ import InterviewModal from './components/interview/modal';
 import TripModal from './components/trip/modal';
 import Reviews from './components/reviews';
 import Calendar from './components/calendar';
+import OpenCalendar from './components/openCalendar';
 import GalleryGrid from './components/galleryGrid';
 import CustomTypography from '../../components/material-wrap/typography/index';
 import {
@@ -138,6 +139,7 @@ export default class Profashional extends React.Component {
   };
 
   onPhotoClick = index => {
+    console.log(index);
     this.props.openGal(index);
   };
 
@@ -252,6 +254,11 @@ export default class Profashional extends React.Component {
     return null;
   }
 
+  get renderCalendar() {
+    if (amIProfashional()) return <Calendar />;
+    return <OpenCalendar />;
+  }
+
   get pointArray() {
     const pointArray = [];
     if (!this.props.profashionalProfile.privateInfoCompleted) {
@@ -314,7 +321,7 @@ export default class Profashional extends React.Component {
             className="availability-header">
             Availability:
           </CustomTypography>
-          <Calendar />
+          {this.renderCalendar}
         </div>
         <div className="profashional-grid profashional-block availability">
           <Reviews

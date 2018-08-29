@@ -1,0 +1,30 @@
+.book-profashional
+  display: flex
+  justify-content: flex-start
+  width: 80%
+  flex-direction: column
+  max-width: 350px
+  .field-container
+    display: flex
+    justify-content: space-between
+    .time-picker-wrapper
+      width: 45%
+      div
+        width: 100%
+  .add-time-btn
+    width: 100%!important
+  &-button-container
+    display: flex
+    margin-top: 24px
+    justify-content: space-between
+    button
+      width: 45%!important
+      max-height: 36px
+    .suggest-button
+      border: 1px dashed black
+@media (max-width: 480px)
+  .book-profashional
+    .default-input
+      margin-top: 24px !important
+    .subheading
+      margin-bottom: 15px
