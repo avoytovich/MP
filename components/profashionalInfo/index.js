@@ -46,7 +46,7 @@ export default class ProfashionalInfo extends React.Component {
                   <img className="avatar" src="/static/svg/ic-access-time-24-px.svg" alt="access-time"/>
                 </Grid>
                 <Grid className="access-time" item xs={9}>
-                  <Typography variant="subheading" fontSize="18px">{this.props.startTime} - {this.props.endTime}</Typography>
+                  <Typography variant="subheading" fontSize="18px">{this.props.startTime.format('HH:mm')} - {this.props.endTime.format('HH:mm')}</Typography>
                 </Grid>
               </Grid>
             </Grid>
