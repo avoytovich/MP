@@ -58,7 +58,7 @@ export default class Booking extends React.Component {
       profashionalId: '',
       startTime: '00:00',
       endTime: '24:00',
-      comission: '10',
+      commission: '10',
       rate: '20',
       date: '29-08-2018',
       profFirstName: 'Aaron',
@@ -200,7 +200,7 @@ export default class Booking extends React.Component {
     const price =
       (((time * Number(this.props.bookingProfile.rate)) / 60) *
         100 *
-        (100 + Number(this.state.comission))) /
+        (100 + Number(this.state.commission))) /
       10000;
     return price.toFixed(2);
   }

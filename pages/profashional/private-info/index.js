@@ -49,7 +49,7 @@ export default class PrivateInfoProfashional extends React.Component {
     super(props);
     this.child = React.createRef();
     this.state = {
-      forwardToNextStep: true,
+      forwardToNextStep: false,
       steps: ['Private information', 'ID Card'],
     };
   }
