@@ -39,7 +39,7 @@ export default class InputCustom extends React.Component {
         />
       );
     }
-    if (this.props.infoReset) {
+    if (this.props.infoReset && this.props.field.value) {
       return <Close className="icon pointer" onClick={this.onResetClick} />;
     }
     return null;
