@@ -66,6 +66,7 @@ export default class DatePickerCustom extends React.Component {
       infoReset,
       initialReset,
       error,
+      onResetClick,
       setFieldValue,
     } = this.props;
     return (
@@ -83,6 +84,7 @@ export default class DatePickerCustom extends React.Component {
           error={!!(touched && error)}
           label={error || label}
           maxDate={maxDate}
+          onResetClick={onResetClick}
           date
           format="DD.MM.YYYY"
           value={value}
