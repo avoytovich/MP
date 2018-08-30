@@ -66,6 +66,7 @@ export default {
       book: 'book',
       back: 'back',
       continue: 'continue',
+      hour: 'hour',
     },
     common: {
       hour: 'hour',

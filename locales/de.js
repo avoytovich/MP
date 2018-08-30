@@ -26,6 +26,8 @@ export default {
 			passwordReq: 'passwordReq',
       onlyLetters: 'Only Letters',
 			onlyNumbers: 'Only Numbers',
+      phoneFormat: 'Please, enter phone number using this format +412345678900',
+      toSmallPhone: 'The phone number is too short',
     },
     booking: {
       cancellationPolicyFullText:
@@ -38,7 +40,12 @@ export default {
       where: 'Where, when, and what would you like to shop',
       learnmore: 'To learn more about our cancellation policy please click ',
       learnmoreclick: 'here',
-      addCard: "Please add your Visa or Master Card"
+      addCard: 'Please add your Visa or Master Card',
+      checkout: 'Please checkout details',
+      book: 'book',
+      back: 'back',
+      continue: 'continue',
+      hour: 'stunde',
     },
 		common: {
 			hour: 'hour',
@@ -78,6 +85,8 @@ export default {
         'Möchten Sie den Bereich Profil bearbeiten schließen? Ihre Informationen werden nicht gespeichert',
 			reallyDelete:
 				'Do you really want to delete this time slot?',
+      booking:
+        'Do you want to close booking request creation? Your info will not be saved',
 			wantLogOut: "Are you sure you want to log out",
       cancel: 'Abbrechen',
       ok: 'OK',

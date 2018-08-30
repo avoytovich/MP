@@ -233,6 +233,8 @@ const TripDetailsSchema = Yup.object().shape({
     .required(required),
   meetingLocation: Yup.string()
     .max(50, toLong),
+  notebox: Yup.string()
+    .max(120, toLong),
 });
 
 const PaymentDetailsSchema = Yup.object().shape({
