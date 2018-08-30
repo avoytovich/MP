@@ -50,16 +50,19 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO implemet 404 logic
-    if (this.props.router.query.modal) {
+    if (this.props.router.query.modal && !this.props.router.query.key) {
       this.setOpenModal(this.props.router.query.modal);
     }
+    console.log('componentDidMount', this.props.router.query.key);
     if (this.props.router.query.key) {
       this.setOpenModal('reset-password');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setOpenModal(nextProps.router.query.modal);
+    console.log('componentWillReceiveProps', nextProps.router.query.modal);
+    nextProps.router.query.modal &&
+      this.setOpenModal(nextProps.router.query.modal);
   }
 
   setOpenModal = modalName => {
@@ -71,6 +74,7 @@ export default class App extends React.Component {
       needToCloseArray.forEach(modal => {
         newState[modal] = false;
       });
+      console.log(newState);
       return newState;
     });
   };
