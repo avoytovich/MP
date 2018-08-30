@@ -52,16 +52,39 @@ const createOptions = () => {
   handleSubmit: (values, options) => {
     options.props.handleSubmit(values, options);
   },
-  // validationSchema: props => PaymentDetailsSchema,
+  validationSchema: props => PaymentDetailsSchema,
 })
 @i18n('errors', 'booking')
 export default class PaymentDetails extends React.Component {
   constructor(props) {
     super(props);
-  }
+    this.state = {
+      cardNumber: false,
+      cardExpiry: false,
+      cardCvc: false,
+    };
+  };
+
+  handleChange = change => {
+    switch(change.elementType) {
+    case 'cardNumber':
+      this.setState({
+        cardNumber: change.complete,
+    })
+      break;
+    case 'cardExpiry':
+      this.setState({
+        cardExpiry: change.complete,
+      })
+      break;
+    case 'cardCvc':
+      this.setState({
+        cardCvc: change.complete,
+      })
+    }
+  };
 
   render() {
-    // console.log('this.props', this.props);
     const { inputFieldsForPaymentDetails } = bookingLabels;
     const {
       touched,
@@ -73,10 +96,10 @@ export default class PaymentDetails extends React.Component {
       setFieldValue,
       isValid,
       dirty,
+      isSubmitting,
     } = this.props;
     return (
       <Form className="trip-details-form-wrapper">
-
         <div className="grid-header">
           <Grid
             className="grid-header-title"
@@ -125,7 +148,7 @@ export default class PaymentDetails extends React.Component {
         <div className="checkout">
           <Grid container>
             {inputFieldsForPaymentDetails.map((item, index) => {
-              const { component, name, sm, additionalClass} = item;
+              const { component, name, sm, additionalClass } = item;
               return (
                 <Grid
                   key={index}
@@ -150,40 +173,38 @@ export default class PaymentDetails extends React.Component {
             })}
           </Grid>
           <div className="grid-field">
-            <div className='field default-input required'>
+            <div className="field default-input required">
               <CardNumberElement
+                onReady={el => console.log(el)}
                 id="card-number"
+                onChange={this.handleChange}
                 {...createOptions()}
               />
-              <label htmlFor="card-number">
-                Card number
-              </label>
-              <div className="baseline"></div>
+              <label htmlFor="card-number">Card number</label>
+              <div className="baseline" />
             </div>
           </div>
-          <div className='grid-field half-width'>
-            <div className='field default-input required'>
+          <div className="grid-field half-width">
+            <div className="field default-input required">
               <CardExpiryElement
                 id="card-date"
+                onChange={this.handleChange}
                 {...createOptions()}
               />
-              <label htmlFor="card-date">
-                Expiration date
-              </label>
-              <div className="baseline"></div>
+              <label htmlFor="card-date">Expiration date</label>
+              <div className="baseline" />
             </div>
           </div>
-          <div className='grid-field  half-width'>
-            <div className='field default-input required'>
+          <div className="grid-field  half-width">
+            <div className="field default-input required">
               <CardCVCElement
+                onChange={this.handleChange}
                 id="card-cvc"
-                placeholder= 'CVV'
+                placeholder="CVV"
                 {...createOptions()}
               />
-              <label htmlFor="card-cvc">
-                CVV
-              </label>
-              <div className="baseline"></div>
+              <label htmlFor="card-cvc">CVV</label>
+              <div className="baseline" />
             </div>
           </div>
         </div>
@@ -194,8 +215,7 @@ export default class PaymentDetails extends React.Component {
           <Button
             className="buttonsBookingDetails"
             type="submit"
-            // disabled={this.props.bookingInfo && !dirty ? false : !isValid}
-          >
+            disabled={!this.props.errors.cardHolderName && dirty && this.state.cardExpiry && this.state.cardNumber && this.state.cardCvc ? false : true}>
             {this.props.translate('continue', 'booking')}
           </Button>
         </div>

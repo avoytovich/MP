@@ -52,7 +52,7 @@ export default class Booking extends React.Component {
     this.child = React.createRef();
     this.state = {
       loaded: false,
-      forwardToSecondStep: false,
+      forwardToSecondStep: true,
       forwardToThirdStep: false,
       steps: ['Trip details', 'Payment Details', 'Confirm'],
       commission: '10',
@@ -130,6 +130,7 @@ export default class Booking extends React.Component {
         this.setState({
           forwardToThirdStep: true,
         });
+        console.log('res from stripe', res)
       } catch (error) {
         console.error('error', error);
       }

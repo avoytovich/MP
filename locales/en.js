@@ -27,6 +27,7 @@ export default {
       onlyNumbers: 'Only Numbers',
       phoneFormat: 'Please, enter phone number using this format +412345678900',
       toSmallPhone: 'The phone number is too short',
+      cardHolderReq: 'Please, enter the correct cardholder name',
     },
     popups: {
       startedTrip:

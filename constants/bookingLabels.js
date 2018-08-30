@@ -37,6 +37,7 @@ export const bookingLabels = {
       name: 'notebox',
       component: TextArea,
       sm: 12,
+      c: true,
       placeholder: "Please let us know what are you looking for and your possible budget.",
       additionalClass: 'input-custom',
       },
@@ -104,20 +105,20 @@ export const bookingLabels = {
       name: 'estimatedPrice',
       additionalClass: "bold disabled",
       infoIcon: true,
+      disabled: true,
     },
     {
       label: 'Preferred Meeting Location',
       name: 'meetingLocation',
       additionalClass: "disabled",
-
+      disabled: true,
     },
     {
-      name: 'confirmNotebox',
       component: TextArea,
       name: 'notebox',
       sm: 12,
       additionalClass: "disabled",
-
+      disabled: true,
     },
   ],
 };
