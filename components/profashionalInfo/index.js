@@ -17,7 +17,7 @@ export default class ProfashionalInfo extends React.Component {
     return (
       <div className="profashional-info-container">
         <div className="inner-container">
-          <Grid container justify="space-between" alignItems="center" xs={12}>
+          <Grid container justify="space-between" alignItems="center" item xs={12}>
             <Grid className="general-info" item sm={6} xs={12} container alignItems="center">
               <Grid className="pic-container" item sm={6} md={5} lg={4} xs={3}>
                 <img className="avatar" style={{ backgroundImage: `url(${this.props.profAvatar})` }} src={this.props.profAvatar} alt="profashional-picture"/>
@@ -46,7 +46,7 @@ export default class ProfashionalInfo extends React.Component {
                   <img className="avatar" src="/static/svg/ic-access-time-24-px.svg" alt="access-time"/>
                 </Grid>
                 <Grid className="access-time" item xs={9}>
-                  <Typography variant="subheading" fontSize="18px">{this.props.startTime} - {this.props.endTime}</Typography>
+                  <Typography variant="subheading" fontSize="18px">{this.props.startTime.format('HH:mm')} - {this.props.endTime.format('HH:mm')}</Typography>
                 </Grid>
               </Grid>
             </Grid>

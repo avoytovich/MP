@@ -131,7 +131,7 @@ export default class TripDetails extends React.Component {
             type="submit"
             disabled={this.props.bookingInfo && !dirty ? false : !isValid}
           >
-            Continue
+            {this.props.translate('continue', 'booking')}
           </Button>
         </div>
       </Form>

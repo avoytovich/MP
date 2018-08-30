@@ -66,6 +66,9 @@ export const bookingLabels = {
       label: 'Birthday',
       name: 'birthday',
       component: DatePicker,
+      maxDate: moment()
+        .subtract(18, 'years')
+        // .format('YYYY-MM-DD'),
     },
     {
       label: 'Gender',
