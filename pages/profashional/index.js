@@ -139,7 +139,6 @@ export default class Profashional extends React.Component {
   };
 
   onPhotoClick = index => {
-    console.log(index);
     this.props.openGal(index);
   };
 

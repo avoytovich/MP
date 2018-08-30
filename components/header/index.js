@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
 import Reorder from '@material-ui/icons/Reorder';
@@ -19,9 +20,10 @@ import {
   getMyFirstAndLastName,
   getMyPhoto,
   amIProfashional,
+  myRoleIs,
 } from '../../services/accountService';
 
-import { menuProps, profashionalOptions } from '../../constants/landing/menu';
+import * as constants from '../../constants/landing/menu';
 import CustomTypography from '../material-wrap/typography/index';
 
 import './header.sass';
@@ -34,6 +36,14 @@ import withConfirmModal from '../../services/decorators/withConfirmModal/index';
 })
 @i18n('menu')
 export default class Header extends Component {
+  static propTypes = {
+    openConfirm: PropTypes.func,
+    point: PropTypes.bool,
+    color: PropTypes.bool,
+    style: PropTypes.object,
+    navStyle: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
     this.target = React.createRef();
@@ -91,7 +101,7 @@ export default class Header extends Component {
 
   get renderDesktopLinks() {
     if (!isILogined()) {
-      return menuProps.map((element, key) => {
+      return constants.menuProps.map((element, key) => {
         return (
           <Typography
             variant="subheading"
@@ -135,17 +145,15 @@ export default class Header extends Component {
             vertical: 'top',
             horizontal: 'center',
           }}>
-          {amIProfashional()
-            ? profashionalOptions.map((option, index) => (
-                <MenuItem
-                  key={index}
-                  onClick={() => this.onMenuClick(option.translateVariable)}
-                  className="header-menu-item">
-                  {this.props.translate(option.translateVariable)}
-                  {this.renderPoint(option)}
-                </MenuItem>
-              ))
-            : null}
+          {constants[`${myRoleIs()}Options`].map((option, index) => (
+            <MenuItem
+              key={index}
+              onClick={() => this.onMenuClick(option.translateVariable)}
+              className="header-menu-item">
+              {this.props.translate(option.translateVariable)}
+              {this.renderPoint(option)}
+            </MenuItem>
+          ))}
         </Popover>
         <div className="header-hidden-target" ref={this.target} />
       </div>
@@ -154,7 +162,7 @@ export default class Header extends Component {
 
   get renderMobileLinks() {
     if (!isILogined()) {
-      return menuProps.map((element, key) => {
+      return constants.menuProps.map((element, key) => {
         return (
           <Typography
             onClick={() => this.onClick(element.href)}
@@ -166,20 +174,17 @@ export default class Header extends Component {
         );
       });
     }
-    if (amIProfashional()) {
-      return profashionalOptions.map((element, key) => {
-        return (
-          <Typography
-            onClick={() => this.onMenuClick(element.translateVariable)}
-            variant="subheading"
-            className="menu-item mobile"
-            key={key}>
-            {this.props.translate(element.translateVariable)}
-          </Typography>
-        );
-      });
-    }
-    return null;
+    return constants[`${myRoleIs()}Options`].map((element, key) => {
+      return (
+        <Typography
+          onClick={() => this.onMenuClick(element.translateVariable)}
+          variant="subheading"
+          className="menu-item mobile"
+          key={key}>
+          {this.props.translate(element.translateVariable)}
+        </Typography>
+      );
+    });
   }
 
   get stylesForMenu() {

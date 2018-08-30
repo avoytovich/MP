@@ -39,7 +39,7 @@ export default class InputCustom extends React.Component {
         />
       );
     }
-    if (this.props.infoReset) {
+    if (this.props.infoReset && this.props.field.value) {
       return <Close className="icon pointer" onClick={this.onResetClick} />;
     }
     return null;
@@ -53,9 +53,13 @@ export default class InputCustom extends React.Component {
   };
 
   onResetClick = event => {
-    event.stopPropagation();
-    location.reload();
-  }
+    if (!this.props.onResetClick) {
+      event.stopPropagation();
+      this.props.onChange('');
+    } else {
+      this.props.onResetClick(event);
+    }
+  };
 
   handleClose = () => {
     this.setState({
@@ -94,9 +98,7 @@ export default class InputCustom extends React.Component {
         }
         aria-describedby="control-size"
         fullWidth={fullWidth}>
-        <InputLabel error={!!(touched && error)}>
-          {this.labelValue}
-        </InputLabel>
+        <InputLabel error={!!(touched && error)}>{this.labelValue}</InputLabel>
         <Input
           id={id}
           value={date && value ? moment(value).format('DD.MM.YYYY') : value}

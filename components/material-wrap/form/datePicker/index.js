@@ -47,7 +47,6 @@ export default class DatePickerCustom extends React.Component {
   };
 
   openCalendar = () => {
-    console.log(this.calendar);
     this.calendar.open();
   };
 
@@ -67,6 +66,7 @@ export default class DatePickerCustom extends React.Component {
       infoReset,
       initialReset,
       error,
+      onResetClick,
       setFieldValue,
     } = this.props;
     return (
@@ -84,6 +84,7 @@ export default class DatePickerCustom extends React.Component {
           error={!!(touched && error)}
           label={error || label}
           maxDate={maxDate}
+          onResetClick={onResetClick}
           date
           format="DD.MM.YYYY"
           value={value}
@@ -96,7 +97,7 @@ export default class DatePickerCustom extends React.Component {
           placeholder={placeholder}
           className={className}
           disabled={disabled}
-          ref={ref => console.log(ref) || (this.calendar = ref)}
+          ref={ref => this.calendar = ref}
           style={{ display: 'none' }}
           error={!!(touched && error)}
           label={error || label}

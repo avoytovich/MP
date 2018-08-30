@@ -25,10 +25,8 @@ const handleReady = () => {
 class _CardForm extends React.Component {
   handleSubmit = async ev => {
     ev.preventDefault();
-    console.log('prppp', this.props);
     if (this.props.stripe) {
       const res = await this.props.stripe.createToken();
-      console.log(res);
       this.props.handleSubmitFormik(ev, res);
     } else {
       console.log("Stripe.js hasn't loaded yet.");

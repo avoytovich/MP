@@ -34,4 +34,10 @@ const profashionalOptions = [
   },
 ];
 
-export { menuProps, profashionalOptions };
+const shopperOptions = [
+  {
+    translateVariable: 'logOut',
+  },
+];
+
+export { menuProps, profashionalOptions, shopperOptions };
