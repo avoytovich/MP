@@ -5,6 +5,9 @@ import Typography from '../material-wrap/typography';
 import Rate from '../../components/rate/index';
 
 import './profashionalInfo.sass';
+import i18n from "../../services/decorators/i18n";
+
+@i18n('booking')
 
 export default class ProfashionalInfo extends React.Component {
   render() {
@@ -47,12 +50,7 @@ export default class ProfashionalInfo extends React.Component {
                   initialRating={this.props.rating}
                   readonly
                 />
-                <Typography
-                  className="price-container"
-                  variant="subheading"
-                  fontSize="16px">
-                  {this.props.rate} CHF/hour
-                </Typography>
+                <Typography className="price-container" variant="subheading" fontSize="16px">{this.props.rate} {this.props.currency}/{this.props.translate('hour')}</Typography>
               </Grid>
             </Grid>
             <Grid className="time-info" item sm={3} xs={12} container>
