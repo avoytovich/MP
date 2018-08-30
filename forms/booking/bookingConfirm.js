@@ -10,13 +10,12 @@ import { Router } from '../../routes';
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
 
-import {setData, updateSpecData} from '../../actions/updateData';
+import { setData, updateSpecData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { bookingLabels } from '../../constants/bookingLabels';
-import { PrivateInfoSchemaStepOne } from '../../services/validateSchemas';
 
 import './bookingDetails.sass';
-import Typography from "../../components/material-wrap/typography";
+import Typography from '../../components/material-wrap/typography';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -30,24 +29,19 @@ const mapDispatchToProps = dispatch =>
   handleSubmit: (values, options) => {
     options.props.handleSubmit(values, options);
   },
-
-  validationSchema: undefined,
 })
-@i18n('errors', 'booking')
+@i18n('booking')
 export default class Confirm extends React.Component {
   render() {
-    const { inputFieldsForConfirm} = bookingLabels;
+    const { inputFieldsForConfirm } = bookingLabels;
     const {
       touched,
-      errors,
-      translate,
       handleSubmit,
       handleBack,
       setFieldValue,
       isValid,
       dirty,
     } = this.props;
-
 
     return (
       <Form onSubmit={handleSubmit} className="trip-details-form-wrapper">
@@ -60,7 +54,7 @@ export default class Confirm extends React.Component {
         </div>
         <Grid container>
           {inputFieldsForConfirm.map((item, index) => {
-            const { component, name, sm, additionalClass} = item;
+            const { component, name, sm, additionalClass } = item;
             return (
               <Grid
                 key={index}
@@ -71,13 +65,11 @@ export default class Confirm extends React.Component {
                 <Field
                   {...item}
                   component={component || Input}
-                  dirty={true}
-
+                  dirty
                   setFieldValue={
                     // [...this.initialValues]
                     setFieldValue
                   }
-                  error={translate(errors[name])}
                   touched={touched[name]}
                   className={`default-input ${additionalClass}`}
                   disabled
@@ -89,14 +81,14 @@ export default class Confirm extends React.Component {
 
         <div className="buttons-cnt buttonStepTwo">
           <Button className="buttonsBookingDetails" onClick={handleBack}>
-            Back
+            {this.props.translate('back')}
           </Button>
           <Button
             className="buttonsBookingDetails"
             type="submit"
             // disabled={this.props.privateInfo && !dirty ? false : !isValid}
           >
-            Book
+            {this.props.translate('book')}
           </Button>
         </div>
       </Form>

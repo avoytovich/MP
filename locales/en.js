@@ -25,6 +25,8 @@ export default {
       passwordReq: 'passwordReq',
       onlyLetters: 'Only Letters',
       onlyNumbers: 'Only Numbers',
+      phoneFormat: 'Please, enter phone number using this format +412345678900',
+      toSmallPhone: 'The phone number is too short',
     },
     popups: {
       startedTrip:
@@ -61,6 +63,9 @@ export default {
       learnmoreclick: 'here',
       addCard: 'Please add your Visa or Master Card',
       checkout: 'Please checkout details',
+      book: 'book',
+      back: 'back',
+      continue: 'continue',
     },
     common: {
       hour: 'hour',

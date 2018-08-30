@@ -58,7 +58,7 @@ export default class Booking extends React.Component {
       profashionalId: '',
       startTime: '00:00',
       endTime: '24:00',
-      comission: '10',
+      commission: '10',
       rate: '20',
       date: '29-08-2018',
       profFirstName: 'Aaron',
@@ -105,7 +105,14 @@ export default class Booking extends React.Component {
   };
 
   handleSubmitForStepOne = values => {
+    console.log('values', values)
     this.props.updateSpecData(values, 'bookingInfo');
+    this.props.updateSpecData(
+      {
+        startTime: values.startTime,
+        endTime: values.endTime},
+      'bookingProfile',
+    );
     this.props.updateSpecData(
       {
         estimatedPrice: `${this.getPrice(
@@ -119,8 +126,6 @@ export default class Booking extends React.Component {
     this.setState({
       forwardToSecondStep: true,
     });
-    this.renderStartTime(values.startTime);
-    this.renderEndTime(values.endTime);
   };
 
   handleSubmitForStepTwo = async (values, options) => {
@@ -146,22 +151,24 @@ export default class Booking extends React.Component {
     const data = {
       date: this.reformatDate(this.state.date),
       description: bookingInfo.notebox,
-      endTime: this.state.endTime.replace(':', ''),
+      endTime: this.reformatTimeBeforeSending(bookingInfo.endTime),
       location: bookingInfo.meetingLocation,
       privateInfo: {
         cardHolderName: bookingInfo.cardHolderName,
         cardToken: bookingInfo.cardToken,
-        dob: bookingInfo.birthday.format('YYYY-MM-DD'),
+        dob: (bookingInfo.birthday === '') ? bookingInfo.birthday : bookingInfo.birthday.format('YYYY-MM-DD'),
         firstName: bookingInfo.firstName,
         gender: bookingInfo.gender,
         lastName: bookingInfo.lastName,
         phoneNumber: bookingInfo.phoneNumber,
       },
-      profashionalId: this.state.profashionalId,
+      profashionalId: Number(this.props.bookingProfile.profashionalId),
       shopperId: 11,
-      startTime: this.state.startTime.replace(':', ''),
+      startTime: this.reformatTimeBeforeSending(bookingInfo.startTime),
       type: 'PRE_BOOKING',
     };
+    console.log('data', data)
+    debugger
     const resp = await this.props.loadData(
       bookings.post(data, '/request',
       ),
@@ -169,44 +176,31 @@ export default class Booking extends React.Component {
     this.props.openModal();
   };
 
-  renderStartTime(time) {
-    const newStartTime = time.format('H:mm');
-    this.setState({
-      startTime: newStartTime,
-    });
-  }
-
-  renderEndTime(time) {
-    const newEndTime = time.format('H:mm');
-    this.setState({
-      endTime: newEndTime,
-    });
-  }
-
-  reformatDate(date) {
+  reformatDate = (date) =>{
     const res = date.split('-');
     const newres = `${res[2]}-${res[1]}-${res[0]}`;
     return newres;
   }
 
-  reformatTime(time) {
-    if (time.length === 4) {
-      const res = time.split('');
-      const newres = `${res[0]}${res[1]}:${res[2]}${res[3]}`;
-      return newres;
-    } else {
-      const res = time.split('');
-      const newres = `${res[0]}:${res[1]}${res[2]}`;
-      return newres;
-    }
+  reformatTime = (time) => {
+    const h = time / 60 | 0;
+    const m = time % 60 | 0;
+    return moment().hours(h).minutes(m);
   }
+
+  reformatTimeBeforeSending = (time) => {
+    const midnight = moment().clone().startOf('day');
+    const newTime = time.diff(midnight, 'minutes');
+    return newTime;
+  }
+
 
   getPrice(start, end) {
     const time = (end.unix() - start.unix()) / 60;
     const price =
-      (((time * Number(this.state.rate)) / 60) *
+      (((time * Number(this.props.bookingProfile.rate)) / 60) *
         100 *
-        (100 + Number(this.state.comission))) /
+        (100 + Number(this.state.commission))) /
       10000;
     return price.toFixed(2);
   }
@@ -232,6 +226,7 @@ export default class Booking extends React.Component {
   }
 
   render() {
+    console.log('this props', this.props);
     const { customerBookingInfo } = this.props;
     let step;
 
@@ -282,7 +277,8 @@ export default class Booking extends React.Component {
               </div>
               <div className="profashional-info-section">
                 <Grid className="grid" item xs={12} sm={6}>
-                  <ProfashionalInfo {...this.props.bookingProfile} />
+                  <ProfashionalInfo {...this.props.bookingProfile}
+                                    />
                 </Grid>
               </div>
               <div className="grid-field">
