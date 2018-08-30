@@ -96,6 +96,7 @@ export default class Header extends Component {
           <Typography
             variant="subheading"
             className="menu-item"
+            style={{ color: this.props.color ? 'black' : 'white' }}
             key={key}
             onClick={() => this.onClick(element.href)}>
             {this.props.translate(element.translateVariable)}
@@ -194,7 +195,7 @@ export default class Header extends Component {
       return (
         <Reorder
           color="secondary"
-          style={{ color: this.props.color ? 'black' : 'white' }}
+          style={{ color: this.props.color ? '#470b2f' : 'white' }}
           onClick={this.burgerToggle}
         />
       );
@@ -210,8 +211,8 @@ export default class Header extends Component {
   render() {
     const opened = this.state.opened;
     return (
-      <div className="nav-wrapper">
-        <nav>
+      <div className="nav-wrapper" style={this.props.style}>
+        <nav style={this.props.navStyle}>
           <div className="navWide">
             {this.renderLogo}
             <div className="wideDiv">

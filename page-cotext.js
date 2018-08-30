@@ -12,14 +12,14 @@ import grey from '@material-ui/core/colors/grey';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: grey[900],
-      main: grey[900],
-      dark: grey[900],
+      light: '#470b2f',
+      main: '#470b2f',
+      dark: '#470b2f',
     },
     secondary: {
-      light: grey[50],
-      main: grey[50],
-      dark: grey[100],
+      light: '#470b2f',
+      main: '#470b2f',
+      dark: '#470b2f',
     },
   },
 });

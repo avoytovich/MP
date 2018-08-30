@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { withRouter } from 'next/router';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import Rate from '../../../../components/rate';
 
@@ -63,12 +63,12 @@ export default class Reviews extends React.Component {
     ));
   }
 
-  loadAndSaveRatings = async () => {
+  loadAndSaveRatings = async page => {
     const resp = await this.props.loadData(
       ratings.getList({
         params: {
           profashionalId: this.props.router.query.id,
-          page: ++this.page,
+          page: page,
           size: 10,
         },
       }),
@@ -84,8 +84,8 @@ export default class Reviews extends React.Component {
       <div className="reviews-wrapper">
         {this.renderCountAndRate}
         <InfiniteScroll
-          next={this.loadAndSaveRatings}
-          dataLength={this.state.elements.length}
+          pageStart={0}
+          loadMore={this.loadAndSaveRatings}
           hasMore={
             this.state.elements.length < profashionalRatings.pagination.total
           }>

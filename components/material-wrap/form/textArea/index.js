@@ -10,6 +10,16 @@ export default class RadioCustom extends React.Component {
     maxSize: 120,
   };
 
+  state = {
+    showError: false,
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.error !== prevProps.error) {
+      this.setState({ showError: this.props.error });
+    }
+  }
+
   render() {
     const {
       field: { name, value = '', onBlur, onChange },
@@ -18,7 +28,7 @@ export default class RadioCustom extends React.Component {
       error,
       touched,
       placeholder,
-      label
+      label,
     } = this.props;
     return (
       <div>
@@ -40,7 +50,7 @@ export default class RadioCustom extends React.Component {
               variant="subheading"
               className={
                 'text-area-label error-text ' +
-                (touched && error ? 'error' : '')
+                (this.state.showError ? 'error' : '')
               }>
               {error}
             </Typography>
@@ -48,7 +58,7 @@ export default class RadioCustom extends React.Component {
               fontSize="12px"
               variant="subheading"
               className={
-                'text-area-label ' + (touched && error ? 'error' : '')
+                'text-area-label ' + (this.state.showError ? 'error' : '')
               }>
               {value.length}/{this.props.maxSize}
             </Typography>

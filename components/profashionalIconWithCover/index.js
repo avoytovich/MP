@@ -2,12 +2,14 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Alarm from '@material-ui/icons/Alarm';
+import Waypoint from 'react-waypoint';
 import { withRouter } from 'next/router';
 import { get } from 'lodash';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import IconOurButton from '../material-wrap/buttonWithIcon';
 import CustomTypography from '../material-wrap/typography/index';
+import Header from '../header';
 import Rate from '../rate';
 import i18n from '../../services/decorators/i18n';
 import { createNotification } from '../../services/notification';
@@ -19,6 +21,44 @@ import './style.sass';
 @i18n('common')
 @withRouter
 export default class ProfashionalCoverPhoto extends React.Component {
+  state = {
+    show: false,
+  };
+
+  componentDidMount() {
+    if (!this.props.isEdit && !this.props.showEditButtons)
+      window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const scrollY = window.pageYOffset;
+    if (scrollY > 360) this.setAddinationView(true);
+    if (scrollY < 360) this.setAddinationView(false);
+  };
+
+  checkAvailability = () => {
+    const avaibleBlock = document.getElementById('availability-section');
+    avaibleBlock.scrollIntoView(true);
+  };
+
+  edit = () => {
+    Router.pushRoute(
+      `/profashional/${this.props.router.query.id}/edit-profile`,
+    );
+  };
+
+  get renderIconPhoto() {
+    return (
+      get(this.props, 'iconUrl.path') ||
+      get(this.props, 'profashionalProfile.icon.path') ||
+      '/static/svg/placeholder.svg'
+    );
+  }
+
   get coverPhotoStyle() {
     const coverUrl = get(this.props, 'coverUrl.path');
     const coverUrlFromServer = get(
@@ -33,20 +73,6 @@ export default class ProfashionalCoverPhoto extends React.Component {
           `url(${coverUrlFromServer}), linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0))`) ||
         '',
     };
-  }
-
-  edit = () => {
-    Router.pushRoute(
-      `/profashional/${this.props.router.query.id}/edit-profile`,
-    );
-  };
-
-  get renderIconPhoto() {
-    return (
-      get(this.props, 'iconUrl.path') ||
-      get(this.props, 'profashionalProfile.icon.path') ||
-      '/static/svg/placeholder.svg'
-    );
   }
 
   get renderAddinationalInfoDesctop() {
@@ -79,18 +105,22 @@ export default class ProfashionalCoverPhoto extends React.Component {
               </CustomTypography>
             )}
           </div>
-          <CopyToClipboard
-            onCopy={() =>
-              createNotification('info', this.props.translate('copiedLink'))
-            }
-            text={`http://demo.myprofashional.com${this.props.router.asPath}`}>
-            <div className="copy-link pointer">
-              <img src="/static/svg/copyLink.svg" />
-              <CustomTypography fontSize="14px" variant="button">
-                {this.props.translate('copyLink')}
-              </CustomTypography>
-            </div>
-          </CopyToClipboard>
+          {this.props.showEditButtons && (
+            <CopyToClipboard
+              onCopy={() =>
+                createNotification('info', this.props.translate('copiedLink'))
+              }
+              text={`http://demo.myprofashional.com${
+                this.props.router.asPath
+              }`}>
+              <div className="copy-link pointer">
+                <img src="/static/svg/copyLink.svg" />
+                <CustomTypography fontSize="14px" variant="button">
+                  {this.props.translate('copyLink')}
+                </CustomTypography>
+              </div>
+            </CopyToClipboard>
+          )}
         </div>
         {numberOfTrips && (
           <div className="near-icon">
@@ -180,60 +210,141 @@ export default class ProfashionalCoverPhoto extends React.Component {
     );
   }
 
+  getStyleForScroll = () => {
+    if (this.state.show) return 'show';
+    return '';
+  };
+
+  setAddinationView = show => {
+    if (show !== this.state.show) this.setState({ show });
+  };
+
   render() {
-    const { isEdit } = this.props;
+    const { isEdit, showEditButtons } = this.props;
+    const {
+      username,
+      firstName,
+      currentRate,
+      currency,
+      rating,
+    } = this.props.profashionalProfile;
     return (
-      <div className="profashional-cover">
-        <div className={'cover-wrapper ' + (!isEdit ? 'no-edit' : '')}>
-          {isEdit && (
-            <IconButton
-              aria-label="Edit"
-              onClick={() => this.props.openFileDialog('coverInput')}
-              className="edit-button edit-cover icon-edit">
-              <EditIcon />
-            </IconButton>
-          )}
-          <div className="cover-body" style={this.coverPhotoStyle}>
-            {this.props.children}
-            {!isEdit && (
-              <div className="buttons-wrapper">
-                {this.props.profashionalProfile.completed && (
-                  <IconOurButton
-                    className="trip-profile-button"
-                    onClick={this.props.onTripClick}
-                    icon={<Alarm />}>
-                    trip tracker
-                  </IconOurButton>
-                )}
-                <IconOurButton
-                  className="edit-profile-button"
-                  onClick={this.edit}
-                  icon={<EditIcon />}>
-                  Edit profile
-                </IconOurButton>
-              </div>
-            )}
-          </div>
-          <div className={'icon-wrapper ' + (!isEdit ? 'no-edit' : '')}>
-            <div
-              style={{
-                backgroundImage: `url(${this.renderIconPhoto})`,
-              }}
-              className="icon-image"
-            />
+      <>
+        <div className="profashional-cover" id="profashional-section">
+          <div className={'cover-wrapper ' + (!isEdit ? 'no-edit' : '')}>
             {isEdit && (
               <IconButton
                 aria-label="Edit"
-                onClick={() => this.props.openFileDialog('iconInput')}
-                className="edit-button edit-icon icon-edit">
+                onClick={() => this.props.openFileDialog('coverInput')}
+                className="edit-button edit-cover icon-edit">
                 <EditIcon />
               </IconButton>
             )}
+            <div className="cover-body" style={this.coverPhotoStyle}>
+              {this.props.children}
+              {!isEdit && (
+                <div className="buttons-wrapper">
+                  {showEditButtons &&
+                    this.props.profashionalProfile.completed && (
+                      <IconOurButton
+                        className="trip-profile-button"
+                        onClick={this.props.onTripClick}
+                        icon={<Alarm />}>
+                        trip tracker
+                      </IconOurButton>
+                    )}
+                  {!showEditButtons && (
+                    <IconOurButton
+                      className="trip-profile-button"
+                      onClick={this.checkAvailability}>
+                      check availability
+                    </IconOurButton>
+                  )}
+                  {showEditButtons && (
+                    <IconOurButton
+                      className="edit-profile-button"
+                      onClick={this.edit}
+                      icon={<EditIcon />}>
+                      Edit profile
+                    </IconOurButton>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className={'icon-wrapper ' + (!isEdit ? 'no-edit' : '')}>
+              <div
+                style={{
+                  backgroundImage: `url(${this.renderIconPhoto})`,
+                }}
+                className="icon-image"
+              />
+              {isEdit && (
+                <IconButton
+                  aria-label="Edit"
+                  onClick={() => this.props.openFileDialog('iconInput')}
+                  className="edit-button edit-icon icon-edit">
+                  <EditIcon />
+                </IconButton>
+              )}
+            </div>
+            {!isEdit && this.renderAddinationalInfoDesctop}
+            {!isEdit && this.renderAddinationalInfoMobile}
           </div>
-          {!isEdit && this.renderAddinationalInfoDesctop}
-          {!isEdit && this.renderAddinationalInfoMobile}
         </div>
-      </div>
+        {!isEdit &&
+          !showEditButtons && (
+            <div className={'add-info-on-scroll ' + this.getStyleForScroll()}>
+              <Header
+                color
+                style={{ background: '#f2f5f5' }}
+                navStyle={{ paddingBottom: '0px' }}
+              />
+              <div className="check-availability">
+                <div className="check-availability-first-block">
+                  <div
+                    className="small-icon"
+                    style={{ backgroundImage: `url(${this.renderIconPhoto})` }}
+                  />
+                  <div className="check-availability-name-wrapper">
+                    <div className="flex-centering">
+                      <CustomTypography variant="button" fontSize="18px">
+                        {username || firstName}
+                      </CustomTypography>
+                      <CustomTypography
+                        className="currency"
+                        fontSize="18px"
+                        variant="subheading">
+                        {currentRate / 100}
+                        {` ${get(currency, 'name')}`} /{' '}
+                        {this.props.translate('hour')}
+                      </CustomTypography>
+                    </div>
+                    <div className="flex-centering">
+                      <Rate
+                        className="flex-with-margin"
+                        initialRating={rating}
+                        readonly
+                      />
+                      <CustomTypography fontSize="14px" variant="subheading">
+                        ({get(
+                          this.props,
+                          'profashionalRatings.pagination.total',
+                        )})
+                      </CustomTypography>
+                    </div>
+                  </div>
+                </div>
+                <div className="check-availability-second-block">
+                  <IconOurButton
+                    className="trip-profile-button"
+                    onClick={this.checkAvailability}>
+                    check availability
+                  </IconOurButton>
+                </div>
+              </div>
+            </div>
+          )}
+      </>
     );
   }
 }

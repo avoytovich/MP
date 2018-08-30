@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { find, get } from 'lodash';
+import { find, get, cloneDeep } from 'lodash';
 import { withRouter } from 'next/router';
 import moment from 'moment';
 
@@ -56,6 +56,8 @@ export default class PrivateInfoProfashional extends React.Component {
 
   componentWillUnmount() {
     this.props.resetData('privateInfo');
+    this.props.resetData('profashionalAccount');
+    this.props.resetData('profashionalPrivateInfo');
   }
 
   componentWillMount() {

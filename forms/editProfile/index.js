@@ -7,14 +7,20 @@ import { withRouter } from 'next/router';
 import { Router } from '../../routes';
 
 import Input from '../../components/material-wrap/form/input/index';
+import TextArea from '../../components/material-wrap/form/textArea/index';
 import DropDown from '../../components/material-wrap/form/dropDown/index';
 import Button from '../../components/material-wrap/button';
 
 import { setData } from '../../actions/updateData';
-import { currencies, languages, cities } from '../../services/cruds';
+import {
+  currencies,
+  languages,
+  cities,
+  expertise,
+  occasions,
+} from '../../services/cruds';
 import i18n from '../../services/decorators/i18n';
 import { EditProfileSchema } from '../../services/validateSchemas';
-import { EXPERSISES, OCCASION } from '../../constants/editProfile';
 
 import './editProfile.sass';
 
@@ -39,6 +45,7 @@ export default class EditProfile extends React.Component {
       errors,
       touched,
       isValid,
+      dirty,
       validPhotos,
       translate,
     } = this.props;
@@ -75,7 +82,7 @@ export default class EditProfile extends React.Component {
               name="hourlyRate"
               component={Input}
               fullWidth
-              placeholder="20.5"
+              placeholder="20.50"
               type="hourlyRate"
               infoIcon
               error={translate(errors.hourlyRate)}
@@ -100,10 +107,10 @@ export default class EditProfile extends React.Component {
         <div className="row-padding">
           <Field
             name="aboutMe"
-            component={Input}
+            component={TextArea}
             fullWidth
             multiline
-            formHelper={350}
+            maxSize={350}
             error={translate(errors.aboutMe)}
             touched={touched.aboutMe}
             className="default-input"
@@ -113,13 +120,13 @@ export default class EditProfile extends React.Component {
         <div className="two-inputs-row">
           <div className="input-column">
             <Field
-              name="expersises"
+              name="expertises"
               component={DropDown}
               fullWidth
               multiple
-              options={EXPERSISES}
-              error={translate(errors.expersises)}
-              touched={touched.expersises}
+              getFrom={() => expertise.get()}
+              error={translate(errors.expertises)}
+              touched={touched.expertises}
               className="default-input"
               label="Expertise"
             />
@@ -130,7 +137,7 @@ export default class EditProfile extends React.Component {
               component={DropDown}
               fullWidth
               multiple
-              options={OCCASION}
+              getFrom={() => occasions.get()}
               error={translate(errors.occasion)}
               touched={touched.occasion}
               className="default-input"
@@ -166,7 +173,9 @@ export default class EditProfile extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <Button disabled={!(isValid && validPhotos)} type="submit">
+          <Button
+            disabled={validPhotos && !dirty ? false : !(isValid && validPhotos)}
+            type="submit">
             Save
           </Button>
         </div>

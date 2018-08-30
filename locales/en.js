@@ -36,6 +36,8 @@ export default {
         'Do you want to close Private Info section? your information will not be saved',
       editProfile:
         'Do you want to close Edit Profile section? your information will not be saved',
+      booking:
+        'Do you want to close booking request creation? Your info will not be saved',
       reallyDelete: 'Do you really want to delete this time slot?',
       wantLogOut: 'Are you sure you want to log out',
       cancel: 'Cancel',
@@ -68,6 +70,8 @@ export default {
       copyLink: 'Copy link',
       createAvailability:
         'To create availability please select date on the calendar.',
+      bookAvailability:
+        'To book profashional please select date on the calendar',
       MEN: 'Men',
       WOMEN: 'Women',
       CHILD: 'Child',
