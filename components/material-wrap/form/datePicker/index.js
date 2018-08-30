@@ -47,7 +47,6 @@ export default class DatePickerCustom extends React.Component {
   };
 
   openCalendar = () => {
-    console.log(this.calendar);
     this.calendar.open();
   };
 
@@ -98,7 +97,7 @@ export default class DatePickerCustom extends React.Component {
           placeholder={placeholder}
           className={className}
           disabled={disabled}
-          ref={ref => console.log(ref) || (this.calendar = ref)}
+          ref={ref => this.calendar = ref}
           style={{ display: 'none' }}
           error={!!(touched && error)}
           label={error || label}

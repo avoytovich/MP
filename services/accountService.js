@@ -15,6 +15,16 @@ function getMyPhoto() {
   return `${getLocale('avaUrl')}`;
 }
 
+function myRoleIs() {
+  if (
+    getLocale('authorities') &&
+    JSON.parse(getLocale('authorities')).indexOf('ROLE_PROFASHIONAL') !== -1
+  ) {
+    return 'profashional';
+  }
+  return 'shopper';
+}
+
 function amIProfashional() {
   if (
     getLocale('authorities') &&
@@ -45,5 +55,6 @@ export {
   getMyFirstAndLastName,
   getMyPhoto,
   isItMyPage,
-	amILogined,
+	myRoleIs,
+  amILogined,
 };
