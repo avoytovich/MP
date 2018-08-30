@@ -52,7 +52,7 @@ export default class Booking extends React.Component {
     this.child = React.createRef();
     this.state = {
       loaded: false,
-      forwardToSecondStep: true,
+      forwardToSecondStep: false,
       forwardToThirdStep: false,
       steps: ['Trip details', 'Payment Details', 'Confirm'],
       commission: '10',
