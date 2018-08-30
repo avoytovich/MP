@@ -33,7 +33,12 @@ export default class RadioCustom extends React.Component {
     return (
       <div>
         <div className={className}>
-          <InputLabel className="textarea-label">{label}</InputLabel>
+          <InputLabel
+            className={
+              'text-area-label ' + (this.state.showError ? 'error' : '')
+            }>
+            {label}
+          </InputLabel>
           <textarea
             color="primary"
             className="text-area-default"
@@ -49,8 +54,7 @@ export default class RadioCustom extends React.Component {
               fontSize="12px"
               variant="subheading"
               className={
-                'text-area-label error-text ' +
-                (this.state.showError ? 'error' : '')
+                'text-area-label ' + (this.state.showError ? 'error' : '')
               }>
               {error}
             </Typography>
