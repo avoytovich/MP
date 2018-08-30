@@ -51,12 +51,6 @@ export default class ProfashionalInfo extends React.Component {
                   readonly
                 />
                 <Typography className="price-container" variant="subheading" fontSize="16px">{this.props.rate} {this.props.currency}/{this.props.translate('hour')}</Typography>
-                <Typography
-                  className="price-container"
-                  variant="subheading"
-                  fontSize="16px">
-                  {this.props.rate} CHF/hour
-                </Typography>
               </Grid>
             </Grid>
             <Grid className="time-info" item sm={3} xs={12} container>
