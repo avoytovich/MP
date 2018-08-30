@@ -54,7 +54,7 @@ export default class BookProfashionalForm extends React.Component {
             name="time"
             component={CheckboxRadio}
             id={i}
-            className="default-radio"
+            className="checkbox-wrapper"
             checkboxStyle="checkbox-item"
             setFieldValue={this.props.setFieldValue}
             label={`${moment(
