@@ -8,6 +8,8 @@ const email = 'email',
   matchPassword = 'matchPassword',
   passwordReq = 'passwordReq',
   phoneNumberReq = 'phoneNumberReq',
+  phoneFormat = 'phoneFormat',
+  toSmallPhone = 'toSmallPhone',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
   onlyNumbers = 'onlyNumbers',
@@ -225,10 +227,14 @@ const TripDetailsSchema = Yup.object().shape({
     .matches(/[a-zA-Z]/, onlyLetters)
     .required(required),
   phoneNumber: Yup.string()
-    .min(13, toSmall)
+    .matches(/^[+][0-9]*$/, phoneFormat)
+    .min(13, toSmallPhone)
     .max(13, toLong)
-    .matches(/^[+][0-9]*$/, phoneNumberReq)
     .required(required),
+  meetingLocation: Yup.string()
+    .max(50, toLong),
+  notebox: Yup.string()
+    .max(120, toLong),
 });
 
 const PaymentDetailsSchema = Yup.object().shape({

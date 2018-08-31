@@ -189,14 +189,14 @@ export default class PaymentDetails extends React.Component {
         </div>
         <div className="buttons-cnt buttonStepTwo">
           <Button className="buttonsBookingDetails" onClick={handleBack}>
-            Back
+            {this.props.translate('back', 'booking')}
           </Button>
           <Button
             className="buttonsBookingDetails"
             type="submit"
             // disabled={this.props.bookingInfo && !dirty ? false : !isValid}
           >
-            Continue
+            {this.props.translate('continue', 'booking')}
           </Button>
         </div>
       </Form>

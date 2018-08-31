@@ -27,7 +27,7 @@ const mapStateToProps = ({ runtime }) => ({
 export default class DatePickerCustom extends React.Component {
   constructor(props) {
     super(props);
-    this.calendar = React.createRef();
+    this.calendar = null;
   }
   state = {
     anchorEl: null,
@@ -47,7 +47,7 @@ export default class DatePickerCustom extends React.Component {
   };
 
   openCalendar = () => {
-    this.calendar.current.open();
+    this.calendar.open();
   };
 
   render() {
@@ -95,7 +95,7 @@ export default class DatePickerCustom extends React.Component {
           placeholder={placeholder}
           className={className}
           disabled={disabled}
-          ref={this.calendar}
+          ref={ref => (this.calendar = ref)}
           style={{ display: 'none' }}
           error={!!(touched && error)}
           label={error || label}

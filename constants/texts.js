@@ -110,6 +110,10 @@ export const listOfProfashionals = {
       label: 'Date',
       name: 'dayPicker',
       component: DatePicker,
+      onResetClick: event => {
+        event.stopPropagation();
+        location.reload();
+      },
       placeholder: 'dd.mm.yyyy',
     },
   ],
