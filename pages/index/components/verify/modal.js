@@ -17,10 +17,6 @@ const mapStateToProps = ({ runtime }) => ({
 @i18n()
 @connect(mapStateToProps)
 export default class VerifyModal extends Component {
-  goToHome = () => {
-    Router.pushRoute('/');
-  };
-
   render() {
     return (
       <Grid
@@ -33,7 +29,7 @@ export default class VerifyModal extends Component {
           A verification email has been sent to your email address. Please click
           the link in that email to complete your registration.
         </Typography>
-        <Button onClick={this.goToHome}>OK</Button>
+        <Button onClick={this.props.onClose}>OK</Button>
       </Grid>
     );
   }
