@@ -80,6 +80,7 @@ export default class App extends React.Component {
   };
 
   onClose = () => {
+    console.log('onClose');
     this.setState(() => {
       const newState = {};
       this.state.modalNames.forEach(modal => {
@@ -116,7 +117,7 @@ export default class App extends React.Component {
           <EmailModal />
         </Modal>
         <Modal open={this.state.verify} withClose onClose={this.onClose}>
-          <VerifyModal />
+          <VerifyModal onClose={this.onClose} />
         </Modal>
         <Modal open={this.state.forgot} withClose onClose={this.onClose}>
           <ForgotModal />
