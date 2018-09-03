@@ -105,6 +105,17 @@ export default {
       inspiration: 'DEUTCHE: Inspiration',
       exploreCity: 'DEUTCHE: Explore city',
     },
+		evaluate: {
+			shoppingExperience: 'Please tell us about your shopping experience.',
+			wasSuccess: 'Was your shopping trip successful?',
+			howWouldYouRate: 'How would you rate ',
+			forTheService: ' for the service provided?',
+			notLike: 'Not at all likely',
+			like: 'Extremely likely',
+			scaleFrom:
+			'On a scale from 1 to 10, how likely are you to' +
+			'recommend myProfashional to a friend?',
+		},
     listOfProfashionalsContent: {
       specialOcasion: 'DEUTCHE: Don’t raise your voice, improve your argument',
       inspiration: 'DEUTCHE: If you want to achieve greatness stop asking for permission',

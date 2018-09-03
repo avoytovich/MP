@@ -25,13 +25,14 @@ export default class RadioCustom extends React.Component {
       field: { name, value = '', onBlur, onChange },
       id,
       className = '',
+			classNameWrapper = '',
       error,
       touched,
       placeholder,
       label,
     } = this.props;
     return (
-      <div>
+      <div className={classNameWrapper}>
         <div className={className}>
           <InputLabel
             className={

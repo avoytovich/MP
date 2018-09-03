@@ -7,6 +7,7 @@ module.exports = routes()
   .add('about-with-id', '/about/:id', 'about')
   .add('about', '/about', 'about')
   .add('shoper', '/shoper', 'shoper')
+  .add('evaluate', '/evaluate', 'evaluate')
   .add('profashional', '/profashional/:id', 'profashional')
   .add(
     'listOfProfashionals',
