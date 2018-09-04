@@ -8,7 +8,6 @@ import {
   CardNumberElement,
   CardExpiryElement,
   CardCVCElement,
-  Elements,
   injectStripe,
 } from 'react-stripe-elements';
 
@@ -17,12 +16,10 @@ import { Router } from '../../routes';
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
 
-import {setData, updateSpecData} from '../../actions/updateData';
+import { setData, updateSpecData } from '../../actions/updateData';
 import i18n from '../../services/decorators/i18n';
 import { bookingLabels } from '../../constants/bookingLabels';
 import { PaymentDetailsSchema } from '../../services/validateSchemas';
-import CheckoutForm from './checkoutForm';
-import InjectedCardForm from './cardForm';
 
 import './bookingDetails.sass';
 import Typography from '../../components/material-wrap/typography';
@@ -36,7 +33,6 @@ const createOptions = () => {
       base: {
         fontSize: '16px',
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-        // lineHeight: '1.1875em',
       },
     },
   };
@@ -65,35 +61,46 @@ export default class PaymentDetails extends React.Component {
       updated: false,
       isDirty: props.dirty,
     };
-  };
+  }
 
   handleChange = change => {
-    if (this.props.cardToken){
-      this.setState({updated: false})
+    if (this.props.cardToken) {
+      this.setState({
+        updated: false,
+        isDirty: true,
+      });
       this.props.updateSpecData({ cardToken: '' }, 'bookingInfo');
-      this.setState({isDirty: true});
+    } else {
+      this.setState({ isDirty: this.props.dirty });
     }
-    else {
-      this.setState({isDirty: this.props.dirty})
-    }
-    console.log('proooops', this.props, 'stattee', this.state);
-    switch(change.elementType) {
-    case 'cardNumber':
-      this.setState({
-        cardNumber: change.complete,
-    })
-      break;
-    case 'cardExpiry':
-      this.setState({
-        cardExpiry: change.complete,
-      })
-      break;
-    case 'cardCvc':
-      this.setState({
-        cardCvc: change.complete,
-      })
+    switch (change.elementType) {
+      case 'cardNumber':
+        this.setState({
+          cardNumber: change.complete,
+        });
+        break;
+      case 'cardExpiry':
+        this.setState({
+          cardExpiry: change.complete,
+        });
+        break;
+      case 'cardCvc':
+        this.setState({
+          cardCvc: change.complete,
+        });
     }
   };
+
+  get disabled() {
+    return !Boolean(
+      (!this.props.errors.cardHolderName &&
+        this.state.isDirty &&
+        this.state.cardExpiry &&
+        this.state.cardNumber &&
+        this.state.cardCvc) ||
+        this.state.updated,
+    );
+  }
 
   render() {
     const { inputFieldsForPaymentDetails } = bookingLabels;
@@ -184,17 +191,23 @@ export default class PaymentDetails extends React.Component {
             })}
           </Grid>
           <div className="grid-field">
-            <div className={`field default-input required ${(this.props.cardToken) ? `updated` : ''}`}>
+            <div
+              className={`field default-input required ${
+                this.props.cardToken ? `updated` : ''
+              }`}>
               <CardNumberElement
                 onReady={el => {
-                  // (this.props.cardToken) ? el.update({classes: {base: 'StripeElement'}}) : el.update({classes: {base: 'StripeElement'}});
-                  (this.props.cardToken) ? this.setState({updated: true}) :  this.setState({updated: false});
-                  // console.log('el', el, 'token', this.props.cardToken, 'props', this.props, 'state', this.state);
-
+                  this.props.cardToken
+                    ? this.setState({ updated: true })
+                    : this.setState({ updated: false });
                 }}
                 id="card-number"
                 onChange={this.handleChange}
-                placeholder={(this.props.cardToken) ? `**** **** **** ${this.props.last4}` : "1234 1234 1234 1234"}
+                placeholder={
+                  this.props.cardToken
+                    ? `**** **** **** ${this.props.last4}`
+                    : '1234 1234 1234 1234'
+                }
                 {...createOptions()}
               />
               <label htmlFor="card-number">Card number</label>
@@ -202,11 +215,14 @@ export default class PaymentDetails extends React.Component {
             </div>
           </div>
           <div className="grid-field half-width">
-            <div className={`field default-input required ${(this.props.cardToken) ? `updated` : ''}`}>
+            <div
+              className={`field default-input required ${
+                this.props.cardToken ? `updated` : ''
+              }`}>
               <CardExpiryElement
                 id="card-date"
                 onChange={this.handleChange}
-                placeholder={(this.props.cardToken) ? '**/**' : "MM/YY"}
+                placeholder={this.props.cardToken ? '**/**' : 'MM/YY'}
                 {...createOptions()}
               />
               <label htmlFor="card-date">Expiration date</label>
@@ -214,11 +230,14 @@ export default class PaymentDetails extends React.Component {
             </div>
           </div>
           <div className="grid-field  half-width">
-            <div className={`field default-input required ${(this.props.cardToken) ? `updated` : ''}`}>
+            <div
+              className={`field default-input required ${
+                this.props.cardToken ? `updated` : ''
+              }`}>
               <CardCVCElement
                 onChange={this.handleChange}
                 id="card-cvc"
-                placeholder={(this.props.cardToken) ? '***' : "CVV"}
+                placeholder={this.props.cardToken ? '***' : 'CVV'}
                 {...createOptions()}
               />
               <label htmlFor="card-cvc">CVV</label>
@@ -233,7 +252,7 @@ export default class PaymentDetails extends React.Component {
           <Button
             className="buttonsBookingDetails"
             type="submit"
-            disabled={(!this.props.errors.cardHolderName && this.state.isDirty && this.state.cardExpiry && this.state.cardNumber && this.state.cardCvc) || this.state.updated ? false : true}>
+            disabled={this.disabled}>
             {this.props.translate('continue', 'booking')}
           </Button>
         </div>

@@ -4,13 +4,6 @@ import TextArea from '../components/material-wrap/form/textArea/index';
 import DatePicker from '../components/material-wrap/form/datePicker/index';
 import TimePicker from '../components/material-wrap/form/timePicker/index';
 
-import { currencies, countries } from '../services/cruds';
-
-const hours = [
-  { id: 1, name: '00:00' },
-  { id: 2, name: '10:00' },
-  { id: 3, name: '11:00' },
-];
 
 export const bookingLabels = {
   inputFieldsForTripDetails1: [
@@ -19,7 +12,6 @@ export const bookingLabels = {
       name: 'startTime',
       component: TimePicker,
       additionalClass: 'required input-custom',
-      isTimePicker: true,
     },
     {
       label: 'End time (Estimated)',
@@ -39,7 +31,6 @@ export const bookingLabels = {
       name: 'notebox',
       component: TextArea,
       sm: 12,
-      c: true,
       placeholder: "Please let us know what are you looking for and your possible budget.",
       additionalClass: 'input-custom',
       },

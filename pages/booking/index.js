@@ -128,17 +128,18 @@ export default class Booking extends React.Component {
     if (options.props.stripe) {
       try {
         const res = await options.props.stripe.createToken();
-        this.props.updateSpecData({ cardToken: res.token.id }, 'bookingInfo');
         this.props.updateSpecData(
-          { last4: res.token.card.last4 },
+          {
+            cardToken: res.token.id,
+            last4: res.token.card.last4,
+            ...values
+          },
           'bookingInfo',
         );
-        this.props.updateSpecData(values, 'bookingInfo');
         this.child.current.handleNext();
         this.setState({
           forwardToThirdStep: true,
         });
-        console.log('res from stripe', res);
       } catch (error) {
         console.error('error', error);
       }
@@ -154,15 +155,11 @@ export default class Booking extends React.Component {
       date: this.reformatDate(this.props.bookingProfile.date),
       description: bookingInfo.notebox === '' ? null : bookingInfo.notebox,
       endTime: this.reformatTimeBeforeSending(bookingInfo.endTime),
-      location:
-        bookingInfo.meetingLocation === '' ? null : bookingInfo.meetingLocation,
+      location: bookingInfo.meetingLocation || null,
       privateInfo: {
         cardHolderName: bookingInfo.cardHolderName,
         cardToken: bookingInfo.cardToken,
-        dob:
-          bookingInfo.birthday === ''
-            ? null
-            : bookingInfo.birthday.format('YYYY-MM-DD'),
+        dob: bookingInfo.birthday.format('YYYY-MM-DD') || null,
         firstName: bookingInfo.firstName,
         gender: bookingInfo.gender === '' ? null : bookingInfo.gender,
         lastName: bookingInfo.lastName,

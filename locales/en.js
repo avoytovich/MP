@@ -29,10 +29,10 @@ export default {
       tooSmallPhone: 'The phone number is too short',
       tooLongPhone: 'The phone number is too long',
       cardHolderReq: 'Please, enter the correct cardholder name',
-      startShouldFit: 'The estimated start time should fit the profashional availability time range',
-      endShouldFit: 'The estimated end time should fit the profashional availability time range',
-      startShouldBeBefore: 'The estimated start time should not be later than the end time',
-      endShouldBeBefore: 'The estimated end time should be later than the end time',
+      startShouldFit: "Should fit the profashional's availability time range",
+      endShouldFit: "Should fit the profashional's availability time range",
+      startShouldBeBefore: "Shouldn't be later than the end time",
+      endShouldBeBefore: 'Should be later than the end time',
 
 
 
