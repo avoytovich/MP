@@ -26,8 +26,16 @@ export default {
       onlyLetters: 'Only Letters',
       onlyNumbers: 'Only Numbers',
       phoneFormat: 'Please, enter phone number using this format +412345678900',
-      toSmallPhone: 'The phone number is too short',
+      tooSmallPhone: 'The phone number is too short',
+      tooLongPhone: 'The phone number is too long',
       cardHolderReq: 'Please, enter the correct cardholder name',
+      startShouldFit: 'The estimated start time should fit the profashional availability time range',
+      endShouldFit: 'The estimated end time should fit the profashional availability time range',
+      startShouldBeBefore: 'The estimated start time should not be later than the end time',
+      endShouldBeBefore: 'The estimated end time should be later than the end time',
+
+
+
     },
     popups: {
       startedTrip:

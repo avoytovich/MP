@@ -19,11 +19,13 @@ export const bookingLabels = {
       name: 'startTime',
       component: TimePicker,
       additionalClass: 'required input-custom',
+      isTimePicker: true,
     },
     {
       label: 'End time (Estimated)',
       name: 'endTime',
       component: TimePicker,
+      isTimePicker: true,
       additionalClass: 'required input-custom',
     },
     {
@@ -69,7 +71,6 @@ export const bookingLabels = {
       component: DatePicker,
       maxDate: moment()
         .subtract(18, 'years')
-        // .format('YYYY-MM-DD'),
     },
     {
       label: 'Gender',

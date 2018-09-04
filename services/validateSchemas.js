@@ -9,7 +9,7 @@ const email = 'email',
   passwordReq = 'passwordReq',
   phoneNumberReq = 'phoneNumberReq',
   phoneFormat = 'phoneFormat',
-  toSmallPhone = 'toSmallPhone',
+  tooSmallPhone = 'tooSmallPhone',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
   onlyNumbers = 'onlyNumbers',
@@ -225,7 +225,7 @@ const TripDetailsSchema = Yup.object().shape({
     .required(required),
   phoneNumber: Yup.string()
     .matches(/^[+][0-9]*$/, phoneFormat)
-    .min(13, toSmallPhone)
+    .min(13, tooSmallPhone)
     .max(13, toLong)
     .required(required),
   meetingLocation: Yup.string()

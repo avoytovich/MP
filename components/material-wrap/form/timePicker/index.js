@@ -38,6 +38,14 @@ export default class TimePickerCustom extends React.Component {
     });
   };
 
+  // onChange = val => {
+  //   console.log('onChange', this.props.customOnchange);
+  //   if (this.props.customOnchange) {
+  //     this.props.customOnchange(val, this.props.field.name);
+  //   }
+  //   this.props.setFieldValue(this.props.field.name, val);
+  // };
+
 
   render() {
     const {

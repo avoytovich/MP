@@ -6,12 +6,9 @@ import { withRouter } from 'next/router';
 
 import ModalHeader from '../../components/modalHeader/index';
 import Stepper from '../../components/stepper/index';
-import Typography from '../../components/material-wrap/typography/index';
 import TripDetails from '../../forms/booking/bookingTripDetails';
 import PaymentDetails from '../../forms/booking/bookingPaymentDetails';
 import Confirm from '../../forms/booking/bookingConfirm';
-import CheckoutForm from '../../forms/booking/checkoutForm';
-import PrivateInfoStepTwo from '../../forms/privateInfo/privateInfoStepTwo';
 
 import './booking.sass';
 import ProfashionalInfo from '../../components/profashionalInfo';
@@ -39,7 +36,7 @@ const mapStateToProps = ({ runtime }) => ({
   props => Router.pushRoute('/list-of-profashionals'),
 )
 @withConfirmModal('booking', 'no', 'yes', props =>
-  Router.pushRoute('/list-of-profashionals'),
+  Router.pushRoute(`/profashional/${props.router.query.profashionalId}`),
 )
 @connect(
   mapStateToProps,
@@ -121,16 +118,27 @@ export default class Booking extends React.Component {
   };
 
   handleSubmitForStepTwo = async (values, options) => {
+    if (this.props.bookingInfo.cardToken) {
+      this.child.current.handleNext();
+      this.setState({
+        forwardToThirdStep: true,
+      });
+      return null;
+    }
     if (options.props.stripe) {
       try {
         const res = await options.props.stripe.createToken();
         this.props.updateSpecData({ cardToken: res.token.id }, 'bookingInfo');
+        this.props.updateSpecData(
+          { last4: res.token.card.last4 },
+          'bookingInfo',
+        );
         this.props.updateSpecData(values, 'bookingInfo');
         this.child.current.handleNext();
         this.setState({
           forwardToThirdStep: true,
         });
-        console.log('res from stripe', res)
+        console.log('res from stripe', res);
       } catch (error) {
         console.error('error', error);
       }
@@ -146,12 +154,15 @@ export default class Booking extends React.Component {
       date: this.reformatDate(this.props.bookingProfile.date),
       description: bookingInfo.notebox === '' ? null : bookingInfo.notebox,
       endTime: this.reformatTimeBeforeSending(bookingInfo.endTime),
-      location: bookingInfo.meetingLocation === '' ? null : bookingInfo.meetingLocation,
+      location:
+        bookingInfo.meetingLocation === '' ? null : bookingInfo.meetingLocation,
       privateInfo: {
         cardHolderName: bookingInfo.cardHolderName,
         cardToken: bookingInfo.cardToken,
         dob:
-          bookingInfo.birthday === '' ? null : bookingInfo.birthday.format('YYYY-MM-DD'),
+          bookingInfo.birthday === ''
+            ? null
+            : bookingInfo.birthday.format('YYYY-MM-DD'),
         firstName: bookingInfo.firstName,
         gender: bookingInfo.gender === '' ? null : bookingInfo.gender,
         lastName: bookingInfo.lastName,
@@ -190,12 +201,13 @@ export default class Booking extends React.Component {
 
   getPrice(start, end) {
     const time = (end.unix() - start.unix()) / 60;
-    const price =
+    const price = (
       (((time * Number(this.props.bookingProfile.rate)) / 60) *
         100 *
         (100 + Number(this.state.commission))) /
-      10000;
-    return price.toFixed(2);
+      10000
+    ).toFixed(2);
+    return price;
   }
 
   get initialValues() {
@@ -219,6 +231,7 @@ export default class Booking extends React.Component {
   }
 
   render() {
+    console.log('props', this.props)
     const { customerBookingInfo } = this.props;
     let step;
 
@@ -245,6 +258,7 @@ export default class Booking extends React.Component {
       step = (
         <TripDetails
           {...this.initialValues}
+          {...this.props}
           bookingInfo={this.props.bookingInfo}
           handleSubmit={this.handleSubmitForStepOne}
         />
