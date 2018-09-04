@@ -9,14 +9,11 @@ const email = 'email',
   passwordReq = 'passwordReq',
   phoneNumberReq = 'phoneNumberReq',
   phoneFormat = 'phoneFormat',
-  toSmallPhone = 'toSmallPhone',
+  tooSmallPhone = 'tooSmallPhone',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
   onlyNumbers = 'onlyNumbers',
   onlyLetters = 'onlyLetters',
-  cardNumberReq = 'cardNumberReq',
-  expiryDateReq = 'expiryDateReq',
-  cvvReq = 'cvvReq',
   cardHolderReq = 'cardHolderReq';
 
 function equalTo(ref, msg) {
@@ -228,7 +225,7 @@ const TripDetailsSchema = Yup.object().shape({
     .required(required),
   phoneNumber: Yup.string()
     .matches(/^[+][0-9]*$/, phoneFormat)
-    .min(13, toSmallPhone)
+    .min(13, tooSmallPhone)
     .max(13, toLong)
     .required(required),
   meetingLocation: Yup.string()
@@ -242,21 +239,6 @@ const PaymentDetailsSchema = Yup.object().shape({
     .min(2, toSmall)
     .max(50, toLong)
     .matches(/^[a-zA-Z]+\s[a-zA-Z]+$/, cardHolderReq)
-    .required(required),
-  cardNumber: Yup.string()
-    .min(16, toSmall)
-    .max(16, toLong)
-    .matches(/^[0-9]*$/, cardNumberReq)
-    .required(required),
-  expiryDate: Yup.string()
-    .min(4, toSmall)
-    .max(4, toLong)
-    .matches(/^[0-9]*$/, expiryDateReq)
-    .required(required),
-  cvv: Yup.string()
-    .min(3, toSmall)
-    .max(3, toLong)
-    .matches(/^[0-9]*$/, cvvReq)
     .required(required),
 });
 

@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import './textArea.sass';
 
-export default class RadioCustom extends React.Component {
+export default class TextArea extends React.Component {
   static defaultProps = {
     maxSize: 120,
   };
@@ -29,6 +29,7 @@ export default class RadioCustom extends React.Component {
       touched,
       placeholder,
       label,
+      disabled
     } = this.props;
     return (
       <div>
@@ -48,6 +49,7 @@ export default class RadioCustom extends React.Component {
             id={id}
             onChange={onChange}
             placeholder={placeholder}
+            disabled={disabled}
           />
           <div className="text-area-validate-wrapper">
             <Typography

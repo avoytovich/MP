@@ -79,8 +79,8 @@ export default class HorizontalLinearStepper extends React.Component {
               props.completed = false;
             }
             return (
-              <Step key={label} {...props}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
+              <Step className="stepper-cnt" key={label} {...props}>
+                <StepLabel className="stepper-item" {...labelProps}>{label}</StepLabel>
               </Step>
             );
           })}
