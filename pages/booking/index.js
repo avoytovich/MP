@@ -228,7 +228,6 @@ export default class Booking extends React.Component {
   }
 
   render() {
-    console.log('props', this.props)
     const { customerBookingInfo } = this.props;
     let step;
 
