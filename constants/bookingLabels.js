@@ -17,7 +17,6 @@ export const bookingLabels = {
       label: 'End time (Estimated)',
       name: 'endTime',
       component: TimePicker,
-      isTimePicker: true,
       additionalClass: 'required input-custom',
     },
     {
