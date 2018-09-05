@@ -68,6 +68,7 @@ export default {
 			city: 'City',
 			addSomePhoto: 'Add some additional photos of your work.',
 			addTime: 'Add time',
+			plzLogin: 'You are not authorized, please login or sign up',
 		},
 		reviews: {
 			reviews: 'Reviews',

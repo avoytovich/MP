@@ -2,9 +2,9 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { find, get } from 'lodash';
+import { get } from 'lodash';
 import { withRouter } from 'next/router';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Field } from 'formik';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import moment from 'moment/moment';
 

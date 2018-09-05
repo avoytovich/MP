@@ -90,6 +90,7 @@ export default {
       city: 'City',
       addSomePhoto: 'Add some additional photos of your work.',
       addTime: 'Add time',
+      plzLogin: 'You are not authorized, please login or sign up',
     },
     reviews: {
       reviews: 'Reviews',
@@ -117,7 +118,7 @@ export default {
       otherFeedback:
         'If you have any other feedback for us, or would like to report a fraud, please' +
         'get in touch and share your shopping experience in more detail with us.',
-			contactUs: 'Contact us',
+      contactUs: 'Contact us',
     },
     listOfProfashionalsContent: {
       specialOcasion: 'Don’t raise your voice, improve your argument',
