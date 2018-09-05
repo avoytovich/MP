@@ -9,14 +9,11 @@ const email = 'email',
   passwordReq = 'passwordReq',
   phoneNumberReq = 'phoneNumberReq',
   phoneFormat = 'phoneFormat',
-  toSmallPhone = 'toSmallPhone',
+  tooSmallPhone = 'tooSmallPhone',
   zipReq = 'zipReq',
   bankAccountNumberReq = 'bankAccountNumberReq',
   onlyNumbers = 'onlyNumbers',
   onlyLetters = 'onlyLetters',
-  cardNumberReq = 'cardNumberReq',
-  expiryDateReq = 'expiryDateReq',
-  cvvReq = 'cvvReq',
   cardHolderReq = 'cardHolderReq';
 
 function equalTo(ref, msg) {
@@ -101,6 +98,16 @@ const SocialSignUpSchema = Yup.object().shape({
     .matches(/[a-zA-Z]/, onlyLetters)
     .required(required),
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
+});
+
+const RateSchema = Yup.object().shape({
+  rate: Yup.number().required(required),
+  myProfashionalRecomending: Yup.number().required(required),
+  comment: Yup.string()
+    .min(2, toSmall)
+    .max(150, toLong)
+    .required(required),
+  wasSuccess: Yup.string().required(required),
 });
 
 const LoginSchema = Yup.object().shape({
@@ -212,10 +219,8 @@ const EditProfileSchema = Yup.object().shape({
 });
 
 const TripDetailsSchema = Yup.object().shape({
-  endTime: Yup.string()
-    .required(required),
-  startTime: Yup.string()
-    .required(required),
+  endTime: Yup.string().required(required),
+  startTime: Yup.string().required(required),
   firstName: Yup.string()
     .min(2, toSmall)
     .max(50, toLong)
@@ -228,13 +233,11 @@ const TripDetailsSchema = Yup.object().shape({
     .required(required),
   phoneNumber: Yup.string()
     .matches(/^[+][0-9]*$/, phoneFormat)
-    .min(13, toSmallPhone)
+    .min(13, tooSmallPhone)
     .max(13, toLong)
     .required(required),
-  meetingLocation: Yup.string()
-    .max(50, toLong),
-  notebox: Yup.string()
-    .max(120, toLong),
+  meetingLocation: Yup.string().max(50, toLong),
+  notebox: Yup.string().max(120, toLong),
 });
 
 const PaymentDetailsSchema = Yup.object().shape({
@@ -243,21 +246,6 @@ const PaymentDetailsSchema = Yup.object().shape({
     .max(50, toLong)
     .matches(/^[a-zA-Z]+\s[a-zA-Z]+$/, cardHolderReq)
     .required(required),
-  cardNumber: Yup.string()
-    .min(16, toSmall)
-    .max(16, toLong)
-    .matches(/^[0-9]*$/, cardNumberReq)
-    .required(required),
-  expiryDate: Yup.string()
-    .min(4, toSmall)
-    .max(4, toLong)
-    .matches(/^[0-9]*$/, expiryDateReq)
-    .required(required),
-  cvv: Yup.string()
-    .min(3, toSmall)
-    .max(3, toLong)
-    .matches(/^[0-9]*$/, cvvReq)
-    .required(required),
 });
 
 export {
@@ -265,9 +253,10 @@ export {
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
+  RateSchema,
   ResetSchema,
   TripSchema,
-	checkAvailability,
+  checkAvailability,
   EditProfileSchema,
   InterviewSchema,
   PrivateInfoSchemaStepOne,

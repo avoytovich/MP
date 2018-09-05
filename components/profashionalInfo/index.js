@@ -58,7 +58,7 @@ export default class ProfashionalInfo extends React.Component {
                 className="date-info"
                 item
                 sm={12}
-                xs={4}
+                xs={5}
                 container
                 alignItems="center">
                 <Grid className="date-pic" item xs={3}>
@@ -78,7 +78,7 @@ export default class ProfashionalInfo extends React.Component {
                 className="access-time-info"
                 item
                 sm={12}
-                xs={4}
+                xs={5}
                 container
                 alignItems="center">
                 <Grid className="access-time-pic" item xs={3}>

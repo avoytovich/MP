@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { get } from 'lodash';
 import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'next/router';
 import Grid from '@material-ui/core/Grid';
@@ -54,6 +55,7 @@ export default class Confirm extends React.Component {
         </div>
         <Grid container>
           {inputFieldsForConfirm.map((item, index) => {
+            if(!get(this.props, item.name))return null;
             const { component, name, sm, additionalClass } = item;
             return (
               <Grid
@@ -72,7 +74,6 @@ export default class Confirm extends React.Component {
                   }
                   touched={touched[name]}
                   className={`default-input ${additionalClass}`}
-                  disabled
                 />
               </Grid>
             );

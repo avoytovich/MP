@@ -3,8 +3,7 @@
     background-color: #f2f5f5
   .grid-stepper
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.11), 0 2px 3px 0 rgba(0, 0, 0, 0.18)
-    .MuiStepIcon-root-174.MuiStepIcon-active-176
-      color: #470b2f
+
   .grid
     width: 100%
     margin: auto
@@ -58,10 +57,12 @@
 @media (max-width: 480px)
   .booking-step
     .grid-stepper
-      .MuiStepLabel-root-163
-        flex-direction: column
-        .MuiStepLabel-iconContainer-172
-          padding: 0
+      .stepper-cnt
+        padding: 0
+        .stepper-item
+          flex-direction: column
+          & > span
+            padding: 0 0 5px
       .MuiStepLabel-label-171
         line-height: 30px
     .grid-field

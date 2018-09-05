@@ -2,7 +2,6 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Alarm from '@material-ui/icons/Alarm';
-import Waypoint from 'react-waypoint';
 import { withRouter } from 'next/router';
 import { get } from 'lodash';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -42,7 +41,7 @@ export default class ProfashionalCoverPhoto extends React.Component {
 
   checkAvailability = () => {
     const avaibleBlock = document.getElementById('availability-section');
-    avaibleBlock.scrollIntoView(true);
+    avaibleBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   edit = () => {

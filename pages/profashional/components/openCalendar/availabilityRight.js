@@ -12,6 +12,8 @@ import './default.sass';
 import './style.sass';
 import CustomTypography from '../../../../components/material-wrap/typography/index';
 import i18n from '../../../../services/decorators/i18n';
+import { amILogined } from '../../../../services/accountService';
+import { createNotification } from '../../../../services/notification';
 import { availabilities } from '../../../../services/cruds';
 import withConfirmModal from '../../../../services/decorators/withConfirmModal/index';
 import BookProfashionalForm from '../../../../forms/bookProfashionalForm/index';
@@ -35,12 +37,29 @@ export default class AvailabilityRight extends Component {
   resetState = () => this.setState({ count: 0 });
 
   submitBook = values => {
-    Router.pushRoute(
-      `/booking?${qs.stringify({
-        ...values.slot.timeSlots[values.time],
-        profashionalId: this.props.router.query.id,
-        date: values.slot.date,
-      })}`,
+    if (amILogined()) {
+      Router.pushRoute(
+        `/booking?${qs.stringify({
+          ...values.slot.timeSlots[values.time],
+          profashionalId: this.props.router.query.id,
+          date: values.slot.date,
+        })}`,
+      );
+    } else {
+      this.showNotificationAndScrollToTop();
+    }
+  };
+
+  showNotificationAndScrollToTop = () => {
+    createNotification({
+      type: 'error',
+      title: this.props.translate('plzLogin'),
+      message: ' ',
+      time: 1000,
+    });
+    setTimeout(
+      () => window.scroll({ top: 0, left: 0, behavior: 'smooth' }),
+      1000,
     );
   };
 
@@ -78,23 +97,25 @@ export default class AvailabilityRight extends Component {
   };
 
   sendAvaibilities = async (values, props) => {
-    if (!this.validateAvaibilities(values, props)) return;
-    const body = {
-      date: moment(this.props.selectedDays[0]).format('YYYY-MM-DD'),
-      startTime: values.from0.hours() * 60 + values.from0.minutes(),
-      endTime: values.to0.hours() * 60 + values.to0.minutes(),
-      profashionalId: this.props.router.query.id,
-    };
-    await this.props.loadData(
-      availabilities.get(body, '/time-slots/is-available'),
-      {
-        showError: true,
-      },
-    );
-    props.resetForm();
-    Router.pushRoute(
-      `/booking?${qs.stringify(body)}`,
-    );
+    if (amILogined()) {
+      if (!this.validateAvaibilities(values, props)) return;
+      const body = {
+        date: moment(this.props.selectedDays[0]).format('YYYY-MM-DD'),
+        startTime: values.from0.hours() * 60 + values.from0.minutes(),
+        endTime: values.to0.hours() * 60 + values.to0.minutes(),
+        profashionalId: this.props.router.query.id,
+      };
+      await this.props.loadData(
+        availabilities.get(body, '/time-slots/is-available'),
+        {
+          showError: true,
+        },
+      );
+      props.resetForm();
+      Router.pushRoute(`/booking?${qs.stringify(body)}`);
+    } else {
+      this.showNotificationAndScrollToTop();
+    }
   };
 
   get renderTimeSlots() {

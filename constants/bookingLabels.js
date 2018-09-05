@@ -4,13 +4,6 @@ import TextArea from '../components/material-wrap/form/textArea/index';
 import DatePicker from '../components/material-wrap/form/datePicker/index';
 import TimePicker from '../components/material-wrap/form/timePicker/index';
 
-import { currencies, countries } from '../services/cruds';
-
-const hours = [
-  { id: 1, name: '00:00' },
-  { id: 2, name: '10:00' },
-  { id: 3, name: '11:00' },
-];
 
 export const bookingLabels = {
   inputFieldsForTripDetails1: [
@@ -68,7 +61,6 @@ export const bookingLabels = {
       component: DatePicker,
       maxDate: moment()
         .subtract(18, 'years')
-        // .format('YYYY-MM-DD'),
     },
     {
       label: 'Gender',
@@ -104,20 +96,20 @@ export const bookingLabels = {
       name: 'estimatedPrice',
       additionalClass: "bold disabled",
       infoIcon: true,
+      disabled: true,
     },
     {
       label: 'Preferred Meeting Location',
       name: 'meetingLocation',
       additionalClass: "disabled",
-
+      disabled: true,
     },
     {
-      name: 'confirmNotebox',
       component: TextArea,
       name: 'notebox',
       sm: 12,
       additionalClass: "disabled",
-
+      disabled: true,
     },
   ],
 };

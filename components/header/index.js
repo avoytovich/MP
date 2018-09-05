@@ -14,7 +14,7 @@ import NoSSR from 'react-no-ssr';
 import { Router } from '../../routes';
 
 import i18n from '../../services/decorators/i18n';
-import { clear, getLocale } from '../../services/serverService';
+import { clear, getLocale, changeQuery } from '../../services/serverService';
 import {
   isILogined,
   getMyFirstAndLastName,
@@ -38,7 +38,7 @@ import withConfirmModal from '../../services/decorators/withConfirmModal/index';
 export default class Header extends Component {
   static propTypes = {
     openConfirm: PropTypes.func,
-    point: PropTypes.bool,
+    point: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
     color: PropTypes.bool,
     style: PropTypes.object,
     navStyle: PropTypes.object,
@@ -66,7 +66,8 @@ export default class Header extends Component {
   };
 
   onClick = href => {
-    Router.pushRoute(href);
+    console.log('newUrl', changeQuery(this.props.router, 'modal', href));
+    Router.pushRoute(changeQuery(this.props.router, 'modal', href));
   };
 
   onMenuClick = name => {

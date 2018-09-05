@@ -5,11 +5,11 @@ const menuProps = [
   },
   {
     translateVariable: 'logIn',
-    href: '/login',
+    href: 'login',
   },
   {
     translateVariable: 'signUp',
-    href: '/signup',
+    href: 'signup',
   },
 ];
 
