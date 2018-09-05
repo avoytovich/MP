@@ -301,9 +301,6 @@ export default class Booking extends React.Component {
                 <Grid className="grid" item xs={12} sm={6}>
                   <ProfashionalInfo
                     {...this.props.bookingProfile}
-                    // initialStartTime={this.props.router.query.startTime}
-                    // initialEndTime={this.props.router.query.endTime}
-                    // isFirstPage={!this.state.forwardToSecondStep}
                   />
                 </Grid>
               </div>
