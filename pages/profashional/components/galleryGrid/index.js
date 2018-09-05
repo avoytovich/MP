@@ -10,6 +10,7 @@ import { checkPhoto, sendPhoto } from '../../../../services/photoService';
 import Item from './item';
 
 import './style.sass';
+import { createNotification } from '../../../../services/notification';
 
 @withRouter
 @loading()
@@ -28,7 +29,14 @@ export default class GalleryGrid extends Component {
     photos: [],
   };
 
-  onLoadClick = () => this.fileInput.current.click();
+  onLoadClick = () =>
+    this.props.photos.length < 10
+      ? this.fileInput.current.click()
+      : createNotification({
+          type: 'error',
+          title: 'You can upload only 10 photos',
+          message: ' ',
+        });
 
   fileChange = e => {
     const file = e.target.files[0];
