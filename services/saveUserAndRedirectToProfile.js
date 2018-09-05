@@ -4,7 +4,7 @@ import { account } from './cruds';
 import { setLocale } from './serverService';
 import { Router } from '../routes';
 
-export const saveToStorage = async res => {
+export const saveToStorage = async (res, withoutRedirect = true) => {
   setLocale('id_token', res.data.id_token);
   setLocale('refresh_token', res.data.refresh_token);
   const accoutResp = await account.get();
@@ -16,10 +16,12 @@ export const saveToStorage = async res => {
     'avaUrl',
     get(accoutResp, 'data.icon.path') || '/static/svg/placeholder.svg',
   );
-  if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
-    Router.pushRoute('/shoper');
-  } else {
-    Router.pushRoute(`/profashional/${accoutResp.data.id}`);
+  if (withoutRedirect) {
+    if (accoutResp.data.authorities.indexOf('ROLE_SHOPPER') !== -1) {
+      Router.pushRoute('/shoper');
+    } else {
+      Router.pushRoute(`/profashional/${accoutResp.data.id}`);
+    }
   }
   return accoutResp;
 };

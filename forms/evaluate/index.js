@@ -3,31 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'next/router';
+import NoSSR from 'react-no-ssr';
 
 import { Router } from '../../routes';
 
 import { isMobile } from '../../services/windowService';
 
-import Input from '../../components/material-wrap/form/input/index';
 import Radio from '../../components/material-wrap/form/radio/index';
+import Range from '../../components/rangePicker';
 import Rate from '../../components/rate';
 import TextArea from '../../components/material-wrap/form/textArea/index';
-import DropDown from '../../components/material-wrap/form/dropDown/index';
-import Button from '../../components/material-wrap/button';
 
 import { setData } from '../../actions/updateData';
-import {
-  currencies,
-  languages,
-  cities,
-  expertise,
-  occasions,
-} from '../../services/cruds';
 import i18n from '../../services/decorators/i18n';
-import { EditProfileSchema } from '../../services/validateSchemas';
+import { RateSchema } from '../../services/validateSchemas';
+import CustomTypography from '../../components/material-wrap/typography/index';
 
 import './evaluate.sass';
-import CustomTypography from '../../components/material-wrap/typography/index';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ setData }, dispatch);
@@ -40,12 +32,12 @@ const mapDispatchToProps = dispatch =>
 @withFormik({
   handleSubmit: (values, options) =>
     options.props.handleSubmit(values, options),
-  validationSchema: undefined,
+  validationSchema: RateSchema,
 })
 @i18n('evaluate')
 export default class Evaluate extends React.Component {
   get renderScaleFrom() {
-    if (!isMobile())
+    if (!isMobile(750)) {
       return (
         <>
           <div className="scale-from-rate-wrapper">
@@ -71,7 +63,12 @@ export default class Evaluate extends React.Component {
           </div>
         </>
       );
-    return null;
+    }
+    return (
+      <div className="range-evaluate">
+        <Field name="myProfashionalRecomending" component={Range} label="Yes" />
+      </div>
+    );
   }
 
   render() {
@@ -85,6 +82,7 @@ export default class Evaluate extends React.Component {
       validPhotos,
       translate,
     } = this.props;
+    console.log(errors);
     return (
       <Form className="evaluate-grid" onSubmit={handleSubmit}>
         <div className="material-border was-your-trip-success-wrapper with-margin-bottom">
@@ -133,7 +131,9 @@ export default class Evaluate extends React.Component {
           </div>
           <Field
             name="comment"
+            error={errors.comment || errors.rate}
             component={TextArea}
+            maxSize={150}
             classNameWrapper="text-area-evaluate"
             label="Comment"
           />
@@ -145,10 +145,22 @@ export default class Evaluate extends React.Component {
             className="title">
             {translate('scaleFrom')}
           </CustomTypography>
-          {this.renderScaleFrom}
+          <NoSSR>{this.renderScaleFrom}</NoSSR>
         </div>
-        <div className="footer">
-          <Button type="submit">Save</Button>
+        <div className="evaluate-grid-footer with-margin-bottom">
+          <button type="submit">Submit my Rating</button>
+          <CustomTypography
+            fontSize="24px"
+            variant="subheading"
+            className="subheading">
+            {translate('otherFeedback')}
+          </CustomTypography>
+          <CustomTypography
+            fontSize="30px"
+            variant="subheading"
+            className="with-margin-bottom contact-us">
+            {translate('contactUs')}
+          </CustomTypography>
         </div>
       </Form>
     );

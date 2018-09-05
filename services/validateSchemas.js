@@ -103,6 +103,16 @@ const SocialSignUpSchema = Yup.object().shape({
   confirm: Yup.boolean().oneOf([true], 'needConfirm'),
 });
 
+const RateSchema = Yup.object().shape({
+  rate: Yup.number().required(required),
+  myProfashionalRecomending: Yup.number().required(required),
+  comment: Yup.string()
+    .min(2, toSmall)
+    .max(150, toLong)
+    .required(required),
+  wasSuccess: Yup.string().required(required),
+});
+
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email(email)
@@ -212,10 +222,8 @@ const EditProfileSchema = Yup.object().shape({
 });
 
 const TripDetailsSchema = Yup.object().shape({
-  endTime: Yup.string()
-    .required(required),
-  startTime: Yup.string()
-    .required(required),
+  endTime: Yup.string().required(required),
+  startTime: Yup.string().required(required),
   firstName: Yup.string()
     .min(2, toSmall)
     .max(50, toLong)
@@ -231,10 +239,8 @@ const TripDetailsSchema = Yup.object().shape({
     .min(13, toSmallPhone)
     .max(13, toLong)
     .required(required),
-  meetingLocation: Yup.string()
-    .max(50, toLong),
-  notebox: Yup.string()
-    .max(120, toLong),
+  meetingLocation: Yup.string().max(50, toLong),
+  notebox: Yup.string().max(120, toLong),
 });
 
 const PaymentDetailsSchema = Yup.object().shape({
@@ -265,9 +271,10 @@ export {
   SocialSignUpSchema,
   LoginSchema,
   ForgotSchema,
+  RateSchema,
   ResetSchema,
   TripSchema,
-	checkAvailability,
+  checkAvailability,
   EditProfileSchema,
   InterviewSchema,
   PrivateInfoSchemaStepOne,

@@ -115,6 +115,10 @@ export default {
 			scaleFrom:
 			'On a scale from 1 to 10, how likely are you to' +
 			'recommend myProfashional to a friend?',
+			otherFeedback:
+			'If you have any other feedback for us, or would like to report a fraud, please' +
+			'get in touch and share your shopping experience in more detail with us.',
+			contactUs: 'Contact us',
 		},
     listOfProfashionalsContent: {
       specialOcasion: 'DEUTCHE: Don’t raise your voice, improve your argument',
