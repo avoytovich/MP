@@ -53,7 +53,15 @@ export default class Booking extends React.Component {
       forwardToThirdStep: false,
       steps: ['Trip details', 'Payment Details', 'Confirm'],
       commission: '10',
+      startTime: '',
+      endTime: '',
     };
+  }
+
+  componentWillUnmount() {
+    this.props.resetData('bookingInfo');
+    this.props.resetData('customerAccount');
+    this.props.resetData('customerBookingInfo');
   }
 
   componentWillMount = async () => {
@@ -84,6 +92,17 @@ export default class Booking extends React.Component {
     this.setState({
       forwardToSecondStep: false,
     });
+    const {
+      startTime,
+      endTime,
+    } = this.props.router.query;
+    this.props.updateSpecData(
+      {
+        startTime: this.reformatTime(startTime),
+        endTime: this.reformatTime(endTime),
+      },
+      'bookingProfile',
+    );
   };
 
   handleBackForStepThree = values => {
@@ -132,7 +151,7 @@ export default class Booking extends React.Component {
           {
             cardToken: res.token.id,
             last4: res.token.card.last4,
-            ...values
+            ...values,
           },
           'bookingInfo',
         );
@@ -228,6 +247,7 @@ export default class Booking extends React.Component {
   }
 
   render() {
+    console.log('proops', this.props);
     const { customerBookingInfo } = this.props;
     let step;
 
@@ -279,7 +299,12 @@ export default class Booking extends React.Component {
               </div>
               <div className="profashional-info-section">
                 <Grid className="grid" item xs={12} sm={6}>
-                  <ProfashionalInfo {...this.props.bookingProfile} />
+                  <ProfashionalInfo
+                    {...this.props.bookingProfile}
+                    // initialStartTime={this.props.router.query.startTime}
+                    // initialEndTime={this.props.router.query.endTime}
+                    // isFirstPage={!this.state.forwardToSecondStep}
+                  />
                 </Grid>
               </div>
               <div className="grid-field">

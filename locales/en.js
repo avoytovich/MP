@@ -33,9 +33,7 @@ export default {
       endShouldFit: "Should fit the profashional's availability time range",
       startShouldBeBefore: "Shouldn't be later than the end time",
       endShouldBeBefore: 'Should be later than the end time',
-
-
-
+      minBooking: 'Minimun booking period is 15 min',
     },
     popups: {
       startedTrip:
