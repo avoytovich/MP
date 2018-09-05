@@ -64,13 +64,11 @@ export default class Localization extends React.Component {
   };
 
   onClose = () => {
-    console.log('onClose');
     const newUrl = changeQuery(this.props.router, undefined, undefined, true);
     Router.pushRoute(newUrl);
   };
 
   render() {
-    console.log('router', this.props);
     return (
       <React.Fragment>
         {this.props.children}
