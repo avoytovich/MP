@@ -11,7 +11,7 @@ export const createNotification = (
     return NotificationManager[type.type](
       type.msg,
       type.title,
-      5000,
+      type.time || 5000,
       type.callback,
     );
   }

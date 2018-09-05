@@ -1,0 +1,107 @@
+.evaluate-grid
+  width: 100%
+  padding-left: 15%
+  padding-right: 15%
+  .with-margin-bottom
+    margin-bottom: 80px
+  .title
+    text-align: center
+  .subheading
+    text-align: center
+    color: #505050 !important
+  .contact-us
+    text-align: center
+    color: #470b2f !important
+  &-radio-wrapper
+    display: flex
+  &-rate-wrapper
+    display: flex
+    justify-content: center
+    width: 40%
+    .rate-wrapper
+      width: 100%
+      justify-content: space-around
+      span img
+        width: 48px
+        height: 48px
+  .text-area-evaluate
+    width: 75%
+  .scale-from-rate-wrapper
+    display: flex
+    width: 100%
+    justify-content: space-around
+  .range-evaluate
+    width: 100%
+  .recommendation-wrapper
+    width: 100%
+    display: flex
+    justify-content: space-between
+
+  .material-border
+    background-color: #ffffff
+    box-shadow: 4px 4px 17px 0 rgba(155, 155, 155, 0.2)
+    padding-left: 15%
+    padding-right: 15%
+  .was-your-trip-success-wrapper, .how-would-you-rate, .scale-from
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+    height: 247px
+  .how-would-you-rate
+    height: 432px
+  .scale-from
+    height: 297px
+  .evaluate-grid-radio
+    display: flex
+    flex-direction: column
+    align-items: center
+  &-footer
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-around
+    height: 430px
+    button
+      width: 375px
+      height: 70px
+      border-radius: 2px
+      background-color: #470b2f
+      color: white
+      cursor: pointer
+      font-family: Roboto
+      font-size: 32px
+
+@media (max-width: 480px)
+  .evaluate-grid
+    width: 100%
+    padding-left: 16px
+    padding-right: 16px
+    .with-margin-bottom
+      margin-bottom: 24px
+    .material-border
+      padding: 8px
+    .was-your-trip-success-wrapper
+      height: 127px
+    .how-would-you-rate
+      height: 310px
+    .scale-from
+      height: 158px
+    .text-area-evaluate
+      width: 100%
+    &-rate-wrapper
+      margin-top: 20px
+      .rate-wrapper
+        width: 100%
+        justify-content: space-around
+        span img
+          width: 20px
+          height: 20px
+    &-footer
+      button
+        width: 80%
+        height: 45px
+        font-size: 16px
+        font-weight: bold
+
+

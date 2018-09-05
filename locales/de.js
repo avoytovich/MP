@@ -68,6 +68,7 @@ export default {
 			city: 'City',
 			addSomePhoto: 'Add some additional photos of your work.',
 			addTime: 'Add time',
+			plzLogin: 'You are not authorized, please login or sign up',
 		},
 		reviews: {
 			reviews: 'Reviews',
@@ -105,6 +106,21 @@ export default {
       inspiration: 'DEUTCHE: Inspiration',
       exploreCity: 'DEUTCHE: Explore city',
     },
+		evaluate: {
+			shoppingExperience: 'Please tell us about your shopping experience.',
+			wasSuccess: 'Was your shopping trip successful?',
+			howWouldYouRate: 'How would you rate ',
+			forTheService: ' for the service provided?',
+			notLike: 'Not at all likely',
+			like: 'Extremely likely',
+			scaleFrom:
+			'On a scale from 1 to 10, how likely are you to' +
+			'recommend myProfashional to a friend?',
+			otherFeedback:
+			'If you have any other feedback for us, or would like to report a fraud, please' +
+			'get in touch and share your shopping experience in more detail with us.',
+			contactUs: 'Contact us',
+		},
     listOfProfashionalsContent: {
       specialOcasion: 'DEUTCHE: Don’t raise your voice, improve your argument',
       inspiration: 'DEUTCHE: If you want to achieve greatness stop asking for permission',

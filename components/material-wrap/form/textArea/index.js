@@ -25,6 +25,7 @@ export default class TextArea extends React.Component {
       field: { name, value = '', onBlur, onChange },
       id,
       className = '',
+			classNameWrapper = '',
       error,
       touched,
       placeholder,
@@ -32,7 +33,7 @@ export default class TextArea extends React.Component {
       disabled
     } = this.props;
     return (
-      <div>
+      <div className={classNameWrapper}>
         <div className={className}>
           <InputLabel
             className={

@@ -2,13 +2,13 @@ import isServer from './serverService';
 
 function getWindowWidth() {
   if (!isServer()) {
-    return window.outerWidth;
+    return window.innerWidth;
   }
   return undefined;
 }
 
-function isMobile() {
-  return getWindowWidth() < 460;
+function isMobile(width = 460) {
+  return getWindowWidth() < width;
 }
 
 export { getWindowWidth, isMobile };

@@ -5,6 +5,7 @@ import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'next/router';
 
 import { Router } from '../../routes';
+import { changeQuery } from '../../services/serverService';
 
 import Input from '../../components/material-wrap/form/input/index';
 import Button from '../../components/material-wrap/button';
@@ -32,7 +33,7 @@ const mapDispatchToProps = dispatch =>
 @i18n('errors')
 export default class LoginForm extends React.Component {
   forgotClick = () => {
-    Router.pushRoute('/forgot');
+		Router.pushRoute(changeQuery(this.props.router, 'modal', 'forgot'));
   };
   render() {
     const { handleSubmit, errors, touched, isValid, translate } = this.props;

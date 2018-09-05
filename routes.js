@@ -7,6 +7,7 @@ module.exports = routes()
   .add('about-with-id', '/about/:id', 'about')
   .add('about', '/about', 'about')
   .add('shoper', '/shoper', 'shoper')
+  .add('evaluate', '/rating', 'evaluate')
   .add('profashional', '/profashional/:id', 'profashional')
   .add(
     'listOfProfashionals',
@@ -18,12 +19,10 @@ module.exports = routes()
     '/profashional/:id/edit-profile',
     'profashional/edit-profile',
   )
-  .add('with-modal', '/:modal', 'index')
-  .add('root', '/:modal', 'index') // signup, login, email, verify
   .add('reset-password', '/reset-password/:key', 'index')
   .add(
     'privateInfo',
     '/profashional/:id/private-info',
     'profashional/private-info',
   )
-  .add('activate', '/activate/:code', 'activate')
+  .add('activate', '/activate/:code', 'activate');
